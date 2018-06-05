@@ -8,7 +8,6 @@ import { getProductList } from '../store/productList';
  */
 export const ProductList = props => {
   const products = props.products;
-  console.log(props, 'THIS SHOULD COME FROM PROPS');
   return (
     <div>
       {products &&
@@ -24,9 +23,9 @@ export const ProductList = props => {
  * CONTAINER
  */
 const mapState = state => {
-  return {
-    products: state.products
-  };
+    return {
+        products: state.products
+    };
 };
 
 const mapDispatch = dispatch => {
