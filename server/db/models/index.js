@@ -1,7 +1,7 @@
-const User = require("./user");
-const Review = require("./review");
-const Cart = require("./cart");
-// const Product = require("./products");
+const User = require('./user');
+const Review = require('./review');
+const Cart = require('./cart');
+const Product = require('./products');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -29,7 +29,7 @@ Cart.belongsTo(User);
  */
 module.exports = {
   User,
-  //Product,
+  Product,
   Cart,
   Review
 };

@@ -18,3 +18,5 @@ router.get('/:id', (req, res, next) => {
     .then(product => res.json(product))
     .catch(next);
 });
+
+module.exports = router;
