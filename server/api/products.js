@@ -8,3 +8,13 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/:id', (req, res, next) => {
+  let id = req.params.id;
+  Product.find({
+    where: {
+      id
+    }
+  })
+    .then(product => res.json(product))
+    .catch(next);
+});
