@@ -10,7 +10,7 @@ import App from './app';
 import './socket';
 
 //import css
-import '../public/styles/index.css';
+import './styles/index.css';
 
 ReactDOM.render(
   <Provider store={store}>

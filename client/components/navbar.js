@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
 
-import '../../public/styles/navbar.css';
+import '../styles/navbar.css';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
