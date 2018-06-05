@@ -1,29 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import SingleProduct from './SingleProduct';
+import { getProductList } from '../store/productList';
 
 /**
  * COMPONENT
  */
 export const ProductList = props => {
-    console.log(props);
-    const products = props;
-    return (
-        <div>
-            <h1>Loading products:</h1>
-            {products.map(item => {
-                return (
-                    <div key={item.id} className="product-item">
-                        <h3>{item.name}</h3>
-                        <p>
-                            {item.description}
-                            ${item.price}
-                        </p>
-                    </div>
-                );
-            })}
-        </div>
-    );
+  const products = props.products;
+  return (
+    <div>
+      {products &&
+        products.map(item => {
+          console.log(item);
+          return <SingleProduct key={item.id} item={item} />;
+        })}
+    </div>
+  );
 };
 
 /**
@@ -35,4 +28,13 @@ const mapState = state => {
     };
 };
 
-export default connect(mapState)(ProductList);
+const mapDispatch = dispatch => {
+  return {
+    getProductList: () => dispatch(getProductList())
+  };
+};
+
+export default connect(
+  mapState,
+  mapDispatch
+)(ProductList);
