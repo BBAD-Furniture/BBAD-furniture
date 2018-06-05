@@ -1,5 +1,8 @@
+/* global */
+
 body {
   font-family: sans-serif;
+  background: blue;
 }
 
 a {
