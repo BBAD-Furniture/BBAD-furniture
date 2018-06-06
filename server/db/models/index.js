@@ -28,8 +28,8 @@ Cart.belongsTo(User);
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-    User,
-    Product,
-    Cart,
-    Review
+	User,
+	Product,
+	Cart,
+	Review
 };
