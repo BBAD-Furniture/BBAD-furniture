@@ -7,14 +7,14 @@ import { getProductList } from '../store/productList';
  * COMPONENT
  */
 export const ProductList = props => {
-  const products = props.products;
+  console.log('PRODUCTS: ', props.products);
+  let products = props.products;
   return (
     <div>
-      {products &&
-        products.map(item => {
-          console.log(item);
-          return <SingleProduct key={item.id} item={item} />;
-        })}
+      {products.map(item => {
+        console.log(item, "FOOOOOO");
+        return <SingleProduct key={item.id} item={item} />;
+      })}
     </div>
   );
 };
@@ -23,18 +23,9 @@ export const ProductList = props => {
  * CONTAINER
  */
 const mapState = state => {
-    return {
-        products: state.products
-    };
-};
-
-const mapDispatch = dispatch => {
   return {
-    getProductList: () => dispatch(getProductList())
+    products: state.products
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(ProductList);
+export default connect(mapState)(ProductList);
