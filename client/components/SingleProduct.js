@@ -45,7 +45,9 @@ const mapState = (state, ownProps) => {
 const mapDispatch = dispatch => {
 	return {
 		addItemToCart: item => {
-			SaveToCart(item);
+			localStorage.getItem('product') === null
+				? localStorage.setItem('product', JSON.stringify([item.id]))
+				: SaveToCart(item.id);
 		}
 	};
 };
