@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Sidebar } from '../components';
+
+import '../styles/productList.css';
 
 /**
  * COMPONENT
@@ -8,8 +11,11 @@ import { Link } from 'react-router-dom';
 export const ProductList = props => {
 	let products = props.products;
 	return (
-		<div>
-			<div>
+		<div className="flexWrap">
+			<div className="sidebar">
+				<Sidebar />
+			</div>
+			<div className="product-main">
 				{products &&
 					products.map(item => {
 						return (
@@ -18,10 +24,6 @@ export const ProductList = props => {
 									<img src={item.image} />
 								</Link>
 								<h3>{item.name}</h3>
-								<p>
-									<strong>Description: </strong>
-									{item.description}
-								</p>
 								<p>
 									<strong>Price:</strong> ${item.price}
 								</p>

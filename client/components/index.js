@@ -8,6 +8,8 @@ export { default as UserHome } from './user-home';
 export { default as LandingPage } from './LandingPage';
 export { default as ProductList } from './ProductList';
 export { default as SingleProduct } from './SingleProduct';
-export { default as Cart } from './Cart';
+export { default as Sidebar } from './Sidebar';
+export { default as Filtered } from './Filtered';
 
+export { default as Cart } from './Cart';
 export { Login, Signup } from './auth-form';
