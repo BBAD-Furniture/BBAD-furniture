@@ -7,7 +7,7 @@ const assc = require('../server/db/models');
 const Promise = db.Promise; // gives us Promise.map
 
 async function seed() {
-    await db.sync({ force: false });
+    await db.sync({ force: true });
     const product = await seedProduct();
     console.log('Seeded', product.length, 'product.');
     const user = await seedUser();
@@ -18,7 +18,7 @@ async function seed() {
     console.log('Seeded', cart.length, 'cart.');
 }
 
-function seedUser(users) {
+function seedUser() {
     return Promise.all(
         new Array(10).fill(1).map(() =>
             User.create({
@@ -31,15 +31,15 @@ function seedUser(users) {
     );
 }
 
-function seedProduct(products) {
+function seedProduct() {
     return Promise.all(
-        new Array(50).fill(1).map(() =>
+        new Array(20).fill(1).map(() =>
             Product.create({
                 name: faker.name.firstName(),
                 description: faker.lorem.text(),
                 price: (Math.random() * 100).toFixed(2),
                 category: [faker.commerce.product()],
-                image: faker.image.image(),
+                // image: faker.image.image(),
                 color: faker.commerce.color(),
                 quantity: Math.floor(Math.random() * 100)
             })
@@ -47,24 +47,24 @@ function seedProduct(products) {
     );
 }
 
-function seedReview(reviews) {
+function seedReview() {
     return Promise.all(
-        new Array(60).fill(1).map(() =>
+        new Array(20).fill(1).map(() =>
             Review.create({
                 review: faker.lorem.paragraph(),
                 userId: Math.floor(Math.random() * 10) + 1,
-                productId: Math.floor(Math.random() * 50) + 1
+                productId: Math.floor(Math.random() * 20) + 1
             })
         )
     );
 }
 
-function seedCart(carts) {
+function seedCart() {
     return Promise.all(
         new Array(5).fill(1).map(() =>
             Cart.create({
                 userId: Math.floor(Math.random() * 10) + 1,
-                productId: Math.floor(Math.random() * 50) + 1
+                productId: Math.floor(Math.random() * 20) + 1
             })
         )
     );

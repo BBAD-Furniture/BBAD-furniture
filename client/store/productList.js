@@ -22,8 +22,7 @@ export const getProductList = () => dispatch =>
 /**
  * REDUCER
  */
-export default function(state = { products: [] }, action) {
-  console.log(action, 'REDUCER BEING CALLED');
+export default function(state = [], action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products;

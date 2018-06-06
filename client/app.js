@@ -1,15 +1,13 @@
 import React from 'react';
-
 import { Navbar } from './components';
 import Routes from './routes';
-import ProductList from './components/ProductList';
+import store, { getProducts } from './store';
 
 const App = () => {
   return (
     <div>
       <Navbar />
       <Routes />
-      <ProductList />
     </div>
   );
 };
