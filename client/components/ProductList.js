@@ -1,20 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, Route } from 'react-router-dom';
 import SingleProduct from './SingleProduct';
-import { getProductList } from '../store/productList';
 
 /**
  * COMPONENT
  */
 export const ProductList = props => {
-  const products = props.products;
+  let products = props.products;
   return (
     <div>
-      {products &&
-        products.map(item => {
-          console.log(item);
-          return <SingleProduct key={item.id} item={item} />;
-        })}
+      <Route exact path="/products/:id" component={SingleProduct} />
+
+      <div>
+        {products &&
+          products.map(item => {
+            return <SingleProduct item={item} key={item.id} />;
+          })}
+      </div>
     </div>
   );
 };
@@ -23,18 +26,9 @@ export const ProductList = props => {
  * CONTAINER
  */
 const mapState = state => {
-    return {
-        products: state.products
-    };
-};
-
-const mapDispatch = dispatch => {
   return {
-    getProductList: () => dispatch(getProductList())
+    products: state.products
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(ProductList);
+export default connect(mapState)(ProductList);

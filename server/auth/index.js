@@ -35,6 +35,7 @@ router.post('/signup', (req, res, next) => {
 router.delete('/logout', (req, res) => {
   req.logout();
   req.session.destroy();
+  console.log('AFTER LOGOUT USER IS:', req.user);
   res.redirect('/');
 });
 
