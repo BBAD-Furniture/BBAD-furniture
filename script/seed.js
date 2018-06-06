@@ -12,6 +12,7 @@ async function seed() {
   console.log('Seeded', product.length, 'product.');
   const user = await seedUser();
   console.log('Seeded', user.length, 'user.');
+  // console.log('Seeded', user, 'all the users');
   const review = await seedReview();
   console.log('Seeded', review.length, 'review.');
   const cart = await seedCart();
@@ -19,13 +20,15 @@ async function seed() {
 }
 
 function seedUser() {
+  const pass = faker.internet.password();
+  console.log(pass);
   return Promise.all(
     new Array(10).fill(1).map(() =>
       User.create({
         name: faker.name.firstName(),
         //lastName: faker.name.lastName(),
         email: faker.internet.email(),
-        password: faker.internet.password()
+        password: pass //faker.internet.password()
       }))
   );
 }
