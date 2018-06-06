@@ -21,14 +21,17 @@ class Routes extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { isLoggedIn } = this.props;
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
+        <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={ProductList} />
+        <Route path="/products/:id" component={SingleProduct} />
+
         <Route exact path="/" component={LandingPage} />
 
         {isLoggedIn && (

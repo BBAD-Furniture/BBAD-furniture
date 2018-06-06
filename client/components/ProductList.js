@@ -15,7 +15,11 @@ export const ProductList = props => {
       <div>
         {products &&
           products.map(item => {
-            return <SingleProduct item={item} key={item.id} />;
+            return (
+              <Link to={`products/${item.id}`} key={item.id}>
+                <SingleProduct item={item} key={item.id} />;
+              </Link>
+            );
           })}
       </div>
     </div>
