@@ -7,10 +7,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      <div className="flexWrap">
-        <Sidebar />
-        <Routes />
-      </div>
+      <Routes />
     </div>
   );
 };
