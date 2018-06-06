@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../db/models/user');
 module.exports = router;
 
-router.put('/login', (req, res, next) => {
+router.post('/login', (req, res, next) => {
   User.findOne({ where: { email: req.body.email } })
     .then(user => {
       if (!user) {
