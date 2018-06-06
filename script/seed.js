@@ -40,7 +40,7 @@ function seedProduct() {
 				description: faker.lorem.text(),
 				price: (Math.random() * 100).toFixed(2),
 				category: [faker.commerce.product()],
-				image: faker.image.image(),
+				// image: faker.image.image(),
 				color: faker.commerce.color(),
 				quantity: Math.floor(Math.random() * 100)
 			})
