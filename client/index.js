@@ -11,6 +11,7 @@ import './socket';
 
 //import css
 import './styles/index.css';
+import { Sidebar } from './components';
 
 ReactDOM.render(
   <Provider store={store}>

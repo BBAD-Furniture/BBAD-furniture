@@ -3,6 +3,7 @@
 body {
   font-family: 'montserrat', sans-serif;
   color: black;
+  height: 100%;
 }
 
 a {
@@ -26,4 +27,10 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.flexWrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

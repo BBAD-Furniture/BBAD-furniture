@@ -33,9 +33,7 @@ const SingleProduct = props => {
   );
 };
 
-const mapState = (state, ownProps) => {
-  let id = ownProps.match.params.id;
-  id = Number(id);
+const mapState = state => {
   return {
     products: state.products
   };
