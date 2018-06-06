@@ -20,15 +20,13 @@ async function seed() {
 }
 
 function seedUser() {
-  const pass = faker.internet.password();
-  console.log(pass);
   return Promise.all(
     new Array(10).fill(1).map(() =>
       User.create({
-        name: faker.name.firstName(),
-        //lastName: faker.name.lastName(),
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
         email: faker.internet.email(),
-        password: pass //faker.internet.password()
+        password: faker.internet.password()
       }))
   );
 }
@@ -41,7 +39,7 @@ function seedProduct() {
         description: faker.lorem.text(),
         price: (Math.random() * 100).toFixed(2),
         category: [faker.commerce.product()],
-        // image: faker.image.image(),
+        image: faker.image.image(),
         color: faker.commerce.color(),
         quantity: Math.floor(Math.random() * 100)
       }))

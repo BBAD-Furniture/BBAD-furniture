@@ -3,14 +3,12 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const User = db.define('user', {
-  name: {
+  firstName: {
     type: Sequelize.STRING
-    // allowNull: false
   },
-  //   lastName: {
-  //     type: Sequelize.STRING
-  //     allowNull: false
-  //   },
+  lastName: {
+    type: Sequelize.STRING
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -41,15 +39,15 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  fullName: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      return (
+        this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
+      );
+    }
   }
-  //   fullName: {
-  //     type: Sequelize.VIRTUAL,
-  //     get() {
-  //       return (
-  //         this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
-  //       );
-  //     }
-  //   }
 });
 
 module.exports = User;
