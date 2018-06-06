@@ -45,9 +45,16 @@ const mapState = (state, ownProps) => {
 const mapDispatch = dispatch => {
 	return {
 		addItemToCart: item => {
-			localStorage.setItem('product', JSON.stringify([item]));
+			SaveToCart(item);
 		}
 	};
 };
+
+function SaveToCart(data) {
+	let products = [];
+	products = JSON.parse(localStorage.getItem('product'));
+	products.push(data);
+	localStorage.setItem('product', JSON.stringify(products));
+}
 
 export default connect(mapState, mapDispatch)(SingleProduct);
