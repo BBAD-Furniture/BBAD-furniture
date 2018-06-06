@@ -1,26 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getSingleProduct } from '../store';
-import { Link, Route } from 'react-router-dom';
-import SingleProduct from './SingleProduct';
+import { Link } from 'react-router-dom';
 
 /**
  * COMPONENT
  */
 export const ProductList = props => {
-  console.log(props);
-  let products = props.products[0];
-
+  let products = props.products;
   return (
     <div>
       <div>
-
         {products &&
           products.map(item => {
             return (
-              <Link to={`/products/${item.id}`} key={item.id}>
-                <SingleProduct item={item} key={item.id} />
-              </Link>
+              <div className="product-item" key={item.id}>
+                <Link to={`/products/${item.id}`}>
+                  <img src={item.image} />
+                </Link>
+                <h3>{item.name}</h3>
+                <p>
+                  <strong>Description: </strong>
+                  {item.description}
+                </p>
+                <p>
+                  <strong>Price:</strong> ${item.price}
+                </p>
+                <h3>
+                  <strong>Categories:</strong>
+                </h3>
+                <ul>
+                  {item.category.map((category, idx) => {
+                    return <li key={idx}>{category}</li>;
+                  })}
+                </ul>
+                <p>
+                  <strong>Color:</strong> {item.color}
+                </p>
+              </div>
             );
           })}
       </div>
@@ -33,17 +49,8 @@ export const ProductList = props => {
  */
 const mapState = state => {
   return {
-    products: state.products.products
+    products: state.products
   };
 };
 
-const mapDispatch = dispatch => {
-  return {
-    getSingleProduct
-  };
-};
-
-export default connect(
-  mapState,
-  mapDispatch
-)(ProductList);
+export default connect(mapState)(ProductList);
