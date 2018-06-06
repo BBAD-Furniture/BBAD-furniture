@@ -21,7 +21,6 @@ class Routes extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { isLoggedIn } = this.props;
 
     return (
@@ -31,7 +30,6 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={ProductList} />
         <Route path="/products/:id" component={SingleProduct} />
-
         <Route exact path="/" component={LandingPage} />
 
         {isLoggedIn && (
