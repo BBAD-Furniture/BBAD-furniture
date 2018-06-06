@@ -1,27 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link, Route } from 'react-router-dom';
+import SingleProduct from './SingleProduct';
 
 /**
  * COMPONENT
  */
 export const ProductList = props => {
-  console.log(props);
-  const products = props;
+  let products = props.products;
   return (
     <div>
-      <h1>Loading products:</h1>
-      {products.map(item => {
-        return (
-          <div key={item.id} className="product-item">
-            <h3>{item.name}</h3>
-            <p>
-              {item.description}
-              ${item.price}
-            </p>
-          </div>
-        );
-      })}
+      <Route exact path="/products/:id" component={SingleProduct} />
+
+      <div>
+        {products &&
+          products.map(item => {
+            return <SingleProduct item={item} key={item.id} />;
+          })}
+      </div>
     </div>
   );
 };

@@ -19,4 +19,18 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
+router.post('/', (req, res, next) => {
+  Product.create(req.body)
+    .then(newProduct => res.status(201).send(newProduct))
+    .catch(next);
+});
+
+router.delete('/:id', (req, res, next) => {
+  let id = req.params.id;
+
+  Product.findById(id)
+    .then(product => product.destroy())
+    .then(() => res.send('deleted!'))
+    .catch(next);
+});
 module.exports = router;

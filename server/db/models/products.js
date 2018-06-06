@@ -16,14 +16,13 @@ const Product = db.define('product', {
     allowNull: false
   },
   category: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
+    type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false
   },
   image: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
-    defaultValue: [
+    type: Sequelize.STRING, //ARRAY(Sequelize.TEXT),
+    defaultValue:
       'http://meeconline.com/wp-content/uploads/2014/08/placeholder.png'
-    ]
   },
   color: {
     type: Sequelize.STRING,
