@@ -3,7 +3,7 @@ import axios from 'axios';
 /**
  * ACTION TYPES
  */
-const GET_PRODUCTS = 'GET_PRODUCTS';
+const ADD_TO_CART = 'ADD_TO_CART';
 /**
  * ACTION CREATORS
  */
