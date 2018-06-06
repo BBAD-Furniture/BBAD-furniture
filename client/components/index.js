@@ -11,4 +11,5 @@ export { default as SingleProduct } from './SingleProduct';
 export { default as Sidebar } from './Sidebar';
 export { default as Filtered } from './Filtered';
 
+export { default as Cart } from './Cart';
 export { Login, Signup } from './auth-form';
