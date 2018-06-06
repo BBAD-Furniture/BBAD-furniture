@@ -4,7 +4,6 @@ import axios from 'axios';
  * ACTION TYPES
  */
 const GET_PRODUCTS = 'GET_PRODUCTS';
-
 /**
  * ACTION CREATORS
  */
@@ -22,10 +21,12 @@ export const getProductList = () => dispatch =>
 /**
  * REDUCER
  */
+
 export default function(state = [], action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products;
+
     default:
       return state;
   }
