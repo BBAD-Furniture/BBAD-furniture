@@ -6,7 +6,7 @@ import '../styles/sidebar.css';
 const Sidebar = props => {
   let products = props.products;
   let colors = [...new Set(products.map(product => product.color))];
-let categories = Array.from(
+  let categories = Array.from(
     new Set([].concat(...products.map(product => product.category)))
   );
   return (

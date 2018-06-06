@@ -9,5 +9,6 @@ export { default as LandingPage } from './LandingPage';
 export { default as ProductList } from './ProductList';
 export { default as SingleProduct } from './SingleProduct';
 export { default as Sidebar } from './Sidebar';
+export { default as Filtered } from './Filtered';
 
 export { Login, Signup } from './auth-form';
