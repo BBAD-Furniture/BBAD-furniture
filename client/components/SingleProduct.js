@@ -15,7 +15,7 @@ const SingleProduct = props => {
 			</p>
 			<p>
 				<strong>Price:</strong> ${item.price}
-				<button>Add to Cart</button>
+				<button onClick={() => props.addItemToCart(item)}>Add to Cart</button>
 			</p>
 			<h3>
 				<strong>Categories:</strong>
@@ -42,4 +42,12 @@ const mapState = (state, ownProps) => {
 	};
 };
 
-export default connect(mapState)(SingleProduct);
+const mapDispatch = dispatch => {
+	return {
+		addItemToCart: item => {
+			localStorage.setItem('product', JSON.stringify([item]));
+		}
+	};
+};
+
+export default connect(mapState, mapDispatch)(SingleProduct);

@@ -5,7 +5,7 @@ import React from 'react';
  * COMPONENT
  */
 const Cart = () => {
-	return <div> hello </div>;
+	return <div> {localStorage.getItem('product')} </div>;
 };
 
 export default Cart;
