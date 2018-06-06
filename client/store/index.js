@@ -14,6 +14,7 @@ const middleware = composeWithDevTools(
 const store = createStore(reducer, middleware);
 
 store.dispatch(getProductList());
+
 export default store;
 export * from './user';
 export * from './productList';

@@ -1,8 +1,8 @@
 /* GLOBAL STYLES */
 
 body {
-  font-family: sans-serif;
-  background: blue;
+  font-family: 'montserrat', sans-serif;
+  color: black;
 }
 
 a {
@@ -16,6 +16,7 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  text-decoration: none;
 }
 
 form div {
