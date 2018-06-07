@@ -8,9 +8,7 @@ import {
   UserHome,
   LandingPage,
   Products,
-  SingleProduct,
-  Cart,
-  Filtered
+  SingleProduct
 } from './components';
 import { me } from './store';
 
@@ -33,9 +31,6 @@ class Routes extends Component {
         <Route exact path="/products" component={Products} />
         <Route path="/products/:id" component={SingleProduct} />
         <Route exact path="/" component={LandingPage} />
-        <Route exact path="/filtered" component={Filtered} />
-
-        <Route exact path="/cart" component={Cart} />
 
         {isLoggedIn && (
           <Switch>

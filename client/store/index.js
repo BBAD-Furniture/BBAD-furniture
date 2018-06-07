@@ -4,9 +4,8 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import products, { getProductList } from './productList';
-import filter, { getFilter } from './filter';
 
-const reducer = combineReducers({ user, products, filter });
+const reducer = combineReducers({ user, products });
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
@@ -18,4 +17,3 @@ store.dispatch(getProductList());
 export default store;
 export * from './user';
 export * from './productList';
-export * from './filter';
