@@ -45,7 +45,8 @@ function seedProduct() {
         price: (Math.random() * 100).toFixed(2),
         color: faker.commerce.color(),
         quantity: Math.floor(Math.random() * 100)
-      }))
+      })
+    )
   );
 }
 
@@ -66,7 +67,7 @@ function seedOrder() {
     new Array(5).fill(1).map(() =>
       Order.create({
         userId: Math.floor(Math.random() * 10) + 1,
-        productId: Math.floor(Math.random() * 20) + 1 //dont need!!!!
+        productId: Math.floor(Math.random() * 20) + 1
       })
     )
   );
