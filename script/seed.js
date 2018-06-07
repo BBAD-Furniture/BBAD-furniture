@@ -3,8 +3,7 @@
 const { User, Product, Review, Cart } = require('../server/db/models');
 const faker = require('faker');
 const db = require('../server/db');
-// const assc = require('../server/db/models');
-const Promise = db.Promise; // gives us Promise.map
+const Promise = db.Promise;
 
 async function seed() {
 	await db.sync({ force: true });
@@ -12,7 +11,7 @@ async function seed() {
 	console.log('Seeded', product.length, 'product.');
 	const user = await seedUser();
 	console.log('Seeded', user.length, 'user.');
-	// console.log('Seeded', user, 'all the users');
+	console.log('Seeded', user, 'all the users');
 	const review = await seedReview();
 	console.log('Seeded', review.length, 'review.');
 	const cart = await seedCart();

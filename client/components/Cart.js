@@ -46,8 +46,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
 	return {
 		removeItem: item => {
-			console.log('we made it');
-
 			let products = [];
 			products = JSON.parse(localStorage.getItem('product'));
 			products = products.filter(prod => item.id !== prod.id);

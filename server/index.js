@@ -22,14 +22,13 @@ passport.deserializeUser((id, done) =>
 		.catch(done)
 );
 const createApp = () => {
-	// logging middleware
 	app.use(morgan('dev'));
-	// body parsing middleware
+
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
-	// compression middleware
+
 	app.use(compression());
-	// session middleware with passport
+
 	app.use(
 		session({
 			secret: process.env.SESSION_SECRET || 'my best friend is Cody',
@@ -40,6 +39,7 @@ const createApp = () => {
 	);
 	app.use(passport.initialize());
 	app.use(passport.session());
+
 	// auth and api routes
 	app.use('/auth', require('./auth'));
 	app.use('/api', require('./api'));
