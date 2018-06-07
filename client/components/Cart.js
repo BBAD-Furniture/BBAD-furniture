@@ -8,6 +8,7 @@ const Cart = props => {
 	let cartItems = props.products.filter(item =>
 		JSON.parse(localStorage.getItem('product').includes(item.id))
 	);
+
 	return (
 		<div>
 			{cartItems.map(item => {
@@ -18,13 +19,14 @@ const Cart = props => {
 						<p>
 							<strong>Description: </strong>
 							{item.description}
-						</p>{' '}
+						</p>
 						<p>
 							<strong>Price:</strong> ${item.price}
 						</p>
 						<p>
 							<strong>Color:</strong> {item.color}
 						</p>
+						<button onClick={() => props.removeItem(item)}>Remove Item</button>
 					</div>
 				);
 			})}
@@ -41,4 +43,15 @@ const mapState = state => {
 	};
 };
 
-export default connect(mapState)(Cart);
+const mapDispatch = dispatch => {
+	return {
+		removeItem: item => {
+			let products = [];
+			products = JSON.parse(localStorage.getItem('product'));
+			products = products.filter(prod => item.id !== prod.id);
+			localStorage.setItem('product', products);
+		}
+	};
+};
+
+export default connect(mapState, mapDispatch)(Cart);

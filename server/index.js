@@ -12,9 +12,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const socketio = require('socket.io');
 module.exports = app;
-
 if (process.env.NODE_ENV !== 'production') require('../secrets');
-
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) =>
@@ -23,19 +21,14 @@ passport.deserializeUser((id, done) =>
 		.then(user => done(null, user))
 		.catch(done)
 );
-
 const createApp = () => {
-	// logging middleware
 	app.use(morgan('dev'));
 
-	// body parsing middleware
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
 
-	// compression middleware
 	app.use(compression());
 
-	// session middleware with passport
 	app.use(
 		session({
 			secret: process.env.SESSION_SECRET || 'my best friend is Cody',
@@ -50,10 +43,8 @@ const createApp = () => {
 	// auth and api routes
 	app.use('/auth', require('./auth'));
 	app.use('/api', require('./api'));
-
 	// static file-serving middleware
 	app.use(express.static(path.join(__dirname, '..', 'public')));
-
 	// any remaining requests with an extension (.js, .css, etc.) send 404
 	app.use((req, res, next) => {
 		if (path.extname(req.path).length) {
@@ -64,12 +55,10 @@ const createApp = () => {
 			next();
 		}
 	});
-
 	// sends index.html
 	app.use('*', (req, res) => {
 		res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 	});
-
 	// error handling endware
 	app.use((err, req, res, next) => {
 		console.error(err);
@@ -77,20 +66,16 @@ const createApp = () => {
 		res.status(err.status || 500).send(err.message || 'Internal server error.');
 	});
 };
-
 const startListening = () => {
 	// start listening (and create a 'server' object representing our server)
 	const server = app.listen(PORT, () =>
 		console.log(`Mixing it up on port ${PORT}`)
 	);
-
 	// set up our socket control center
 	const io = socketio(server);
 	require('./socket')(io);
 };
-
 const syncDb = () => db.sync();
-
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
 // It will evaluate false when this module is required by another module - for example,
