@@ -16,7 +16,9 @@ const Product = db.define('product', {
     allowNull: false
   },
   category: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type: Sequelize.ENUM,
+    values: ['Living Room', 'Bedroom', 'Bathroom'],
+    defaultValue: 'Living Room',
     allowNull: false
   },
   image: {
@@ -30,6 +32,7 @@ const Product = db.define('product', {
   },
   quantity: {
     type: Sequelize.INTEGER,
+    defaultValue: 1,
     allowNull: false
   }
 });
