@@ -14,7 +14,9 @@ const SingleProduct = props => {
         {item.description}
       </p>
       <p>
-        <button onClick={() => props.addItemToCart(item)}>Add to Cart</button>
+        <button type="button" onClick={() => props.addItemToCart(item)}>
+          Add to Cart
+        </button>
       </p>
       <h3>
         <strong>Categories:</strong>
@@ -39,24 +41,24 @@ const mapState = state => {
   };
 };
 
-const mapDispatch = dispatch => {
-  return {
-    addItemToCart: item => {
-      localStorage.getItem('product') === null
-        ? localStorage.setItem('product', JSON.stringify([item.id]))
-        : SaveToCart(item.id);
-    }
-  };
-};
+// const mapDispatch = () => {
+//   return {
+//     addItemToCart: item => {
+//       localStorage.getItem('product') === null
+//         ? localStorage.setItem('product', JSON.stringify([item.id]))
+//         : SaveToCart(item.id);
+//     }
+//   };
+// };
 
-function SaveToCart(data) {
-  let products = [];
-  products = JSON.parse(localStorage.getItem('product'));
-  products.push(data);
-  localStorage.setItem('product', JSON.stringify(products));
-}
+// function SaveToCart(data) {
+//   let products = [];
+//   products = JSON.parse(localStorage.getItem('product'));
+//   products.push(data);
+//   localStorage.setItem('product', JSON.stringify(products));
+// }
 
 export default connect(
-  mapState,
-  mapDispatch
+  mapState
+  // mapDispatch
 )(SingleProduct);
