@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { Sidebar } from '../components';
 
 import '../styles/productList.css';
+import Filtered from './Filtered';
 
 /**
  * COMPONENT
  */
 export const ProductList = props => {
-	let products = props.products;
+	const { products } = props;
+	console.log(products, "PRODUCTS");
 	return (
 		<div className="flexWrap">
 			<div className="sidebar">
@@ -49,10 +51,18 @@ export const ProductList = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
+// const mapState = state => {
+// 	return {
+// 		products: state.products
+// 	};
+// };
+
+// export default connect(mapState)(ProductList);
+
+const mapProducts = state => {
 	return {
 		products: state.products
 	};
 };
 
-export default connect(mapState)(ProductList);
+export const Products = connect(mapProducts)(ProductList);
