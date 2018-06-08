@@ -39,7 +39,9 @@ class SingleProduct extends React.Component {
               This is a description, we need a virtual to shorten descriptions.
             </CardSubtitle>
             <div className="product-description">
-              <CardText><strong>{propsFromParent.category}</strong></CardText>
+              <CardText>
+                <strong>{propsFromParent.category}</strong>
+              </CardText>
               <Link to={`/products/${propsFromParent.id}`}>
                 <Button>Get Details</Button>
               </Link>

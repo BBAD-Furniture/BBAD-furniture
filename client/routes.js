@@ -12,6 +12,7 @@ import {
   Cart
 } from './components';
 import { me } from './store';
+import { ProductList } from './components/ProductList';
 
 /**
  * COMPONENT
