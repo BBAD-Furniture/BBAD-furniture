@@ -1,3 +1,4 @@
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/BBAD-Furniture/BBAD-furniture.png?columns=all)](https://waffle.io/BBAD-Furniture/BBAD-furniture?utm_source=badge)
 # Boilermaker
 
 *Good things come in pairs*
