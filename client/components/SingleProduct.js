@@ -3,57 +3,40 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const SingleProduct = props => {
-  let { product } = props;
+  let { selectedProduct } = props;
   return (
-    <div className="product-item" key={product.id}>
-      <Link to={`/products/${product.id}`}>
-        <img src={product.image} />
-      </Link>
-      <h3>{product.name}</h3>
+    <div className="product-item" key={selectedProduct.id}>
+      <img src={selectedProduct.image} />
+      <h3>{selectedProduct.name}</h3>
       <p>
         <strong>Description: </strong>
-        {product.description}
+        {selectedProduct.description}
       </p>
       <p>button goes here</p>
       <p>
-        <strong>Category:</strong> {product.category}
+        <strong>Category:</strong> {selectedProduct.category}
       </p>
       <p>
-        <strong>Color:</strong> {product.color}
+        <strong>Color:</strong> {selectedProduct.color}
       </p>
     </div>
   );
 };
 
-// const mapState = state => {
-//   return {
-//     products: state.products
-//   };
-// };
+const mapState = (state, ownProps) => {
+  //filter through parm
+  const id = ownProps.match.params.id;
+  const currProduct = state.products.find(prod => prod.id === id);
+  return {
+    selectedProduct: state.selectedProduct || currProduct
+  };
+};
 
-// const mapDispatch = () => {
-//   return {
-//     addItemToCart: item => {
-//       localStorage.getItem('product') === null
-//         ? localStorage.setItem('product', JSON.stringify([item.id]))
-//         : SaveToCart(item.id);
-//     }
-//   };
-// };
+const mapDispatch = () => {
+  return {};
+};
 
-// <button type="button" onClick={() => props.addItemToCart(item)}>
-// Add to Cart
-// </button>
-// function SaveToCart(data) {
-//   let products = [];
-//   products = JSON.parse(localStorage.getItem('product'));
-//   products.push(data);
-//   localStorage.setItem('product', JSON.stringify(products));
-// }
-
-// export default connect(
-//   mapState
-//   // mapDispatch
-// )(SingleProduct);
-
-export default SingleProduct;
+export default connect(
+  mapState,
+  mapDispatch
+)(SingleProduct);
