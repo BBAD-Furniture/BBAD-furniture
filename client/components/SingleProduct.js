@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCurrentProduct } from '../store';
+import { getCurrentProduct, addToCartList } from '../store';
 import { withRouter, Link } from 'react-router-dom';
 class SingleProduct extends React.Component {
   constructor() {
@@ -16,7 +16,7 @@ class SingleProduct extends React.Component {
     const propsFromParent = this.props.match.params.id
       ? stateProd
       : this.props.propsFromParent;
-    console.log(propsFromParent);
+    // console.log(propsFromParent);
     return (
       <div className="product-item" key={propsFromParent.id}>
         <Link to={`/products/${propsFromParent.id}`}>
@@ -34,6 +34,9 @@ class SingleProduct extends React.Component {
         <p>
           <strong>Color:</strong> {propsFromParent.color}
         </p>
+        <button onClick={() => this.props.handleClick(propsFromParent)}>
+          Add To Cart
+        </button>
       </div>
     );
   }
@@ -48,9 +51,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
-    handleClick: item => {
-      console.log(item);
-    }
+    handleClick: item => dispatch(addToCartList(item))
   };
 };
 
