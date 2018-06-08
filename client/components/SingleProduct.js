@@ -1,64 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getCurrentProduct } from '../store';
+import { withRouter, Link } from 'react-router-dom';
+class SingleProduct extends React.Component {
+  constructor() {
+    super();
+  }
 
-const SingleProduct = props => {
-  let id = Number(props.match.params.id);
-  let item = props.products.find(singleProduct => singleProduct.id === id);
-
-  return item ? (
-    <div className="product-item" key={item.id}>
-      <img src={item.image} />
-      <h3>{item.name}</h3>
-      <p>
-        <strong>Description: </strong>
-        {item.description}
-      </p>
-      <p>
-        <button type="button" onClick={() => props.addItemToCart(item)}>
-          Add to Cart
-        </button>
-      </p>
-      <h3>
-        <strong>Categories:</strong>
-      </h3>
-      <ul>
-        {item.category.map((category, idx) => {
-          return <li key={idx}>{category}</li>;
-        })}
-      </ul>
-      <p>
-        <strong>Color:</strong> {item.color}
-      </p>
-    </div>
-  ) : (
-    <div />
-  );
-};
+  componentDidMount() {
+    let id = this.props.match.params.id;
+    if (id) this.props.fetchProduct(id);
+  }
+  render() {
+    const stateProd = this.props.selectedProduct[0] || {};
+    const propsFromParent = this.props.match.params.id
+      ? stateProd
+      : this.props.propsFromParent;
+    console.log(propsFromParent);
+    return (
+      <div className="product-item" key={propsFromParent.id}>
+        <Link to={`/products/${propsFromParent.id}`}>
+          <img src={propsFromParent.image} />
+        </Link>
+        <h3>{propsFromParent.name}</h3>
+        <p>
+          <strong>Description: </strong>
+          {propsFromParent.description}
+        </p>
+        <p>button goes here</p>
+        <p>
+          <strong>Category:</strong> {propsFromParent.category}
+        </p>
+        <p>
+          <strong>Color:</strong> {propsFromParent.color}
+        </p>
+      </div>
+    );
+  }
+}
 
 const mapState = state => {
   return {
-    products: state.products
+    selectedProduct: state.selectedProduct
   };
 };
 
-// const mapDispatch = () => {
-//   return {
-//     addItemToCart: item => {
-//       localStorage.getItem('product') === null
-//         ? localStorage.setItem('product', JSON.stringify([item.id]))
-//         : SaveToCart(item.id);
-//     }
-//   };
-// };
+const mapDispatch = dispatch => {
+  return {
+    fetchProduct: id => dispatch(getCurrentProduct(id)),
+    handleClick: item => {
+      console.log(item);
+    }
+  };
+};
 
-// function SaveToCart(data) {
-//   let products = [];
-//   products = JSON.parse(localStorage.getItem('product'));
-//   products.push(data);
-//   localStorage.setItem('product', JSON.stringify(products));
-// }
-
-export default connect(
-  mapState
-  // mapDispatch
-)(SingleProduct);
+export default withRouter(
+  connect(
+    mapState,
+    mapDispatch
+  )(SingleProduct)
+);

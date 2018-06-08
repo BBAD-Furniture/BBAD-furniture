@@ -4,7 +4,7 @@ module.exports = router;
 
 router.get('/', (req, res, next) => {
   User.findAll({
-    attributes: ['id', 'email'],
+    attributes: ['firstName', 'lastName', 'id', 'email'],
     include: { model: Review }
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just

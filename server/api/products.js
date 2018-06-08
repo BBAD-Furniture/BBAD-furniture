@@ -4,7 +4,7 @@ const { Product, Review, User } = require('../db/models');
 router.get('/', (req, res, next) => {
   Product.findAll({
     include: {
-      model: Review
+      all: true
     }
   })
     .then(products => res.json(products))
@@ -13,7 +13,12 @@ router.get('/', (req, res, next) => {
 
 router.get('/:productId', (req, res, next) => {
   let id = req.params.productId;
-  Product.findById(id)
+  Product.findAll({
+    where: {
+      id
+    },
+    include: [{ model: Review }]
+  })
     .then(product => res.json(product))
     .catch(next);
 });
@@ -32,8 +37,6 @@ router.delete('/:productId', (req, res, next) => {
     .catch(next);
 });
 
-module.exports = router;
-
 router.post('/:productId/review', function(req, res, next) {
   Review.create(req.body)
     .then(created => {
@@ -48,3 +51,5 @@ router.post('/:productId/review', function(req, res, next) {
     })
     .catch(next);
 });
+
+module.exports = router;
