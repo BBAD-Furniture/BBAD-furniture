@@ -10,7 +10,9 @@ import SingleProduct from './SingleProduct';
 const Cart = props => {
   let cartItems = props.products;
   let cartProducts = JSON.parse(localStorage.getItem('products'));
-  cartItems = cartItems.filter(item => cartProducts.includes(item.id));
+  cartItems = cartProducts
+    ? cartItems.filter(item => cartProducts.includes(item.id))
+    : [];
   return (
     <div className="product-main">
       {cartItems &&
