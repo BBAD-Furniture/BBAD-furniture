@@ -19,22 +19,7 @@ export const ProductList = props => {
           {products &&
             products.map(product => {
               return (
-                <SingleProduct propsFromParent={product} />
-                /*} <div className="product-item" key={product.id}>
-                    <img src={product.image} />
-                    <h3>{product.name}</h3>
-                    <p>
-                      <strong>Description: </strong>
-                      {product.description}
-                    </p>
-                    <p>button goes here</p>
-                    <p>
-                      <strong>Category:</strong> {product.category}
-                    </p>
-                    <p>
-                      <strong>Color:</strong> {product.color}
-                    </p>
-              </div>*/
+                <SingleProduct key={product.id} propsFromParent={product} />
               );
             })}
         </div>
