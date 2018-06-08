@@ -1,71 +1,32 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import SingleProduct from './SingleProduct';
 
 // import '../styles/productList.css';
 
 /**
  * COMPONENT
  */
-export default class Cart extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      cartItems: ['apple', 'banana', 'orange']
-    };
-  }
-
-  handleClick = item => {
-    //change state
-    this.setState({ cartItems: [...this.state.cartItems, item] });
-    // console.log(this.state);
-    //change localStorage
-
-    localStorage.setItem(
-      JSON.stringify(this.state.cartItems.indexOf(item)),
-      item
-    );
-    let k = localStorage.getItem(
-      JSON.stringify(this.state.cartItems.indexOf(item))
-    );
-    console.log(k, 'items retrieved!!');
-  };
-
-  // componentDidMount() {
-  //   //change local state and localStorage (x2)
-  // }
-
-  render() {
-    const cart = this.state.cartItems;
-    console.log(cart);
-    return (
-      <div>
-        {cart.map((item, idx) => {
-          return (
-            <button onClick={() => this.handleClick(item)} key={idx}>
-              {item}
-            </button>
-          );
+const Cart = props => {
+  let cartItems = props.products;
+  let cartProducts = JSON.parse(localStorage.getItem('products'));
+  cartItems = cartProducts
+    ? cartItems.filter(item => cartProducts.includes(item.id))
+    : [];
+  return (
+    <div className="product-main">
+      {cartItems &&
+        cartItems.map(item => {
+          return <SingleProduct key={item.id} propsFromParent={item} />;
         })}
-        <h1>this is in the cart</h1>
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-// export const Products = connect(mapProducts)(Cart);
+const mapState = state => {
+  return {
+    products: state.products
+  };
+};
 
-// const mapDispatch = () => {
-//   return {
-//     addItemToCart: item => {
-//       localStorage.getItem('product') === null
-//         ? localStorage.setItem('product', JSON.stringify([item.id]))
-//         : SaveToCart(item.id);
-//     }
-//   };
-// };
-
-// function SaveToCart(data) {
-//   let products = [];
-//   products = JSON.parse(localStorage.getItem('product'));
-//   products.push(data);
-//   localStorage.setItem('product', JSON.stringify(products));
+export default connect(mapState)(Cart);
