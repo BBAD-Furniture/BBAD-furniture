@@ -19,6 +19,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/cart">View Cart</Link>
         </div>
       ) : (
         <div>
@@ -46,6 +47,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick() {
+      localStorage.setItem('products', JSON.stringify([]));
       dispatch(logout());
     }
   };
