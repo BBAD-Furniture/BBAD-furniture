@@ -5,7 +5,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   height: 100%;
-  margin: 20px 10px;
+  align-content: flex-start;
+  margin: 0 20px;
 }
 
 .product-item {
@@ -16,4 +17,13 @@
 
 .product-description {
   padding: 5px 0;
+}
+
+.button-container {
+  display: flex;
+}
+
+.btn {
+  flex: 1;
+  margin: 5px;
 }
