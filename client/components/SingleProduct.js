@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCurrentProduct } from '../store';
+import { getCurrentProduct, addToCartList } from '../store';
 import { withRouter, Link } from 'react-router-dom';
 import {
   Card,
@@ -45,6 +45,9 @@ class SingleProduct extends React.Component {
               <Link to={`/products/${propsFromParent.id}`}>
                 <Button>Get Details</Button>
               </Link>
+              <button onClick={() => this.props.handleClick(propsFromParent)}>
+                Add To Cart
+              </button>
             </div>
           </CardBody>
         </Card>
@@ -62,9 +65,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
-    handleClick: item => {
-      console.log(item);
-    }
+    handleClick: item => dispatch(addToCartList(item))
   };
 };
 
