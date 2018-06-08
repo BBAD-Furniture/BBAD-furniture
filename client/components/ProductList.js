@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Sidebar, SingleProduct } from './index';
+import { Link } from 'react-router-dom';
 import { getCurrentProduct } from '../store';
 import '../styles/productList.css';
 /**
@@ -18,10 +19,8 @@ export const ProductList = props => {
           {products &&
             products.map(product => {
               return (
-                <div
-                  onClick={() => props.getCurrentProduct(product.id)}
-                  key={product.id}>
-                  <div className="product-item" key={product.id}>
+                <SingleProduct propsFromParent={product} />
+                /*} <div className="product-item" key={product.id}>
                     <img src={product.image} />
                     <h3>{product.name}</h3>
                     <p>
@@ -35,8 +34,7 @@ export const ProductList = props => {
                     <p>
                       <strong>Color:</strong> {product.color}
                     </p>
-                  </div>
-                </div>
+              </div>*/
               );
             })}
         </div>
@@ -47,20 +45,13 @@ export const ProductList = props => {
 
 const mapProducts = state => {
   return {
-    products: state.products
+    products: state.products,
+    selectedProduct: state.selectedProduct
   };
 };
-const mapDispatch = (dispatch, ownProps) => {
+const mapDispatch = dispatch => {
   return {
-    getCurrentProduct: id => dispatch(getCurrentProduct(id, ownProps.history))
-    // handleSubmit() {
-    //   evt.preventDefault();
-
-    //   const { productId } = ownProps;
-
-    //   dispatch(postMessage({ name, content, channelId }));
-    //   dispatch(writeMessage(''));
-    // }
+    getCurrentProduct: id => dispatch(getCurrentProduct(id))
   };
 };
 export const Products = connect(

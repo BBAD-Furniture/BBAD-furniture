@@ -1,42 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { getCurrentProduct } from '../store';
+import { withRouter, Link } from 'react-router-dom';
+class SingleProduct extends React.Component {
+  constructor() {
+    super();
+  }
 
-const SingleProduct = props => {
-  let { selectedProduct } = props;
-  return (
-    <div className="product-item" key={selectedProduct.id}>
-      <img src={selectedProduct.image} />
-      <h3>{selectedProduct.name}</h3>
-      <p>
-        <strong>Description: </strong>
-        {selectedProduct.description}
-      </p>
-      <p>button goes here</p>
-      <p>
-        <strong>Category:</strong> {selectedProduct.category}
-      </p>
-      <p>
-        <strong>Color:</strong> {selectedProduct.color}
-      </p>
-    </div>
-  );
-};
+  componentDidMount() {
+    let id = this.props.match.params.id;
+    if (id) this.props.fetchProduct(id);
+  }
+  render() {
+    const stateProd = this.props.selectedProduct[0] || {};
+    const propsFromParent = this.props.match.params.id
+      ? stateProd
+      : this.props.propsFromParent;
+    console.log(propsFromParent);
+    return (
+      <div className="product-item" key={propsFromParent.id}>
+        <Link to={`/products/${propsFromParent.id}`}>
+          <img src={propsFromParent.image} />
+        </Link>
+        <h3>{propsFromParent.name}</h3>
+        <p>
+          <strong>Description: </strong>
+          {propsFromParent.description}
+        </p>
+        <p>button goes here</p>
+        <p>
+          <strong>Category:</strong> {propsFromParent.category}
+        </p>
+        <p>
+          <strong>Color:</strong> {propsFromParent.color}
+        </p>
+      </div>
+    );
+  }
+}
 
-const mapState = (state, ownProps) => {
-  //filter through parm
-  const id = ownProps.match.params.id;
-  const currProduct = state.products.find(prod => prod.id === id);
+const mapState = state => {
   return {
-    selectedProduct: state.selectedProduct || currProduct
+    selectedProduct: state.selectedProduct
   };
 };
 
-const mapDispatch = () => {
-  return {};
+const mapDispatch = dispatch => {
+  return {
+    fetchProduct: id => dispatch(getCurrentProduct(id)),
+    handleClick: item => {
+      console.log(item);
+    }
+  };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(SingleProduct);
+export default withRouter(
+  connect(
+    mapState,
+    mapDispatch
+  )(SingleProduct)
+);
