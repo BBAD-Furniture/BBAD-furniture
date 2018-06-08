@@ -17,6 +17,7 @@ class SingleProduct extends React.Component {
     if (id) this.props.fetchProduct(id);
   }
   render() {
+    let rating = this.props.rating;
     const stateProd = this.props.selectedProduct[0] || {};
     const propsFromParent = this.props.match.params.id
       ? stateProd
@@ -35,19 +36,21 @@ class SingleProduct extends React.Component {
             <CardTitle>
               <strong>{propsFromParent.name}</strong>
             </CardTitle>
-            <CardSubtitle>
-              This is a description, we need a virtual to shorten descriptions.
-            </CardSubtitle>
+            <CardSubtitle>$ {propsFromParent.price}</CardSubtitle>
             <div className="product-description">
               <CardText>
-                <strong>{propsFromParent.category}</strong>
+                <strong>{propsFromParent.category} </strong>
               </CardText>
+              <CardText>
+                <strong>Rating: {rating}</strong>
+              </CardText>
+
               <Link to={`/products/${propsFromParent.id}`}>
                 <Button>Get Details</Button>
               </Link>
               <Button
                 color="primary"
-                onClick={() => this.props.handleClick(propsFromParent)}>
+                onClick={() => this.props.addProductToCart(propsFromParent)}>
                 Add To Cart
               </Button>
             </div>
@@ -67,7 +70,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
-    handleClick: item => dispatch(addToCartList(item))
+    addProductToCart: item => dispatch(addToCartList(item))
   };
 };
 
@@ -94,3 +97,14 @@ export default withRouter(
         </p>
     </div>*/
 }
+
+// let rating = propsFromParent.reviews.length
+//   ? Math.floor(
+//       propsFromParent.reviews.reduce(
+//         (acc, elem) => acc + parseInt(elem.rating),
+//         0
+//       ) / propsFromParent.reviews.length
+//     )
+//   : 'No Reviews';
+
+// console.log(rating);

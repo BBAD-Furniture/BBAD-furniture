@@ -45,7 +45,8 @@ function seedProduct() {
         price: (Math.random() * 100).toFixed(2),
         color: faker.commerce.color(),
         quantity: Math.floor(Math.random() * 100)
-      }))
+      })
+    )
   );
 }
 
@@ -55,6 +56,7 @@ function seedReview() {
       Review.create({
         review: faker.lorem.paragraph(),
         userId: Math.floor(Math.random() * 10) + 1,
+        rating: Math.floor(Math.random() * 5) + 1,
         productId: Math.floor(Math.random() * 20) + 1
       })
     )
