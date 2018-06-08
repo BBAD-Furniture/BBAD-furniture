@@ -8,7 +8,9 @@ import SingleProduct from './SingleProduct';
  * COMPONENT
  */
 const Cart = props => {
-  const cartItems = props.cartList;
+  let cartItems = props.products;
+  let cartProducts = JSON.parse(localStorage.getItem('products'));
+  cartItems = cartItems.filter(item => cartProducts.includes(item.id));
   return (
     <div className="product-main">
       {cartItems &&
@@ -21,7 +23,7 @@ const Cart = props => {
 
 const mapState = state => {
   return {
-    cartList: state.cartList
+    products: state.products
   };
 };
 
