@@ -10,14 +10,10 @@
 
 .product-item {
   flex: 1;
-<<<<<<< HEAD
   max-width: 250px;
   margin-bottom: 20px;
- 
 }
 
-.product-description{
+.product-description {
   padding: 5px 0;
-=======
->>>>>>> master
 }
