@@ -11,7 +11,7 @@ const Sidebar = props => {
   // let categories = Array.from(
   //   new Set([].concat(...products.map(product => product.category)))
   // );
-   return <div/>
+  return <div>Sidebar </div>;
   // return (
   //   <div className="sidebar">
   //     <h2> Filter by</h2>

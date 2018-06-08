@@ -45,9 +45,11 @@ class SingleProduct extends React.Component {
               <Link to={`/products/${propsFromParent.id}`}>
                 <Button>Get Details</Button>
               </Link>
-              <button onClick={() => this.props.handleClick(propsFromParent)}>
+              <Button
+                color="primary"
+                onClick={() => this.props.handleClick(propsFromParent)}>
                 Add To Cart
-              </button>
+              </Button>
             </div>
           </CardBody>
         </Card>
