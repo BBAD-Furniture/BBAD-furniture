@@ -24,7 +24,7 @@ const Product = db.define('product', {
   image: {
     type: Sequelize.STRING, //ARRAY(Sequelize.TEXT),
     defaultValue:
-      'http://demo.drfuri.com/mrbara14/wp-content/uploads/sites/15/2016/10/furniture-v4-banner1.png'
+      'http://demo.drfuri.com/mrbara14/wp-content/uploads/sites/15/2016/07/a1.jpg'
   },
   color: {
     type: Sequelize.STRING,

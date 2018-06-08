@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Sidebar } from './components';
 import Routes from './routes';
-import store, { getProducts } from './store';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const App = () => {
   return (
