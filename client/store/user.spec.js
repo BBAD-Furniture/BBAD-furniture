@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 import { expect } from 'chai';
-import { me, logout, getUser, removeUser } from './user'; //thunk craetors & action creators
+import { me, logout } from './user';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
@@ -47,22 +47,6 @@ describe('thunk creators', () => {
         expect(actions[0].type).to.be.equal('REMOVE_USER');
         expect(history.location.pathname).to.be.equal('/login');
       });
-    });
-  });
-});
-
-describe('action creators', () => {
-  describe('Get User', () => {
-    it('returns proper action', () => {
-      const testUser = {
-        email: 'bob@abc.com',
-        firstName: 'Bob',
-        lastName: 'Builder',
-        fullName: 'Bob Builder',
-        googleId: null,
-        isAdmin: false,
-        profilePic: 'https://i.stack.imgur.com/l60Hf.png'
-      };
     });
   });
 });
