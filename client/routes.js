@@ -14,7 +14,6 @@ import {
   Checkout
 } from './components';
 import { me, getAllUsers } from './store';
-import { ProductList } from './components/ProductList';
 
 /**
  * COMPONENT

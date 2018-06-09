@@ -1,4 +1,4 @@
-/* global describe beforeEach it */
+// /* global describe beforeEach it */
 
 // import {expect} from 'chai'
 // import React from 'react'

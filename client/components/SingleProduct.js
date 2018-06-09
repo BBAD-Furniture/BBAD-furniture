@@ -1,69 +1,85 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getCurrentProduct, addToCartList } from '../store';
-import { withRouter, Link } from 'react-router-dom';
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from 'reactstrap';
-class SingleProduct extends React.Component {
-  componentDidMount() {
-    let id = this.props.match.params.id;
-    if (id) this.props.fetchProduct(id);
-  }
-  render() {
-    let rating = this.props.rating;
-    const stateProd = this.props.selectedProduct[0] || {};
-    const propsFromParent = this.props.match.params.id
-      ? stateProd
-      : this.props.propsFromParent;
+import { withRouter } from 'react-router-dom';
+import { Button } from 'reactstrap';
+import '../styles/singleProduct.css';
 
-    return (
-      <div>
-        <Card className="product-item">
-          <CardImg
-            top
-            width="100%"
-            src={propsFromParent.image}
-            alt="Card image cap"
-          />
-          <CardBody>
-            <CardTitle>
-              <strong>{propsFromParent.name}</strong>
-            </CardTitle>
-            <CardSubtitle>$ {propsFromParent.price}</CardSubtitle>
-            <div className="product-description">
-              <CardText>
-                <strong>{propsFromParent.category} </strong>
-              </CardText>
-              <CardText>
-                <strong>Rating: {rating}</strong>
-              </CardText>
+const SingleProduct = props => {
+  let activeProduct = props.selectedProduct
+    ? props.selectedProduct
+    : props.fetchProduct(props.match.params.id);
+  let rating = activeProduct.reviews
+    ? Math.round(
+        Number(
+          activeProduct.reviews.reduce((acc, currProduct) => {
+            return acc + currProduct.rating;
+          }, 0) / activeProduct.reviews.length
+        ) * 100
+      ) / 100
+    : 'No reviews ';
 
-              <Link to={`/products/${propsFromParent.id}`}>
-                <Button>Get Details</Button>
-              </Link>
-              <Button
-                color="primary"
-                onClick={() => this.props.addProductToCart(propsFromParent)}>
-                Add To Cart
-              </Button>
-            </div>
-          </CardBody>
-        </Card>
+  let trueRating = isNaN(rating) ? '' : rating;
+  let reviews = activeProduct.reviews ? activeProduct.reviews.length : '';
+
+  return (
+    <div>
+      <div className="singleproduct-parent">
+        <div className="singleproduct-left">
+          <img src={activeProduct.image} />
+        </div>
+        <div className="singleproduct-right">
+          <div className="singleproduct-info">
+            <h2>
+              {activeProduct.name}
+              <span className="singleproduct-rating">{trueRating}</span>
+              <span className="singleproduct-numReviews">
+                {reviews} Review(s)
+              </span>
+            </h2>
+            <h3 className="singleproduct-price">${activeProduct.price}</h3>
+            <p className="singleproduct-description">
+              {activeProduct.description}
+            </p>
+          </div>
+          <hr />
+          <div className="singleproduct-buttonContainer">
+            <Button onClick={() => props.addProductToCart({ activeProduct })}>
+              Add To Cart
+            </Button>
+          </div>
+        </div>
       </div>
-    );
-  }
-}
+      <div className="singleproduct-reviews">
+        <h1 className="singleproduct-reviewTitle"> Reviews </h1>
+        {activeProduct.reviews &&
+          activeProduct.reviews.map(review => {
+            let user = props.users.find(elem => elem.id === review.userId);
+
+            let trueUser = user || {};
+
+            return (
+              <div className="singleproduct-review" key={review.id}>
+                <h4>
+                  <span>
+                    <img className="review-img" src={trueUser.profilePic} />
+                  </span>
+                  {trueUser.firstName} {trueUser.lastName}
+                </h4>
+                <p> Rating {review.rating} </p>
+                <p> {review.review} </p>
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
+};
 
 const mapState = state => {
   return {
-    selectedProduct: state.selectedProduct
+    selectedProduct: state.selectedProduct[0],
+    users: state.allUsers
   };
 };
 
@@ -80,31 +96,3 @@ export default withRouter(
     mapDispatch
   )(SingleProduct)
 );
-
-{
-  /*<div className="product-item" key={propsFromParent.id}>
-        <Link to={`/products/${propsFromParent.id}`}>
-          <img className="product-img" src={propsFromParent.image} />
-        </Link>
-        <h3 className="product-name">{propsFromParent.name}</h3>
-        <p>{propsFromParent.description}</p>
-        <p>button goes here</p>
-        <p>
-          <strong>Category:</strong> {propsFromParent.category}
-        </p>
-        <p>
-          <strong>Color:</strong> {propsFromParent.color}
-        </p>
-    </div>*/
-}
-
-// let rating = propsFromParent.reviews.length
-//   ? Math.floor(
-//       propsFromParent.reviews.reduce(
-//         (acc, elem) => acc + parseInt(elem.rating),
-//         0
-//       ) / propsFromParent.reviews.length
-//     )
-//   : 'No Reviews';
-
-// console.log(rating);
