@@ -14,9 +14,10 @@ const defaultUser = {};
 
 /**
  * ACTION CREATORS
+ * exporting these for Test Specs
  */
-const getUser = user => ({ type: GET_USER, user });
-const removeUser = () => ({ type: REMOVE_USER });
+export const getUser = user => ({ type: GET_USER, user });
+export const removeUser = () => ({ type: REMOVE_USER });
 
 /**
  * THUNK CREATORS
@@ -24,7 +25,11 @@ const removeUser = () => ({ type: REMOVE_USER });
 export const me = () => dispatch =>
   axios
     .get('/auth/me')
-    .then(res => dispatch(getUser(res.data || defaultUser)))
+    .then(res => {
+      console.log('RES.DATA>>>', res.data);
+      dispatch(getUser(res.data || defaultUser));
+    })
+    // .then(res => dispatch(getUser(res.data || defaultUser)))
     .catch(err => console.log(err));
 
 export const auth = (

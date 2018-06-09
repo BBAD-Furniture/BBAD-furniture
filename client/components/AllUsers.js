@@ -78,7 +78,6 @@ const mapProducts = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick(type, id) {
-      console.log('*****', type, '>>>', id);
       switch (type) {
         case 'delete':
           dispatch(deleteTheUser(id));
@@ -93,7 +92,6 @@ const mapDispatch = dispatch => {
       const selectOptionValue = document.getElementById(userId);
       var optionValue =
         selectOptionValue.options[selectOptionValue.selectedIndex].value;
-      console.log('>>>>>>>>>', optionValue);
       dispatch(updateUserAdminStat(userId, { isAdmin: optionValue }));
     }
   };

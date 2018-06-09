@@ -6,15 +6,7 @@ import { connect } from 'react-redux';
  * COMPONENT
  */
 export const UserHome = props => {
-  const {
-    firstName,
-    lastName,
-    fullName,
-    email,
-    profilePic,
-    reviews,
-    isAdmin
-  } = props.user;
+  const { fullName, email, profilePic, reviews, isAdmin } = props.user;
   const { handleClick } = props;
   return (
     <div>
@@ -29,6 +21,13 @@ export const UserHome = props => {
           </button>
           <h3>Order History</h3>
           <h3>My Reviews</h3>
+          {reviews &&
+            reviews.map(review => (
+              <div key={review.id}>
+                --->
+                {review.review}
+              </div>
+            ))}
         </div>
       ) : (
         <div>
@@ -55,7 +54,6 @@ const mapState = state => {
 const mapDispatch = (dispatch, ownProps) => {
   return {
     handleClick() {
-      //GO TO ALL USERS PAGE
       ownProps.history.push('/users');
     }
   };

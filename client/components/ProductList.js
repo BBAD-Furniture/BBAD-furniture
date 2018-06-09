@@ -23,7 +23,7 @@ export const ProductList = props => {
         <div className="product-main">
           {products &&
             products.map(product => {
-              let rating = product.reviews
+              let rating = product.reviews.length
                 ? Math.round(
                     Number(
                       product.reviews.reduce((acc, currProduct) => {

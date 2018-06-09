@@ -10,7 +10,8 @@ import {
   Products,
   SingleProduct,
   Cart,
-  AllUsers
+  AllUsers,
+  Checkout
 } from './components';
 import { me, getAllUsers } from './store';
 import { ProductList } from './components/ProductList';
@@ -34,6 +35,7 @@ class Routes extends Component {
         <Route exact path="/products" component={Products} />
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/" component={LandingPage} />
         {isLoggedIn && (
           <Switch>
