@@ -1,19 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Sidebar, SingleProduct } from './index';
-import { getCurrentProduct } from '../store';
+import { Sidebar } from './index';
+import { getCurrentProduct, addToCartList } from '../store';
 import '../styles/productList.css';
+import { Link } from 'react-router-dom';
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button
+} from 'reactstrap';
 /**
+ *
  * COMPONENT
  */
 export const ProductList = props => {
   const { products } = props;
-  console.log(props.products.reviews, 'RPRPRPRPRPR');
-  // let rating = Math.floor(
-  //   products.reviews.reduce((acc, elem) => acc + parseInt(elem.rating), 0) /
-  //     elem.reviews.length
-  // );
-
   return (
     <div>
       <div className="flexWrap">
@@ -34,11 +39,42 @@ export const ProductList = props => {
                 : 'No reviews ';
 
               return (
-                <SingleProduct
-                  key={product.id}
-                  propsFromParent={product}
-                  rating={rating}
-                />
+                <div key={product.id}>
+                  <Card className="product-item">
+                    <CardImg
+                      top
+                      width="100%"
+                      src={product.image}
+                      alt="Card image cap"
+                    />
+                    <CardBody>
+                      <CardTitle>
+                        <strong>{product.name}</strong>
+                      </CardTitle>
+                      <CardSubtitle>$ {product.price}</CardSubtitle>
+                      <div className="product-description">
+                        <CardText>
+                          <strong>{product.category} </strong>
+                        </CardText>
+                        <CardText>
+                          <strong>Rating: {rating}</strong>
+                        </CardText>
+
+                        <Link to={`/products/${product.id}`}>
+                          <Button
+                            onClick={() => props.getCurrentProduct(product.id)}>
+                            Get Details
+                          </Button>
+                        </Link>
+                        <Button
+                          color="primary"
+                          onClick={() => props.addProductToCart(product)}>
+                          Add To Cart
+                        </Button>
+                      </div>
+                    </CardBody>
+                  </Card>
+                </div>
               );
             })}
         </div>
@@ -55,7 +91,8 @@ const mapProducts = state => {
 };
 const mapDispatch = dispatch => {
   return {
-    getCurrentProduct: id => dispatch(getCurrentProduct(id))
+    getCurrentProduct: id => dispatch(getCurrentProduct(id)),
+    addProductToCart: product => dispatch(addToCartList(product))
   };
 };
 export const Products = connect(

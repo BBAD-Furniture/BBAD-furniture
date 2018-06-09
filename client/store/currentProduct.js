@@ -16,7 +16,7 @@ export const getCurrentProduct = productId => dispatch =>
 export default function(state = {}, action) {
   switch (action.type) {
     case GET_CURRENT_PRODUCT:
-      return action.product;
+      return { ...action.product };
     default:
       return state;
   }
