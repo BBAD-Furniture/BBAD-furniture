@@ -17,83 +17,114 @@ import {
 /**
  * COMPONENT
  */
-const Cart = props => {
-  console.log(props.count, 'this is in props');
-  let cartItems = props.products;
-  let cartProducts = JSON.parse(localStorage.getItem('products'));
-  cartItems = cartProducts
-    ? cartItems.filter(item => cartProducts.includes(item.id))
-    : [];
+class Cart extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      addedCartItems: [],
+      selectedItem: {},
+      count: 1
+    };
+  }
 
-  // console.log(document.getElementById('qty'));
-  return (
-    <div className="product-main">
-      {cartItems &&
-        cartItems.map(item => {
-          return (
-            <div key={item.id}>
-              <Card className="product-item">
-                <Link to={`/products/${item.id}`}>
-                  <CardImg
-                    top
-                    width="100%"
-                    src={item.image}
-                    alt="Card image cap"
-                  />
-                </Link>
-                <CardBody>
-                  <CardTitle>
-                    <strong>{item.name}</strong>
-                  </CardTitle>
-                  <CardSubtitle>
-                    This is a description, we need a virtual to shorten
-                    descriptions.
-                  </CardSubtitle>
-                  <div className="product-description">
-                    <CardText>
-                      <strong>Qty: </strong>
-                      <select id="qty" onChange={e => props.handleChange(e)}>
-                        <option />
-                        <option>1</option>
-                        <option>2</option>
-                      </select>
-                    </CardText>
+  // shouldComponentUpdate() {
+  //   this.setState({
+  //     addedCartItems: this.props.cartList
+  //   });
+  // }
 
-                    <CardText>
-                      <strong>
-                        Price:
-                        {item.price}
-                      </strong>
-                    </CardText>
-                  </div>
-                </CardBody>
-                <button onClick={props.removeCartItem}>Remove Item</button>
-              </Card>
-            </div>
-          );
-        })}
-      <Link to="/checkout">
-        <button>Checkout</button>
-      </Link>
-    </div>
-  );
-};
+  handleChange = (item, evt) => {
+    const count = evt.target.value;
+    const selectedItem = item;
+    this.setState({ selectedItem, count });
+  };
+
+  render() {
+    let cartItems = this.props.products;
+    let cartProducts = JSON.parse(localStorage.getItem('products'));
+    cartItems = cartProducts
+      ? cartItems.filter(item => cartProducts.includes(item.id))
+      : [];
+
+    return (
+      <div className="product-main">
+        {cartItems &&
+          cartItems.map(item => {
+            return (
+              <div key={item.id}>
+                <Card className="product-item">
+                  <Link to={`/products/${item.id}`}>
+                    <CardImg
+                      top
+                      width="100%"
+                      src={item.image}
+                      alt="Card image cap"
+                    />
+                  </Link>
+                  <CardBody>
+                    <CardTitle>
+                      <strong>{item.name}</strong>
+                    </CardTitle>
+                    <CardSubtitle>
+                      This is a description, we need a virtual to shorten
+                      descriptions.
+                    </CardSubtitle>
+                    <div className="product-description">
+                      <CardText>
+                        <strong>Qty: </strong>
+                        <select
+                          id="qty"
+                          onChange={e => this.handleChange(item, e)}>
+                          <option />
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </CardText>
+
+                      <CardText>
+                        <strong>
+                          Price:
+                          {item.id === this.state.selectedItem.id
+                            ? this.state.count * item.price
+                            : item.price}
+                        </strong>
+                      </CardText>
+                    </div>
+                  </CardBody>
+                  <button onClick={this.props.removeCartItem}>
+                    Remove Item
+                  </button>
+                </Card>
+              </div>
+            );
+          })}
+        <Link to="/checkout">
+          <button>Checkout</button>
+        </Link>
+      </div>
+    );
+  }
+}
 
 const mapState = state => {
   return {
     products: state.products,
-    count: 1
+    cartList: state.cartList
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    handleChange(evt) {
-      // console.log(evt.target.value, props);
-      // state.setState({ quantity: 2 });
-      // this.setState({ quantity: evt.target.value });
-    },
-    removeCartItem: item => dispatch(removeFromCartList(item))
+    // handleChange(evt) {
+    //   console.log(evt.target.value);
+    // },
+    removeCartItem: item => {
+      console.log(item);
+      dispatch(removeFromCartList(item));
+    }
   };
 };
 
