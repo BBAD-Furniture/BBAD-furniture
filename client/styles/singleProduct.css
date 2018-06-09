@@ -1,0 +1,47 @@
+.singleproduct-parent {
+  display: flex;
+  margin: 100px 100px;
+}
+
+.singleproduct-left {
+  flex: 1;
+}
+
+.singleproduct-price {
+  color: red;
+}
+
+img {
+  max-width: 500px;
+}
+.singleproduct-right {
+  flex: 1;
+}
+
+.singleproduct-rating {
+  display: inline;
+  font-size: 1.5rem;
+  padding-left: 10px;
+}
+
+.singleproduct-numReviews {
+  padding-left: 10px;
+  font-size: 1rem;
+}
+
+.singleproduct-reviewTitle {
+  text-align: center;
+}
+
+.singleproduct-reviews {
+  margin: 100px;
+}
+
+.singleproduct-review {
+  margin: 50px 0;
+}
+
+.review-img {
+  width: 50px;
+  padding-right: 10px;
+}
