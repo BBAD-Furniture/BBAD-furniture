@@ -16,7 +16,7 @@ export const UserHome = props => {
     isAdmin
   } = props.user;
   const { handleClick } = props;
-  console.log('REVIEWS', reviews);
+
   return (
     <div>
       {isAdmin ? (

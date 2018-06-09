@@ -93,7 +93,6 @@ const mapDispatch = dispatch => {
       const selectOptionValue = document.getElementById(userId);
       var optionValue =
         selectOptionValue.options[selectOptionValue.selectedIndex].value;
-      console.log('>>>>>>>>>', optionValue);
       dispatch(updateUserAdminStat(userId, { isAdmin: optionValue }));
     }
   };
