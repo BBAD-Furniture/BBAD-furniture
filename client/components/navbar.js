@@ -48,6 +48,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick() {
+      localStorage.setItem('products', JSON.stringify([]));
       dispatch(logout());
     }
   };
