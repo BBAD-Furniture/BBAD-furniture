@@ -10,4 +10,5 @@ export { Products } from './ProductList';
 export { default as SingleProduct } from './SingleProduct';
 export { default as Sidebar } from './Sidebar';
 export { default as Cart } from './Cart';
+export { default as AllUsers } from './AllUsers';
 export { Login, Signup } from './auth-form';

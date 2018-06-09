@@ -9,9 +9,10 @@ import {
   LandingPage,
   Products,
   SingleProduct,
-  Cart
+  Cart,
+  AllUsers
 } from './components';
-import { me } from './store';
+import { me, getAllUsers } from './store';
 import { ProductList } from './components/ProductList';
 
 /**
@@ -38,6 +39,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/users" component={AllUsers} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -63,18 +65,14 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me());
+      dispatch(getAllUsers());
     }
   };
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(Routes)
-);
+export default withRouter(connect(mapState, mapDispatch)(Routes));
 
 /**
  * PROP TYPES
