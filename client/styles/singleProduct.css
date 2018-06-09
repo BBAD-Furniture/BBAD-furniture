@@ -40,3 +40,8 @@ img {
 .singleproduct-review {
   margin: 50px 0;
 }
+
+.review-img {
+  width: 50px;
+  padding-right: 10px;
+}

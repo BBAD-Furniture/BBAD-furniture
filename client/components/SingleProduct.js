@@ -6,7 +6,6 @@ import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
 
 const SingleProduct = props => {
-  console.log(props.users, 'DADV');
   let activeProduct = props.selectedProduct
     ? props.selectedProduct
     : props.fetchProduct(props.match.params.id);
@@ -61,11 +60,13 @@ const SingleProduct = props => {
 
             return (
               <div className="singleproduct-review" key={review.id}>
-                <img src={trueUser.profilePic} />
-                <h3>
+                <h4>
+                  <span>
+                    <img className="review-img" src={trueUser.profilePic} />
+                  </span>
                   {trueUser.firstName} {trueUser.lastName}
-                </h3>
-                <h4> Rating {review.rating} </h4>
+                </h4>
+                <p> Rating {review.rating} </p>
                 <p> {review.review} </p>
               </div>
             );
