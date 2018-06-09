@@ -57,5 +57,18 @@ describe('The `Product` model', () => {
         }
       );
     });
+    it('can handle long `description`', () => {
+      return Product.create({
+        name: 'MARKUS',
+        description: content,
+        price: 199.0,
+        category: 'Living Room',
+        color: 'black',
+        quantity: 1
+      }).then(result => {
+        expect(result).to.be.an('object');
+        expect(result.description).to.equal(content);
+      });
+    });
   }); // end describe('attributes definition')
 }); // end describe('User model')

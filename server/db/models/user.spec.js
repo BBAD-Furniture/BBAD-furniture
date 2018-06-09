@@ -66,4 +66,13 @@ describe('The `User` model', () => {
       expect(cody.correctPassword('bonez')).to.be.equal(false);
     });
   }); // end describe('instance methods')
+  describe('virtual field', () => {
+    it('combines firstName and lastName into fullName', () => {
+      expect(user.fullName).to.equal('Grace Shopper');
+
+      user.firstName = 'Grace';
+      user.lastName = 'Shopper';
+      user.fullName = 'Grace Shopper';
+    });
+  });
 }); // end describe('User model')
