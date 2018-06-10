@@ -26,7 +26,6 @@ const SingleProduct = props => {
   let trueRating = isNaN(rating) ? '' : rating;
   let reviews = activeProduct.reviews ? activeProduct.reviews.length : '';
 
-  console.log('PROPS', props);
   return (
     <div>
       <div className="singleproduct-parent">
