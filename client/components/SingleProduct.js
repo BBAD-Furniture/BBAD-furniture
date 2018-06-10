@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getCurrentProduct, addToCartList } from '../store';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
 
@@ -22,6 +22,7 @@ const SingleProduct = props => {
   let trueRating = isNaN(rating) ? '' : rating;
   let reviews = activeProduct.reviews ? activeProduct.reviews.length : '';
 
+  console.log('PROPS', props);
   return (
     <div>
       <div className="singleproduct-parent">
@@ -47,18 +48,30 @@ const SingleProduct = props => {
             <Button onClick={() => props.addProductToCart({ activeProduct })}>
               Add To Cart
             </Button>
+            {props.currentUser.isAdmin ? (
+              <div>
+                <Link to={`/products/${activeProduct.id}/edit`}>
+                  <Button outline color="warning">
+                    Edit Product
+                  </Button>
+                </Link>
+                <Button outline color="danger">
+                  Delete Product
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <p className="singleproduct-categories">
             <strong>Category:</strong>
             <span className="singleproduct-singleCategory">
-              {' '}
               {activeProduct.category}
             </span>
           </p>
           <p className="singleproduct-categories">
             <strong>Color:</strong>
             <span className="singleproduct-singleCategory">
-              {' '}
               {activeProduct.color}
             </span>
           </p>
@@ -93,7 +106,8 @@ const SingleProduct = props => {
 const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],
-    users: state.allUsers
+    users: state.allUsers,
+    currentUser: state.user
   };
 };
 
@@ -104,9 +118,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(SingleProduct)
-);
+export default withRouter(connect(mapState, mapDispatch)(SingleProduct));
