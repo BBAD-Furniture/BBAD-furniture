@@ -1,18 +1,19 @@
 .product-main {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   flex: 4;
   flex-direction: row;
   flex-wrap: wrap;
   height: 100%;
   align-content: flex-start;
-  margin: 0 20px;
 }
 
 .product-item {
   flex: 1;
   max-width: 250px;
   margin-bottom: 20px;
+  border: 0 !important;
+  text-align: center;
 }
 
 .product-description {

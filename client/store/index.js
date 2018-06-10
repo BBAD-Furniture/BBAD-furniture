@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import products, { getProductList } from './productList';
 import selectedProduct from './currentProduct';
+import filter from './filter';
 import cartList from './cart';
 import allUsers from './allUsers';
 
@@ -13,7 +14,8 @@ const reducer = combineReducers({
   products,
   selectedProduct,
   cartList,
-  allUsers
+  allUsers,
+  filter
 });
 
 const middleware = composeWithDevTools(
@@ -29,3 +31,4 @@ export * from './productList';
 export * from './currentProduct';
 export * from './cart';
 export * from './allUsers';
+export * from './filter';
