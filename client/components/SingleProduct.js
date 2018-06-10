@@ -58,7 +58,7 @@ const SingleProduct = props => {
                 SIGN IN USER ADD TO CART
               </Button>
             ) : null}
-            {props.currentUser.isAdmin ? (
+            {props.currUser.isAdmin ? (
               <div>
                 <Link to={`/products/${activeProduct.id}/edit`}>
                   <Button outline color="warning">
@@ -120,11 +120,8 @@ const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],
     users: state.allUsers,
-<<<<<<< HEAD
     currUser: state.user
-=======
-    currentUser: state.user
->>>>>>> master
+    // currentUser: state.user
   };
 };
 
@@ -132,12 +129,10 @@ const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
-<<<<<<< HEAD
     addProduct: (userId, item) => {
       console.log('userId:', userId, '  item: ', item);
       dispatch(addItem(userId, { productId: item }));
-=======
-
+    },
     handleClick(type, id) {
       switch (type) {
         case 'delete':
@@ -146,7 +141,6 @@ const mapDispatch = dispatch => {
         default:
           break;
       }
->>>>>>> master
     }
   };
 };
