@@ -48,6 +48,7 @@ export const removeFromCartList = item => dispatch => {
 };
 
 export const quantityOfItem = (index, num) => dispatch => {
+  console.log(index, num, 'passed to thunk');
   let qty = JSON.parse(localStorage.getItem('quantity'));
   qty[index] = num.target.value;
   localStorage.setItem('quantity', JSON.stringify(qty));

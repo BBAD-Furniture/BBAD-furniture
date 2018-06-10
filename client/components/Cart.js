@@ -50,18 +50,19 @@ const Cart = props => {
                   type="number"
                   min="1"
                   max="10"
-                  value={itemCount[idx]}
+                  placeholder="1"
                   onChange={e => props.handleChange(idx, e)}
                 />
               </div>
               <div>
                 <button
+                  type="button"
                   className="remove-product"
                   onClick={() => props.removeCartItem(item)}>
                   Remove
                 </button>
               </div>
-              <div>{item.price * itemCount[idx]}</div>
+              <div>{item.price * +itemCount[idx]}</div>
             </div>
           );
         })}
@@ -69,7 +70,9 @@ const Cart = props => {
       <div className="totals">
         GrandTotal: {100.0}
         <Link to="/checkout">
-          <button className="checkout">Checkout</button>
+          <button type="button" className="checkout">
+            Checkout
+          </button>
         </Link>
       </div>
     </div>
