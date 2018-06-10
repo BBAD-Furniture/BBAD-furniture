@@ -44,7 +44,7 @@ const SingleProduct = props => {
           </div>
           <hr />
           <div className="singleproduct-buttonContainer">
-            <Button onClick={() => props.addProductToCart({ activeProduct })}>
+            <Button onClick={() => props.addProductToCart(activeProduct)}>
               Add To Cart
             </Button>
           </div>
