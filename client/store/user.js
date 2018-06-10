@@ -14,7 +14,7 @@ const defaultUser = {};
 
 /**
  * ACTION CREATORS
- * exporting these for test specs
+ * exporting these for Test Specs
  */
 export const getUser = user => ({ type: GET_USER, user });
 export const removeUser = () => ({ type: REMOVE_USER });
