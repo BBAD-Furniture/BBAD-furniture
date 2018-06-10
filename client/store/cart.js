@@ -11,7 +11,7 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
  * ACTION CREATORS
  */
 const addToCart = item => ({ type: ADD_TO_CART, item });
-const removeFromCart = () => ({ type: REMOVE_FROM_CART });
+const removeFromCart = item => ({ type: REMOVE_FROM_CART });
 const quantityOfItem = num => ({ type: REMOVE_FROM_CART, num });
 
 /**
@@ -23,7 +23,6 @@ export const addToCartList = item => dispatch =>
     .then(res => {
       //places all activeProducts into an array
       dispatch(addToCart(res.data));
-      console.log(res.data, 'data sent back for item');
       //places all activeProducts into the localStorage as: 'products': '[..items]'
       let prods = [];
       prods = JSON.parse(localStorage.getItem('products'));
@@ -38,10 +37,11 @@ export const addToCartList = item => dispatch =>
 
 export const removeFromCartList = item => dispatch => {
   console.log(item, 'this is being deleted');
-  dispatch(removeFromCart());
+  dispatch(removeFromCart(item));
   let prods = [];
-  prods = JSON.parse(localStorage.getItem('products'));
-  prods.pop();
+  prods = JSON.parse(localStorage.getItem('products')).filter(
+    id => id !== item.id
+  );
   localStorage.setItem('products', JSON.stringify(prods));
 };
 

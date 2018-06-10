@@ -33,15 +33,20 @@ class Cart extends React.Component {
   //   });
   // }
 
-  handleChange = (item, evt) => {
-    const count = evt.target.value;
-    const selectedItem = item;
-    this.setState({ selectedItem, count });
-  };
+  // handleChange = (item, evt) => {
+  //   const count = evt.target.value;
+  //   const selectedItem = item;
+  //   this.setState({ selectedItem, count });
+  // };
 
   render() {
     let cartItems = this.props.products;
     let cartProducts = JSON.parse(localStorage.getItem('products'));
+
+    localStorage.setItem('quantity', JSON.stringify(cartProducts.map(i => 1)));
+    let itemCount = localStorage.getItem('quantity');
+    console.log(itemCount);
+
     cartItems = cartProducts
       ? cartItems.filter(item => cartProducts.includes(item.id))
       : [];
@@ -49,7 +54,7 @@ class Cart extends React.Component {
     return (
       <div className="product-main">
         {cartItems &&
-          cartItems.map(item => {
+          cartItems.map((item, idx) => {
             return (
               <div key={item.id}>
                 <Card className="product-item">
@@ -74,7 +79,7 @@ class Cart extends React.Component {
                         <strong>Qty: </strong>
                         <select
                           id="qty"
-                          onChange={e => this.handleChange(item, e)}>
+                          onChange={e => this.props.handleChange(idx, e)}>
                           <option />
                           <option>1</option>
                           <option>2</option>
@@ -87,14 +92,12 @@ class Cart extends React.Component {
                       <CardText>
                         <strong>
                           Price:
-                          {item.id === this.state.selectedItem.id
-                            ? this.state.count * item.price
-                            : item.price}
+                          {item.price}
                         </strong>
                       </CardText>
                     </div>
                   </CardBody>
-                  <button onClick={this.props.removeCartItem}>
+                  <button onClick={() => this.props.removeCartItem(item)}>
                     Remove Item
                   </button>
                 </Card>
@@ -118,13 +121,13 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    // handleChange(evt) {
-    //   console.log(evt.target.value);
-    // },
-    removeCartItem: item => {
-      console.log(item);
-      dispatch(removeFromCartList(item));
-    }
+    handleChange(index, evt) {
+      let qty = JSON.parse(localStorage.getItem('quantity'));
+      qty[index] = evt.target.value;
+      localStorage.setItem('quantity', JSON.stringify(qty));
+      console.log(localStorage.getItem('quantity'));
+    },
+    removeCartItem: item => dispatch(removeFromCartList(item))
   };
 };
 
