@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeFromCartList, getItems } from '../store';
+import { removeFromCartList, changedOrder } from '../store';
 // import SingleProduct from './SingleProduct';
 import { Link } from 'react-router-dom';
 import '../styles/cart.css';
@@ -23,19 +23,19 @@ const Cart = props => {
     : [];
 
   return (
-    <div>
-      {!Object.keys(user).length ? (
-        <div className="shopping-cart">
-          <h1>Shopping Cart</h1>
-          <div className="column-labels">
-            <label>Image</label>
-            <label>Product</label>
-            <label>Price</label>
-            <label>Quantity</label>
-            <label>Remove</label>
-            <label>Total</label>
-          </div>
+    <div className="shopping-cart">
+      <h1>Shopping Cart</h1>
+      <div className="column-labels">
+        <label>Image</label>
+        <label>Product</label>
+        <label>Price</label>
+        <label>Quantity</label>
+        <label>Remove</label>
+        <label>Total</label>
+      </div>
 
+      {!Object.keys(user).length ? (
+        <div>
           {cartItems &&
             cartItems.map((item, idx) => {
               return (
@@ -83,9 +83,28 @@ const Cart = props => {
             signedInItems.map(oneItem => {
               const allProds = products.find(it => it.id === oneItem.productId);
               return (
-                <div key={oneItem}>
-                  <h2>{allProds.name}</h2>
-                  <h2>{oneItem.quantity}</h2>
+                <div className="product" key={allProds.id}>
+                  <Link to={`/products/${allProds.id}`}>
+                    <div className="product-image">
+                      <img src={allProds.image} />
+                    </div>
+                  </Link>
+                  <div>
+                    <div className="product-name">{allProds.name}</div>
+                    <p>{allProds.description.slice(0, 25)}</p>
+                  </div>
+                  <div>{allProds.price}</div>
+                  <div className="quantity">
+                    <div>{oneItem.quantity}</div>
+                  </div>
+                  <div>
+                    <button
+                      className="remove-product"
+                      onClick={() => props.handleQuantityChange(allProds.id)}>
+                      Remove
+                    </button>
+                  </div>
+                  <div>{allProds.price}</div>
                 </div>
               );
             })}
@@ -112,11 +131,18 @@ const mapDispatch = dispatch => {
       localStorage.setItem('quantity', JSON.stringify(qty));
       console.log(localStorage.getItem('quantity'));
     },
-    removeCartItem: item => dispatch(removeFromCartList(item))
-    // getItems: id => {
-    //   dispatch(getItems(id));
-    // }
+    removeCartItem: item => dispatch(removeFromCartList(item)),
+    handleQuantityChange(productId) {
+      // const quantity = evt.target.value;
+      console.log(productId);
+      // dispatch(changedOrder(userId, { productId, quantity }));
+    }
   };
 };
 
 export default connect(mapState, mapDispatch)(Cart);
+
+// <div key={oneItem}>
+// <h2>{allProds.name}</h2>
+// <h2>{oneItem.quantity}</h2>
+// </div>

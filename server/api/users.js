@@ -95,14 +95,37 @@ router.get('/:userId/order', (req, res, next) => {
       return user.getCurrentOrder(); // getting ONLY orders with status false
     })
     .spread(order => {
-      console.log('order>>>', order);
-      OrderDetail.findAll({
-        where: {
-          orderId: order.id
-        }
-      }).then(items => {
-        items ? res.json(items) : res.status(404).json();
-      });
-    })
-    .catch(next);
+      // console.log('order>>>', order);
+      !order
+        ? res.json(null) //if no orders for the user, return null
+        : OrderDetail.findAll({
+            where: {
+              orderId: order.id
+            }
+          })
+            .then(items => {
+              items ? res.json(items) : res.status(404).json();
+            })
+            .catch(next);
+    });
 });
+
+// router.put(`/:userId/order`, (req, res, next) => {
+//   // console.log('user>>>>>>>>>', req.user);
+//   console.log('body>>>>>>>>', req.body);
+//   req.user.getCurrentOrder().spread(order => {
+//     OrderDetail.findOne({
+//       where: {
+//         orderId: order.id,
+//         productId: req.body.productId
+//       }
+//     })
+//       .then(ord => {
+//         // const prevQuantity = ord.quantity;
+//         return ord.update({ quantity: req.body.quantity });
+//       })
+//       .then(data => {
+//         data ? res.json(data) : res.status(404).json();
+//       });
+//   });
+// });
