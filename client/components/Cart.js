@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeFromCartList } from '../store';
-// import SingleProduct from './SingleProduct';
+import { removeFromCartList, quantityOfItem } from '../store';
 import { Link } from 'react-router-dom';
 import '../styles/cart.css';
 
@@ -12,8 +11,8 @@ const Cart = props => {
   let cartItems = props.products;
   let cartProducts = JSON.parse(localStorage.getItem('products'));
 
-  localStorage.setItem('quantity', JSON.stringify(cartProducts.map(i => 1)));
-  let itemCount = localStorage.getItem('quantity');
+  // localStorage.setItem('quantity', JSON.stringify(cartProducts.map(i => 1)));
+  let itemCount = JSON.parse(localStorage.getItem('quantity'));
   console.log(itemCount);
 
   cartItems = cartProducts
@@ -49,8 +48,9 @@ const Cart = props => {
               <div className="quantity">
                 <input
                   type="number"
-                  value="1"
                   min="1"
+                  max="10"
+                  value={itemCount[idx]}
                   onChange={e => props.handleChange(idx, e)}
                 />
               </div>
@@ -61,7 +61,7 @@ const Cart = props => {
                   Remove
                 </button>
               </div>
-              <div>{item.price}</div>
+              <div>{item.price * itemCount[idx]}</div>
             </div>
           );
         })}
@@ -85,12 +85,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleChange(index, evt) {
-      let qty = JSON.parse(localStorage.getItem('quantity'));
-      qty[index] = evt.target.value;
-      localStorage.setItem('quantity', JSON.stringify(qty));
-      console.log(localStorage.getItem('quantity'));
-    },
+    handleChange: (index, evt) => dispatch(quantityOfItem(index, evt)),
     removeCartItem: item => dispatch(removeFromCartList(item))
   };
 };

@@ -1,0 +1,21 @@
+.checkout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.checkout div {
+  padding: 0px 30px 30px 20px;
+  font-weight: 100;
+}
+.info {
+  border-right: 1px solid #eee;
+}
+
+.billing,
+.billing > input {
+  padding: 4px;
+}
+
+input {
+  display: block;
+}

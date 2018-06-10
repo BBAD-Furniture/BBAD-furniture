@@ -12,7 +12,7 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
  */
 const addToCart = item => ({ type: ADD_TO_CART, item });
 const removeFromCart = item => ({ type: REMOVE_FROM_CART, item });
-const quantityOfItem = num => ({ type: REMOVE_FROM_CART, num });
+// const quantityOfItem = num => ({ type: REMOVE_FROM_CART, num });
 
 /**
  * THUNK CREATORS
@@ -32,6 +32,8 @@ export const addToCartList = item => dispatch =>
             JSON.stringify(new Set(prods.concat(item.id)))
           )
         : localStorage.setItem('products', JSON.stringify([item.id]));
+
+      localStorage.setItem('quantity', JSON.stringify(prods.map(i => 1) || []));
     })
     .catch(err => console.log(err));
 
@@ -45,8 +47,12 @@ export const removeFromCartList = item => dispatch => {
   localStorage.setItem('products', JSON.stringify(prods));
 };
 
-export const assignQuantityToItem = item => dispatch => {};
-//update quantity for prouduct in the join table
+export const quantityOfItem = (index, num) => dispatch => {
+  let qty = JSON.parse(localStorage.getItem('quantity'));
+  qty[index] = num.target.value;
+  localStorage.setItem('quantity', JSON.stringify(qty));
+};
+
 /**
  * REDUCER
  */
