@@ -3,32 +3,45 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
+import { Input, InputGroupText } from 'reactstrap';
 
 import '../styles/navbar.css';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="nav-parent">
-    <Link to="/" className="nav-logo">
-      <h1>BBAD Furniture Co.</h1>
-    </Link>
     <nav className="nav-links">
       {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          <Link to="/products">View All Products</Link>
-          <Link to="/cart">View Cart</Link>
+        <div className="nav-links-container">
+          <div className="nav-right">
+            <Link to="/" className="nav-logo">
+              <h1>BBAD Co.</h1>
+            </Link>
+            {/* The navbar will show these links after you log in */}
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+            <Link to="/products">View All Products</Link>
+            <Link to="/cart">View Cart</Link>
+          </div>
+          <div className="nav-search">
+            <Input placeholder="Search BBAD" />
+          </div>
         </div>
       ) : (
-        <div>
+        <div className="nav-links-container">
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/products">View All Products</Link>
-          <Link to="/cart">View Cart</Link>
+          <div className="nav-right">
+            <Link to="/" className="nav-logo">
+              <h1>BBAD Co.</h1>
+            </Link>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+            <Link to="/products">View All Products</Link>
+            <Link to="/cart">View Cart</Link>
+          </div>
+          <div className="nav-search">
+            <Input placeholder="Search BBAD" />
+          </div>
         </div>
       )}
     </nav>

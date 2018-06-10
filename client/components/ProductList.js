@@ -62,12 +62,15 @@ export const ProductList = props => {
 
                         <Link to={`/products/${product.id}`}>
                           <Button
+                            outline
+                            color="secondary"
                             onClick={() => props.getCurrentProduct(product.id)}>
                             Get Details
                           </Button>
                         </Link>
                         <Button
-                          color="primary"
+                          outline
+                          color="success"
                           onClick={() => props.addProductToCart(product)}>
                           Add To Cart
                         </Button>

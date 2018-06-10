@@ -1,3 +1,13 @@
 .sidebar {
   flex: 1;
 }
+
+.sidebar-title {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ced4da;
+}
+
+.filter-section h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ced4da;
+}
