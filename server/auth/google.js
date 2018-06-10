@@ -18,7 +18,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     (token, refreshToken, profile, done) => {
       const googleId = profile.id;
       const email = profile.emails[0].value;
-      User.find({ where: { googleId }, include: { model: Review } })
+      User.find({ googleId })
         .then(
           foundUser =>
             (foundUser
@@ -27,8 +27,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
                   where: {
                     email,
                     googleId
-                  },
-                  include: { model: Review }
+                  }
                 }).then(createdUser => done(null, createdUser)))
         )
         .catch(done);

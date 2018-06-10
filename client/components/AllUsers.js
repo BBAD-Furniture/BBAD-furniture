@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Sidebar } from './index';
 import { Table } from 'reactstrap';
-import { deleteTheUser, updateUserAdminStat } from '../store';
+import { deleteTheUser, updateUser } from '../store';
 import '../styles/AllUsers.css';
 
 const AllUsers = props => {
@@ -55,7 +55,7 @@ const AllUsers = props => {
                     </td>
                     <td
                       className="closebtn"
-                      onClick={() => handleClick('reset')}>
+                      onClick={() => handleClick('reset', user.id)}>
                       O
                     </td>
                   </tr>
@@ -78,12 +78,12 @@ const mapProducts = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick(type, id) {
-      console.log('*****', type, '>>>', id);
       switch (type) {
         case 'delete':
           dispatch(deleteTheUser(id));
           break;
         case 'reset':
+          dispatch(updateUser(id, { resetPassword: true }));
           break;
         default:
           break;
@@ -93,8 +93,7 @@ const mapDispatch = dispatch => {
       const selectOptionValue = document.getElementById(userId);
       var optionValue =
         selectOptionValue.options[selectOptionValue.selectedIndex].value;
-      console.log('>>>>>>>>>', optionValue);
-      dispatch(updateUserAdminStat(userId, { isAdmin: optionValue }));
+      dispatch(updateUser(userId, { isAdmin: optionValue }));
     }
   };
 };

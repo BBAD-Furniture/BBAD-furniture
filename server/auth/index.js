@@ -20,18 +20,8 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/signup', (req, res, next) => {
-  // console.log('REQ>BOY>>>>', req.body);
-  // const { firstName, lastName, email, password } = req.body;
-  // User.create({
-  //   where: {
-  //     firstName: req.body.firstName,
-  //     lastName: req.body.lastName,
-  //     email: req.body.email,
-  //     password: req.body.password
-  //   },
-  //   include: { model: Review }
-  // })
-  User.create(req.body)
+  const { firstName, lastName, email, password } = req.body;
+  User.create({ firstName, lastName, email, password })
     .then(user => {
       req.login(user, err => (err ? next(err) : res.json(user)));
     })

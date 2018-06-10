@@ -44,6 +44,10 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
+  resetPassword: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   fullName: {
     type: Sequelize.VIRTUAL,
     get() {

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const GET_USERS = 'GET_USERS';
 const DELETE_USER = 'DELETE_USER';
-const UPDATE_ADMIN_STATUS = 'UPDATE_ADMIN_STATUS';
+const UPDATE_USER = 'UPDATE_USER';
 
 const getUsers = users => ({
   type: GET_USERS,
@@ -14,8 +14,9 @@ const deleteUser = id => ({
   id
 });
 
-const updateAdminStatus = () => ({
-  type: UPDATE_ADMIN_STATUS
+const updateUserInfo = user => ({
+  type: UPDATE_USER,
+  user
 });
 
 export const getAllUsers = () => dispatch =>
@@ -32,10 +33,10 @@ export const deleteTheUser = userId => dispatch =>
     .catch(err => console.log(err));
 
 //update user
-export const updateUserAdminStat = (userId, userAdminStatus) => dispatch => {
+export const updateUser = (userId, userInfo) => dispatch => {
   axios
-    .put(`/api/users/${userId}`, userAdminStatus)
-    .then(res => dispatch(updateAdminStatus(res.data)))
+    .put(`/api/users/${userId}`, userInfo)
+    .then(res => dispatch(updateUserInfo(res.data)))
     .catch(err => console.log(err));
 };
 
@@ -45,9 +46,15 @@ export default (state = [], action) => {
       return action.users;
     case DELETE_USER:
       return state.filter(user => user.id !== action.id);
-    case UPDATE_ADMIN_STATUS:
-      console.log('User stauts Updated');
-      return state;
+    case UPDATE_USER:
+      console.log('User Updated');
+      return state.map(user => {
+        if (user.id === action.user.id) {
+          user = action.user;
+        }
+        return user;
+      });
+    // return state;
     default:
       return state;
   }
