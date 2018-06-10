@@ -26,7 +26,7 @@ export const getProductList = () => dispatch =>
 export default function(state = [], action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return action.products;
+      return [...action.products];
 
     default:
       return state;

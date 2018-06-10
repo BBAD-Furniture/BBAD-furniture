@@ -11,3 +11,8 @@
   padding-bottom: 5px;
   border-bottom: 1px solid #ced4da;
 }
+
+.filter-item {
+  margin: 10px 0;
+}
+

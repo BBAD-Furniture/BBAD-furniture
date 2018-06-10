@@ -48,6 +48,20 @@ const SingleProduct = props => {
               Add To Cart
             </Button>
           </div>
+          <p className="singleproduct-categories">
+            <strong>Category:</strong>
+            <span className="singleproduct-singleCategory">
+              {' '}
+              {activeProduct.category}
+            </span>
+          </p>
+          <p className="singleproduct-categories">
+            <strong>Color:</strong>
+            <span className="singleproduct-singleCategory">
+              {' '}
+              {activeProduct.color}
+            </span>
+          </p>
         </div>
       </div>
       <div className="singleproduct-reviews">

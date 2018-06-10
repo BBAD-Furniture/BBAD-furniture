@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getFilter } from '../store';
-
+import { filterProductByColor, filterProductByCategory } from '../store';
+import { Button } from 'reactstrap';
 import '../styles/sidebar.css';
 
 const Sidebar = props => {
@@ -12,14 +12,36 @@ const Sidebar = props => {
   );
   let colors = Array.from(new Set(products.map(product => product.color)));
 
+  function handleCategory(event) {
+    let category = event.target.textContent;
+    props.filterCategory(category);
+  }
+  function handleColor(event) {
+    let color = event.target.textContent;
+    props.filterColor(color);
+  }
+
+  function resetFilter() {
+    props.filterColor('');
+  }
+
   return (
     <div className="sidebar-container">
       <h2 className="sidebar-title"> Filter By</h2>
-
       <div className="filter-section">
         <h3>Categories</h3>
+        <Button
+          className="sidebar-reset"
+          onClick={resetFilter.bind(this)}
+          outline
+          color="success">
+          Clear Filters
+        </Button>{' '}
         {categories.map(category => (
-          <p className="filter-item" key={category}>
+          <p
+            onClick={handleCategory.bind(this)}
+            className="filter-item"
+            key={category}>
             {category}
           </p>
         ))}
@@ -27,7 +49,10 @@ const Sidebar = props => {
       <div className="filter-section">
         <h3>Colors</h3>
         {colors.map(color => (
-          <p className="filter-item" key={color}>
+          <p
+            onClick={handleColor.bind(this)}
+            className="filter-item"
+            key={color}>
             {color}
           </p>
         ))}
@@ -38,12 +63,14 @@ const Sidebar = props => {
 
 const mapState = state => {
   return {
-    products: state.products
+    products: state.products,
+    filter: state.filter
   };
 };
 const mapDispatch = dispatch => {
   return {
-    filterFunc: filter => dispatch(getFilter(filter))
+    filterColor: filter => dispatch(filterProductByColor(filter)),
+    filterCategory: filter => dispatch(filterProductByCategory(filter))
   };
 };
 

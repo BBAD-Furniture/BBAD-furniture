@@ -18,7 +18,7 @@ import {
  * COMPONENT
  */
 export const ProductList = props => {
-  const { products } = props;
+  let products = props.filtered.length ? props.filtered : props.products;
   return (
     <div>
       <div className="flexWrap">
@@ -89,7 +89,8 @@ export const ProductList = props => {
 const mapProducts = state => {
   return {
     products: state.products,
-    selectedProduct: state.selectedProduct
+    selectedProduct: state.selectedProduct,
+    filtered: state.filter
   };
 };
 const mapDispatch = dispatch => {
