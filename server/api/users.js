@@ -133,22 +133,24 @@ router.post(`/:userId/item/delete`, (req, res, next) => {
   // console.log('user>>>>>>>>>', req.user);
 });
 
-// router.put(`/:userId/order`, (req, res, next) => {
-//   // console.log('user>>>>>>>>>', req.user);
-//   console.log('body>>>>>>>>', req.body);
-//   req.user.getCurrentOrder().spread(order => {
-//     OrderDetail.findOne({
-//       where: {
-//         orderId: order.id,
-//         productId: req.body.productId
-//       }
-//     })
-//       .then(ord => {
-//         // const prevQuantity = ord.quantity;
-//         return ord.update({ quantity: req.body.quantity });
-//       })
-//       .then(data => {
-//         data ? res.json(data) : res.status(404).json();
-//       });
-//   });
-// });
+router.put(`/:userId/order`, (req, res, next) => {
+  const { status } = req.body;
+
+  req.user
+    .getCurrentOrder() //get ONLY orders with status false
+    .spread(order => {
+      return order.getProducts().then(prods => {
+        OrderDetail.findAll({
+          where: {
+            orderId: order.id
+          }
+        }).then(ordDets => {
+          prods.map((p, idx) => {
+            let ans = p.changeQuantity(ordDets[idx].quantity);
+            p.update({ quantity: ans });
+          });
+          order.update({ status }).then(data => res.json(data));
+        });
+      });
+    });
+});

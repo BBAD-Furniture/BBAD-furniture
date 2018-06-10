@@ -50,14 +50,15 @@ const SingleProduct = props => {
           </div>
           <hr />
           <div className="singleproduct-buttonContainer">
-            <Button onClick={() => props.addProductToCart({ activeProduct })}>
-              Add To Cart
-            </Button>
             {Object.keys(currUser).length ? (
               <Button onClick={() => addProduct(currUser.id, activeProduct.id)}>
-                SIGN IN USER ADD TO CART
+                ADD TO CART
               </Button>
-            ) : null}
+            ) : (
+              <Button onClick={() => props.addProductToCart({ activeProduct })}>
+                Add To Cart
+              </Button>
+            )}
             {props.currUser.isAdmin ? (
               <div>
                 <Link to={`/products/${activeProduct.id}/edit`}>
@@ -121,7 +122,6 @@ const mapState = state => {
     selectedProduct: state.selectedProduct[0],
     users: state.allUsers,
     currUser: state.user
-    // currentUser: state.user
   };
 };
 
@@ -130,7 +130,6 @@ const mapDispatch = dispatch => {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
     addProduct: (userId, item) => {
-      console.log('userId:', userId, '  item: ', item);
       dispatch(addItem(userId, { productId: item }));
     },
     handleClick(type, id) {

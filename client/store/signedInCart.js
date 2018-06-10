@@ -3,7 +3,7 @@ import axios from 'axios';
 const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 const USER_ORDER = 'USER_ORDER';
 const DELETE_ITEM = 'DELETE_ITEM';
-// const CHANGE_ORDER = 'CHANGE_ORDER';
+const CHANGE_ORDER = 'CHANGE_ORDER';
 
 const addItemToCart = item => ({
   type: ADD_ITEM_TO_CART,
@@ -20,10 +20,10 @@ const deleteItem = id => ({
   id
 });
 
-// const changeOrder = item => ({
-//   type: CHANGE_ORDER,
-//   item
-// });
+const changeOrder = item => ({
+  type: CHANGE_ORDER,
+  item
+});
 
 export const addItem = (userId, item) => dispatch =>
   axios
@@ -47,11 +47,11 @@ export const deleteTheItem = (userId, itemId) => dispatch => {
     })
     .catch(err => console.log(err));
 };
-// export const changedOrder = (userId, orderInfo) => dispatch =>
-//   axios
-//     .put(`api/users/${userId}/order`, orderInfo)
-//     .then(res => dispatch(changeOrder(res.data)))
-//     .catch(err => console.log(err));
+export const changedOrder = (userId, orderInfo) => dispatch =>
+  axios
+    .put(`api/users/${userId}/order`, orderInfo)
+    .then(res => dispatch(changeOrder(res.data)))
+    .catch(err => console.log(err));
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -61,12 +61,14 @@ export default (state = {}, action) => {
       return action.items;
     case DELETE_ITEM:
       return state.filter(item => item.productId !== action.id);
-    // case CHANGE_ORDER:
-    //   return state.map(it => {
-    //     if (it.id === action.item.id) it = action.item;
-    //     return it;
-    //   });
-    // // return action.item;
+    case CHANGE_ORDER:
+      return state.map(it => {
+        // if (it.id === action.item.id) it = action.item;
+        // return it;
+        ///CHECK THIS OUT  BELOWWWWWW THE RETURN
+        return state;
+      });
+    // return action.item;
     default:
       return state;
   }

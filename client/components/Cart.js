@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeFromCartList, deleteTheItem } from '../store';
+import { removeFromCartList, deleteTheItem, changedOrder } from '../store';
 // import SingleProduct from './SingleProduct';
 import { Link } from 'react-router-dom';
 import '../styles/cart.css';
@@ -9,7 +9,8 @@ import '../styles/cart.css';
  * COMPONENT
  */
 const Cart = props => {
-  const { user, signedInItems, products } = props;
+  const { user, signedInItems, products, handleCheckout } = props;
+  let total = 0;
   // props.getItems(user.id);
   let cartItems = props.products;
   let cartProducts = JSON.parse(localStorage.getItem('products'));
@@ -79,9 +80,11 @@ const Cart = props => {
         </div>
       ) : (
         <div>
-          {signedInItems.length &&
+          {signedInItems &&
+            signedInItems.length &&
             signedInItems.map(oneItem => {
               const allProds = products.find(it => it.id === oneItem.productId);
+              total += allProds.price * oneItem.quantity;
               return (
                 <div className="product" key={allProds.id}>
                   <Link to={`/products/${allProds.id}`}>
@@ -100,9 +103,7 @@ const Cart = props => {
                   <div>
                     <button
                       className="remove-product"
-                      onClick={() =>
-                        props.handleQuantityChange(user.id, allProds.id)
-                      }>
+                      onClick={() => props.handleDelete(user.id, allProds.id)}>
                       Remove
                     </button>
                   </div>
@@ -110,6 +111,16 @@ const Cart = props => {
                 </div>
               );
             })}
+          <div className="totals">
+            Total: {total}
+            <Link to="/checkout">
+              <button
+                className="checkout"
+                onClick={() => handleCheckout(user.id)}>
+                Checkout
+              </button>
+            </Link>
+          </div>
         </div>
       )}
     </div>
@@ -134,17 +145,14 @@ const mapDispatch = dispatch => {
       console.log(localStorage.getItem('quantity'));
     },
     removeCartItem: item => dispatch(removeFromCartList(item)),
-    handleQuantityChange(userId, productId) {
-      // const quantity = evt.target.value;
+    handleDelete(userId, productId) {
       console.log(productId);
       dispatch(deleteTheItem(userId, productId));
+    },
+    handleCheckout(userId) {
+      dispatch(changedOrder(userId, { status: true }));
     }
   };
 };
 
 export default connect(mapState, mapDispatch)(Cart);
-
-// <div key={oneItem}>
-// <h2>{allProds.name}</h2>
-// <h2>{oneItem.quantity}</h2>
-// </div>
