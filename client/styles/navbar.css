@@ -1,14 +1,50 @@
 .nav-parent {
   display: flex;
-  justify-content: space-around;
-  margin: 20px;
-
-}
-
-.nav-logo {
-  flex: 2;
+  justify-content: space-between;
+  margin: 50px 0;
 }
 
 .nav-links {
   flex: 1;
+}
+
+.nav-search {
+  display: flex;
+  flex-direction: column;
+}
+.nav-search input {
+  width: 300px;
+
+  flex: 1;
+}
+
+.nav-logo {
+  margin: 0px !important;
+}
+
+.nav-right {
+  flex: 1;
+}
+.nav-links a {
+  font-size: 14px;
+  margin: 15px;
+}
+
+.nav-links-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.filter-item {
+  transition: all 0.2s ease-in;
+}
+.filter-item:hover {
+  color: teal;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.nav-cart {
+  font-size: 1.5rem;
 }

@@ -23,7 +23,13 @@ label {
 }
 
 .shopping-cart {
-  margin-top: -45px;
+  text-align: center;
+  margin: 20px 0;
+  /* margin-top: -45px; */
+}
+
+.shopping-cart h1 {
+  margin: 50px 0;
 }
 
 .product-name {
@@ -72,4 +78,5 @@ label {
   color: #fff;
   font-size: 25px;
   border-radius: 3px;
+  margin-left: auto;
 }

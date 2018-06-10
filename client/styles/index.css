@@ -4,6 +4,7 @@ body {
   font-family: 'montserrat', sans-serif;
   color: black;
   height: 100%;
+  margin: 0 20px;
 }
 
 a {
@@ -20,7 +21,6 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
   text-decoration: none;
 }
 

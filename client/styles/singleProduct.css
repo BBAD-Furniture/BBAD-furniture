@@ -45,3 +45,11 @@ img {
   width: 50px;
   padding-right: 10px;
 }
+
+.singleproduct-categories {
+  margin: 20px 0;
+}
+
+.singleproduct-singleCategory {
+  color: #999;
+}

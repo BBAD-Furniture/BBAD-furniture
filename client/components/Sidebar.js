@@ -1,50 +1,76 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getFilter } from '../store';
-
+import { filterProductByColor, filterProductByCategory } from '../store';
+import { Button } from 'reactstrap';
 import '../styles/sidebar.css';
 
 const Sidebar = props => {
-  // let products = props.products;
-  // let colors = [...new Set(products.map(product => product.color))];
-  // let categories = Array.from(
-  //   new Set([].concat(...products.map(product => product.category)))
-  // );
-  return <div>Sidebar </div>;
-  // return (
-  //   <div className="sidebar">
-  //     <h2> Filter by</h2>
-  //     <h3> Color </h3>
-  //     <ul>
-  //       {colors.map(color => (
-  //         <li onClick={() => props.filterFunc({ color: color })} key={color}>
-  //           <Link to="/filtered">{color}</Link>
-  //         </li>
-  //       ))}
-  //     </ul>
-  //     <p> Category </p>
-  //     <ul>
-  //       {categories.map(category => (
-  //         <li
-  //           onClick={() => props.filterFunc({ category: category })}
-  //           key={category}>
-  //           <Link to="/filtered">{category}</Link>
-  //         </li>
-  //       ))}
-  //     </ul>
-  //   </div>
-  // );
+  let products = props.products || [];
+  let categories = Array.from(
+    new Set(products.map(product => product.category))
+  );
+  let colors = Array.from(new Set(products.map(product => product.color)));
+
+  function handleCategory(event) {
+    let category = event.target.textContent;
+    props.filterCategory(category);
+  }
+  function handleColor(event) {
+    let color = event.target.textContent;
+    props.filterColor(color);
+  }
+
+  function resetFilter() {
+    props.filterColor('');
+  }
+
+  return (
+    <div className="sidebar-container">
+      <h2 className="sidebar-title"> Filter By</h2>
+      <div className="filter-section">
+        <h3>Categories</h3>
+        <Button
+          className="sidebar-reset"
+          onClick={resetFilter.bind(this)}
+          outline
+          color="success">
+          Clear Filters
+        </Button>{' '}
+        {categories.map(category => (
+          <p
+            onClick={handleCategory.bind(this)}
+            className="filter-item"
+            key={category}>
+            {category}
+          </p>
+        ))}
+      </div>
+      <div className="filter-section">
+        <h3>Colors</h3>
+        {colors.map(color => (
+          <p
+            onClick={handleColor.bind(this)}
+            className="filter-item"
+            key={color}>
+            {color}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 const mapState = state => {
   return {
-    products: state.products
+    products: state.products,
+    filter: state.filter
   };
 };
 const mapDispatch = dispatch => {
   return {
-    filterFunc: filter => dispatch(getFilter(filter))
+    filterColor: filter => dispatch(filterProductByColor(filter)),
+    filterCategory: filter => dispatch(filterProductByCategory(filter))
   };
 };
 
