@@ -9,7 +9,7 @@ const OrderDetail = db.define('orderDetail', {
   },
   price: {
     type: Sequelize.FLOAT,
-    allowNull: false,
+    // allowNull: false,
     defaultValue: 0
   }
 });

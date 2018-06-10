@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCurrentProduct, addToCartList } from '../store';
+import { getCurrentProduct, addToCartList, addItem } from '../store';
 import { withRouter } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
 
 const SingleProduct = props => {
+  const { currUser, addProduct } = props;
   let activeProduct = props.selectedProduct
     ? props.selectedProduct
     : props.fetchProduct(props.match.params.id);
@@ -47,6 +48,11 @@ const SingleProduct = props => {
             <Button onClick={() => props.addProductToCart({ activeProduct })}>
               Add To Cart
             </Button>
+            {Object.keys(currUser).length ? (
+              <Button onClick={() => addProduct(currUser.id, activeProduct.id)}>
+                SIGN IN USER ADD TO CART
+              </Button>
+            ) : null}
           </div>
         </div>
       </div>
@@ -79,20 +85,20 @@ const SingleProduct = props => {
 const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],
-    users: state.allUsers
+    users: state.allUsers,
+    currUser: state.user
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
-    addProductToCart: item => dispatch(addToCartList(item))
+    addProductToCart: item => dispatch(addToCartList(item)),
+    addProduct: (userId, item) => {
+      console.log('userId:', userId, '  item: ', item);
+      dispatch(addItem(userId, { productId: item }));
+    }
   };
 };
 
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(SingleProduct)
-);
+export default withRouter(connect(mapState, mapDispatch)(SingleProduct));

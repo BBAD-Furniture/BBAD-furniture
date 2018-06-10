@@ -7,13 +7,15 @@ import products, { getProductList } from './productList';
 import selectedProduct from './currentProduct';
 import cartList from './cart';
 import allUsers from './allUsers';
+import signedInCart from './signedInCart';
 
 const reducer = combineReducers({
   user,
   products,
   selectedProduct,
   cartList,
-  allUsers
+  allUsers,
+  signedInCart
 });
 
 const middleware = composeWithDevTools(
@@ -29,3 +31,4 @@ export * from './productList';
 export * from './currentProduct';
 export * from './cart';
 export * from './allUsers';
+export * from './signedInCart';
