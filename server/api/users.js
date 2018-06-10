@@ -110,6 +110,29 @@ router.get('/:userId/order', (req, res, next) => {
     });
 });
 
+router.post(`/:userId/item/delete`, (req, res, next) => {
+  const { itemId } = req.body;
+  console.log('itemId>>>>', itemId);
+  req.user
+    .getCurrentOrder()
+    .spread(order => {
+      OrderDetail.findOne({
+        where: {
+          productId: itemId,
+          orderId: order.id
+        }
+      })
+        .then(orderDet => {
+          return orderDet.destroy();
+        })
+        .then(deletedOrderDet => {
+          res.json(itemId);
+        });
+    })
+    .catch(next);
+  // console.log('user>>>>>>>>>', req.user);
+});
+
 // router.put(`/:userId/order`, (req, res, next) => {
 //   // console.log('user>>>>>>>>>', req.user);
 //   console.log('body>>>>>>>>', req.body);

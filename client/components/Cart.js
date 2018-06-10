@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeFromCartList, changedOrder } from '../store';
+import { removeFromCartList, deleteTheItem } from '../store';
 // import SingleProduct from './SingleProduct';
 import { Link } from 'react-router-dom';
 import '../styles/cart.css';
@@ -100,7 +100,9 @@ const Cart = props => {
                   <div>
                     <button
                       className="remove-product"
-                      onClick={() => props.handleQuantityChange(allProds.id)}>
+                      onClick={() =>
+                        props.handleQuantityChange(user.id, allProds.id)
+                      }>
                       Remove
                     </button>
                   </div>
@@ -132,10 +134,10 @@ const mapDispatch = dispatch => {
       console.log(localStorage.getItem('quantity'));
     },
     removeCartItem: item => dispatch(removeFromCartList(item)),
-    handleQuantityChange(productId) {
+    handleQuantityChange(userId, productId) {
       // const quantity = evt.target.value;
       console.log(productId);
-      // dispatch(changedOrder(userId, { productId, quantity }));
+      dispatch(deleteTheItem(userId, productId));
     }
   };
 };

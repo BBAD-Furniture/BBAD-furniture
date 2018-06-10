@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 const USER_ORDER = 'USER_ORDER';
+const DELETE_ITEM = 'DELETE_ITEM';
 // const CHANGE_ORDER = 'CHANGE_ORDER';
 
 const addItemToCart = item => ({
@@ -12,6 +13,11 @@ const addItemToCart = item => ({
 const userOrder = items => ({
   type: USER_ORDER,
   items
+});
+
+const deleteItem = id => ({
+  type: DELETE_ITEM,
+  id
 });
 
 // const changeOrder = item => ({
@@ -31,6 +37,16 @@ export const getItems = userId => dispatch =>
     .then(res => dispatch(userOrder(res.data)))
     .catch(err => console.log(err));
 
+//delete user
+export const deleteTheItem = (userId, itemId) => dispatch => {
+  console.log('USERID:', userId, 'PRODUCTID:', itemId);
+  axios
+    .post(`/api/users/${userId}/item/delete`, { itemId })
+    .then(res => {
+      dispatch(deleteItem(res.data));
+    })
+    .catch(err => console.log(err));
+};
 // export const changedOrder = (userId, orderInfo) => dispatch =>
 //   axios
 //     .put(`api/users/${userId}/order`, orderInfo)
@@ -43,6 +59,8 @@ export default (state = {}, action) => {
       return action.item;
     case USER_ORDER:
       return action.items;
+    case DELETE_ITEM:
+      return state.filter(item => item.productId !== action.id);
     // case CHANGE_ORDER:
     //   return state.map(it => {
     //     if (it.id === action.item.id) it = action.item;
