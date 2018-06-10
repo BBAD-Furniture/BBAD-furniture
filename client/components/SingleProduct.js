@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCurrentProduct, addToCartList } from '../store';
+import {
+  getCurrentProduct,
+  addToCartList,
+  removeCurrentProduct
+} from '../store';
 import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
@@ -55,7 +59,10 @@ const SingleProduct = props => {
                     Edit Product
                   </Button>
                 </Link>
-                <Button outline color="danger">
+                <Button
+                  outline
+                  color="danger"
+                  onClick={() => props.handleClick('delete', activeProduct.id)}>
                   Delete Product
                 </Button>
               </div>
@@ -114,7 +121,17 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
-    addProductToCart: item => dispatch(addToCartList(item))
+    addProductToCart: item => dispatch(addToCartList(item)),
+
+    handleClick(type, id) {
+      switch (type) {
+        case 'delete':
+          dispatch(removeCurrentProduct(id));
+          break;
+        default:
+          break;
+      }
+    }
   };
 };
 
