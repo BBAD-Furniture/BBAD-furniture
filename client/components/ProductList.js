@@ -19,6 +19,7 @@ import {
  */
 export const ProductList = props => {
   let products = props.filtered.length ? props.filtered : props.products;
+
   return (
     <div>
       <div className="flexWrap">
@@ -99,7 +100,4 @@ const mapDispatch = dispatch => {
     addProductToCart: product => dispatch(addToCartList(product))
   };
 };
-export const Products = connect(
-  mapProducts,
-  mapDispatch
-)(ProductList);
+export const Products = connect(mapProducts, mapDispatch)(ProductList);

@@ -1,7 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCurrentProduct, addToCartList, addItem } from '../store';
-import { withRouter } from 'react-router-dom';
+import {
+  getCurrentProduct,
+  addToCartList,
+  addItem,
+  removeCurrentProduct
+} from '../store';
+import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
 
@@ -53,18 +58,33 @@ const SingleProduct = props => {
                 SIGN IN USER ADD TO CART
               </Button>
             ) : null}
+            {props.currentUser.isAdmin ? (
+              <div>
+                <Link to={`/products/${activeProduct.id}/edit`}>
+                  <Button outline color="warning">
+                    Edit Product
+                  </Button>
+                </Link>
+                <Button
+                  outline
+                  color="danger"
+                  onClick={() => props.handleClick('delete', activeProduct.id)}>
+                  Delete Product
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <p className="singleproduct-categories">
             <strong>Category:</strong>
             <span className="singleproduct-singleCategory">
-              {' '}
               {activeProduct.category}
             </span>
           </p>
           <p className="singleproduct-categories">
             <strong>Color:</strong>
             <span className="singleproduct-singleCategory">
-              {' '}
               {activeProduct.color}
             </span>
           </p>
@@ -100,7 +120,11 @@ const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],
     users: state.allUsers,
+<<<<<<< HEAD
     currUser: state.user
+=======
+    currentUser: state.user
+>>>>>>> master
   };
 };
 
@@ -108,9 +132,21 @@ const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
+<<<<<<< HEAD
     addProduct: (userId, item) => {
       console.log('userId:', userId, '  item: ', item);
       dispatch(addItem(userId, { productId: item }));
+=======
+
+    handleClick(type, id) {
+      switch (type) {
+        case 'delete':
+          dispatch(removeCurrentProduct(id));
+          break;
+        default:
+          break;
+      }
+>>>>>>> master
     }
   };
 };
