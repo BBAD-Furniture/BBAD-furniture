@@ -11,7 +11,7 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
  * ACTION CREATORS
  */
 const addToCart = item => ({ type: ADD_TO_CART, item });
-const removeFromCart = item => ({ type: REMOVE_FROM_CART });
+const removeFromCart = item => ({ type: REMOVE_FROM_CART, item });
 const quantityOfItem = num => ({ type: REMOVE_FROM_CART, num });
 
 /**
@@ -56,8 +56,7 @@ export default function(state = [], action) {
     case ADD_TO_CART:
       return [...state, action.item];
     case REMOVE_FROM_CART:
-      let prods = [...state];
-      prods.pop();
+      let prods = [...state].filter(item => item !== action.item);
       return prods;
     default:
       return state;

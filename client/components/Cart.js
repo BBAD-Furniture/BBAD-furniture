@@ -3,114 +3,78 @@ import { connect } from 'react-redux';
 import { removeFromCartList } from '../store';
 // import SingleProduct from './SingleProduct';
 import { Link } from 'react-router-dom';
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button
-} from 'reactstrap';
-// import '../styles/productList.css';
+import '../styles/cart.css';
 
 /**
  * COMPONENT
  */
-class Cart extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      addedCartItems: [],
-      selectedItem: {},
-      count: 1
-    };
-  }
+const Cart = props => {
+  let cartItems = props.products;
+  let cartProducts = JSON.parse(localStorage.getItem('products'));
 
-  // shouldComponentUpdate() {
-  //   this.setState({
-  //     addedCartItems: this.props.cartList
-  //   });
-  // }
+  localStorage.setItem('quantity', JSON.stringify(cartProducts.map(i => 1)));
+  let itemCount = localStorage.getItem('quantity');
+  console.log(itemCount);
 
-  // handleChange = (item, evt) => {
-  //   const count = evt.target.value;
-  //   const selectedItem = item;
-  //   this.setState({ selectedItem, count });
-  // };
+  cartItems = cartProducts
+    ? cartItems.filter(item => cartProducts.includes(item.id))
+    : [];
 
-  render() {
-    let cartItems = this.props.products;
-    let cartProducts = JSON.parse(localStorage.getItem('products'));
+  return (
+    <div className="shopping-cart">
+      <h1>Shopping Cart</h1>
+      <div className="column-labels">
+        <label>Image</label>
+        <label>Product</label>
+        <label>Price</label>
+        <label>Quantity</label>
+        <label>Remove</label>
+        <label>Total</label>
+      </div>
 
-    localStorage.setItem('quantity', JSON.stringify(cartProducts.map(i => 1)));
-    let itemCount = localStorage.getItem('quantity');
-    console.log(itemCount);
-
-    cartItems = cartProducts
-      ? cartItems.filter(item => cartProducts.includes(item.id))
-      : [];
-
-    return (
-      <div className="product-main">
-        {cartItems &&
-          cartItems.map((item, idx) => {
-            return (
-              <div key={item.id}>
-                <Card className="product-item">
-                  <Link to={`/products/${item.id}`}>
-                    <CardImg
-                      top
-                      width="100%"
-                      src={item.image}
-                      alt="Card image cap"
-                    />
-                  </Link>
-                  <CardBody>
-                    <CardTitle>
-                      <strong>{item.name}</strong>
-                    </CardTitle>
-                    <CardSubtitle>
-                      This is a description, we need a virtual to shorten
-                      descriptions.
-                    </CardSubtitle>
-                    <div className="product-description">
-                      <CardText>
-                        <strong>Qty: </strong>
-                        <select
-                          id="qty"
-                          onChange={e => this.props.handleChange(idx, e)}>
-                          <option />
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </CardText>
-
-                      <CardText>
-                        <strong>
-                          Price:
-                          {item.price}
-                        </strong>
-                      </CardText>
-                    </div>
-                  </CardBody>
-                  <button onClick={() => this.props.removeCartItem(item)}>
-                    Remove Item
-                  </button>
-                </Card>
+      {cartItems &&
+        cartItems.map((item, idx) => {
+          return (
+            <div className="product" key={item.id}>
+              <Link to={`/products/${item.id}`}>
+                <div className="product-image">
+                  <img src={item.image} />
+                </div>
+              </Link>
+              <div>
+                <div className="product-name">{item.name}</div>
+                <p>{item.description.slice(0, 25)}</p>
               </div>
-            );
-          })}
+              <div>{item.price}</div>
+              <div className="quantity">
+                <input
+                  type="number"
+                  value="1"
+                  min="1"
+                  onChange={e => props.handleChange(idx, e)}
+                />
+              </div>
+              <div>
+                <button
+                  className="remove-product"
+                  onClick={() => props.removeCartItem(item)}>
+                  Remove
+                </button>
+              </div>
+              <div>{item.price}</div>
+            </div>
+          );
+        })}
+
+      <div className="totals">
+        GrandTotal: {100.0}
         <Link to="/checkout">
-          <button>Checkout</button>
+          <button className="checkout">Checkout</button>
         </Link>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 const mapState = state => {
   return {
