@@ -17,7 +17,7 @@ const Product = db.define('product', {
   },
   category: {
     type: Sequelize.ENUM,
-    values: ['Living Room', 'Bedroom', 'Bathroom'],
+    values: ['Living Room', 'Bedroom', 'Bathroom', 'Office'],
     defaultValue: 'Living Room',
     allowNull: false
   },

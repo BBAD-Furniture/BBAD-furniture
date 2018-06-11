@@ -5,7 +5,7 @@ import history from '../history';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 class EditProduct extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {};
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,6 +54,8 @@ class EditProduct extends React.Component {
               <option>Living Room</option>
               <option>Bathroom</option>
               <option>Bedroom</option>
+              <option>Kitchen</option>
+              <option>Office</option>
             </Input>
             <FormText color="muted">Required*</FormText>
           </FormGroup>

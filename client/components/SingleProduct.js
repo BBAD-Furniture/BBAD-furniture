@@ -6,7 +6,7 @@ import {
   removeCurrentProduct
 } from '../store';
 import { withRouter, Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import '../styles/singleProduct.css';
 
 const SingleProduct = props => {
@@ -26,10 +26,6 @@ const SingleProduct = props => {
 
   let trueRating = isNaN(rating) ? '' : rating;
   let reviews = activeProduct.reviews ? activeProduct.reviews.length : '';
-  function handleClick() {
-    console.log('ACTIVE PROD', activeProduct.id);
-    props.deleteProduct(activeProduct.id);
-  }
 
   return (
     <div>
@@ -73,7 +69,10 @@ const SingleProduct = props => {
                     Edit Product
                   </Button>
                 </Link>
-                <Button outline color="danger" onClick={handleClick}>
+                <Button
+                  outline
+                  color="danger"
+                  onClick={() => props.deleteProduct(activeProduct.id)}>
                   Delete Product
                 </Button>
               </div>
@@ -84,14 +83,12 @@ const SingleProduct = props => {
           <p className="singleproduct-categories">
             <strong>Category:</strong>
             <span className="singleproduct-singleCategory">
-              {' '}
               {activeProduct.category}
             </span>
           </p>
           <p className="singleproduct-categories">
             <strong>Color:</strong>
             <span className="singleproduct-singleCategory">
-              {' '}
               {activeProduct.color}
             </span>
           </p>
@@ -118,6 +115,39 @@ const SingleProduct = props => {
               </div>
             );
           })}
+        {props.currUser ? (
+          <div>
+            <h3>Leave a review below</h3>
+            <Form>
+              <FormGroup className="writereview-form">
+                <Label for="select-rating">Rating</Label>
+                <Input type="select" name="rating">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </Input>
+                <FormText color="muted">Required*</FormText>
+              </FormGroup>
+              <FormGroup className="writereview-form">
+                <Label for="review-text">Review</Label>
+                <Input
+                  required
+                  type="textarea"
+                  name="review"
+                  placeholder="Enter your review"
+                />
+                <FormText color="muted">Required*</FormText>
+              </FormGroup>
+              <Button>Submit</Button>
+            </Form>
+          </div>
+        ) : (
+          <div>
+            <h2>Please login or signup to leave a review</h2>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -139,9 +169,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(SingleProduct)
-);
+export default withRouter(connect(mapState, mapDispatch)(SingleProduct));
