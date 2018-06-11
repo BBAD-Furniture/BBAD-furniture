@@ -80,3 +80,19 @@ label {
   border-radius: 3px;
   margin-left: auto;
 }
+
+.checkout-user {
+  background: grey;
+  width: 300px;
+  height: 200px;
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+.checkout-user a {
+  text-align: center;
+  display: block;
+  background: greenyellow;
+  width: 100px;
+  padding: 9px;
+}

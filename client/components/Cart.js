@@ -20,60 +20,63 @@ const Cart = props => {
     : [];
 
   return (
-    <div className="shopping-cart">
-      <h1>Shopping Cart</h1>
-      <div className="column-labels">
-        <label>Image</label>
-        <label>Product</label>
-        <label>Price</label>
-        <label>Quantity</label>
-        <label>Remove</label>
-        <label>Total</label>
-      </div>
+    <div>
+      <div className="shopping-cart">
+        <h1>Shopping Cart</h1>
+        <div className="column-labels">
+          <label>Image</label>
+          <label>Product</label>
+          <label>Price</label>
+          <label>Quantity</label>
+          <label>Remove</label>
+          <label>Total</label>
+        </div>
 
-      {cartItems &&
-        cartItems.map((item, idx) => {
-          return (
-            <div className="product" key={item.id}>
-              <Link to={`/products/${item.id}`}>
-                <div className="product-image">
-                  <img src={item.image} />
+        {cartItems &&
+          cartItems.map((item, idx) => {
+            return (
+              <div className="product" key={item.id}>
+                <Link to={`/products/${item.id}`}>
+                  <div className="product-image">
+                    <img src={item.image} />
+                  </div>
+                </Link>
+                <div>
+                  <div className="product-name">{item.name}</div>
+                  <p>{item.description.slice(0, 25)}</p>
                 </div>
-              </Link>
-              <div>
-                <div className="product-name">{item.name}</div>
-                <p>{item.description.slice(0, 25)}</p>
+                <div>${item.price}</div>
+                <div className="quantity">
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    placeholder="1"
+                    onChange={e => props.handleChange(idx, e)}
+                  />
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className="remove-product"
+                    onClick={() => props.removeCartItem(item)}>
+                    Remove
+                  </button>
+                </div>
+                <div>${(item.price * +itemCount[idx]).toFixed(2)}</div>
               </div>
-              <div>${item.price}</div>
-              <div className="quantity">
-                <input
-                  type="number"
-                  min="1"
-                  max="10"
-                  placeholder="1"
-                  onChange={e => props.handleChange(idx, e)}
-                />
-              </div>
-              <div>
-                <button
-                  type="button"
-                  className="remove-product"
-                  onClick={() => props.removeCartItem(item)}>
-                  Remove
-                </button>
-              </div>
-              <div>${(item.price * +itemCount[idx]).toFixed(2)}</div>
-            </div>
-          );
-        })}
-
+            );
+          })}
+      </div>
       <div className="totals">
         GrandTotal: {100.0}
-        <Link to="/checkout">
-          <button type="button" className="checkout">
-            Checkout
-          </button>
-        </Link>
+        <button type="button" className="checkout">
+          Checkout
+        </button>
+      </div>
+      <div className="checkout-user">
+        <Link to="/login">Login</Link>
+        <Link to="/checkout">Continue as Guest</Link>
       </div>
     </div>
   );
