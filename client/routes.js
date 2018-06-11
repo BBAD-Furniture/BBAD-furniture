@@ -12,6 +12,7 @@ import {
   Cart,
   AllUsers,
   Checkout,
+  Complete,
   EditProduct,
   AddProduct
 } from './components';
@@ -40,6 +41,7 @@ class Routes extends Component {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/addproduct" component={AddProduct} />
         <Route exact path="/" component={LandingPage} />
+        <Route exact path="/complete-checkout" component={Complete} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

@@ -54,6 +54,11 @@ const SingleProduct = props => {
           </div>
           <hr />
           <div className="singleproduct-buttonContainer">
+<<<<<<< HEAD
+            <Button onClick={() => props.addProductToCart(activeProduct)}>
+              Add To Cart
+            </Button>
+=======
             {Object.keys(currUser).length ? (
               <Button onClick={() => addProduct(currUser.id, activeProduct.id)}>
                 ADD TO CART
@@ -77,6 +82,7 @@ const SingleProduct = props => {
             ) : (
               ''
             )}
+>>>>>>> master
           </div>
           <p className="singleproduct-categories">
             <strong>Category:</strong>

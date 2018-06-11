@@ -20,6 +20,7 @@ import {
 export const ProductList = props => {
   const { currUser, addProduct } = props;
   let products = props.filtered.length ? props.filtered : props.products;
+
   return (
     <div>
       <div className="flexWrap">
@@ -98,7 +99,9 @@ const mapProducts = state => {
     products: state.products,
     selectedProduct: state.selectedProduct,
     filtered: state.filter,
+
     currUser: state.user,
+
     users: state.allUsers
   };
 };
