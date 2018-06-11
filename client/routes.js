@@ -11,7 +11,8 @@ import {
   SingleProduct,
   Cart,
   AllUsers,
-  Checkout
+  Checkout,
+  Complete
 } from './components';
 import { me, getAllUsers } from './store';
 
@@ -36,6 +37,7 @@ class Routes extends Component {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/" component={LandingPage} />
+        <Route exact path="/complete-checkout" component={Complete} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -73,7 +75,12 @@ const mapDispatch = dispatch => {
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes));
+export default withRouter(
+  connect(
+    mapState,
+    mapDispatch
+  )(Routes)
+);
 
 /**
  * PROP TYPES

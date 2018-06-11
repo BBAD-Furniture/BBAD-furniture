@@ -17,6 +17,7 @@ const Cart = props => {
     ? cartItems.filter(item => cartProducts.includes(item.id))
     : [];
 
+  let grandTotal = 0;
   return (
     <div>
       <div className="shopping-cart">
@@ -69,7 +70,7 @@ const Cart = props => {
           })}
       </div>
       <div className="totals">
-        GrandTotal: {100.0}
+        GrandTotal: {grandTotal}
         <Link to="/checkout">
           <button type="button" className="checkout">
             Checkout
