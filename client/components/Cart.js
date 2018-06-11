@@ -44,7 +44,7 @@ const Cart = props => {
                 <div className="product-name">{item.name}</div>
                 <p>{item.description.slice(0, 25)}</p>
               </div>
-              <div>{item.price}</div>
+              <div>${item.price}</div>
               <div className="quantity">
                 <input
                   type="number"
@@ -62,7 +62,7 @@ const Cart = props => {
                   Remove
                 </button>
               </div>
-              <div>{item.price * +itemCount[idx]}</div>
+              <div>${(item.price * +itemCount[idx]).toFixed(2)}</div>
             </div>
           );
         })}

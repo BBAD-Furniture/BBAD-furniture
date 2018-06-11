@@ -94,6 +94,9 @@ const Checkout = props => {
           })}
         <h2>total: ${itemCost.toFixed(2)}</h2>
       </div>
+      <div>
+        <button style={{ float: 'right' }}>Place Order</button>
+      </div>
     </div>
   );
 };
