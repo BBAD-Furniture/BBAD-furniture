@@ -8,6 +8,7 @@ import selectedProduct from './currentProduct';
 import filter from './filter';
 import cartList from './cart';
 import allUsers from './allUsers';
+import signedInCart from './signedInCart';
 
 const reducer = combineReducers({
   user,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   selectedProduct,
   cartList,
   allUsers,
+  signedInCart,
   filter
 });
 
@@ -31,4 +33,5 @@ export * from './productList';
 export * from './currentProduct';
 export * from './cart';
 export * from './allUsers';
+export * from './signedInCart';
 export * from './filter';
