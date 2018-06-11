@@ -38,7 +38,7 @@ const Navbar = ({
               </a>
             </div>
             <div className="nav-search">
-              <Input placeholder="Search BBAD" />
+              <Input onChange={handleFilter} placeholder="Search BBAD" />
             </div>
           </div>
         ) : (
