@@ -12,5 +12,6 @@ export { default as Sidebar } from './Sidebar';
 export { default as Checkout } from './Checkout';
 export { default as Cart } from './Cart';
 export { default as AllUsers } from './AllUsers';
+export { default as Complete } from './DoneCheckout';
 export { default as AddProduct } from './AddProduct';
 export { Login, Signup } from './auth-form';
