@@ -33,8 +33,10 @@ export default function(state = {}, action) {
   switch (action.type) {
     case GET_CURRENT_PRODUCT:
       return { ...action.product };
+
     case REMOVE_PRODUCT:
       return {};
+
     default:
       return state;
   }

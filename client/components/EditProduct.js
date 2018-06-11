@@ -29,6 +29,7 @@ class EditProduct extends React.Component {
       image: event.target.image.value
     };
     this.props.edit(this.props.selected.id, formobj);
+    
   };
 
   render() {

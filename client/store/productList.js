@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import { getCurrentProduct } from './currentProduct';
 
 /**
  * ACTION TYPES
@@ -39,7 +40,13 @@ export const editCurrentProduct = (productId, obj) => dispatch => {
     .then(product => {
       dispatch(editProduct(product));
     })
-    .then(() => history.push('/products'))
+    //after editing trigger another rendering of product your editing
+    .then(() => dispatch(getCurrentProduct(productId)))
+    //Redirect back to product page
+    .then(() => history.push(`/products/${productId}`))
+    //trigger a new set of products
+    .then(() => dispatch(getProductList()))
+
     .catch(err => console.log(err));
 };
 
