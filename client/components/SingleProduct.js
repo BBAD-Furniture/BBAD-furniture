@@ -80,12 +80,14 @@ const SingleProduct = props => {
           <p className="singleproduct-categories">
             <strong>Category:</strong>
             <span className="singleproduct-singleCategory">
+              {' '}
               {activeProduct.category}
             </span>
           </p>
           <p className="singleproduct-categories">
             <strong>Color:</strong>
             <span className="singleproduct-singleCategory">
+              {' '}
               {activeProduct.color}
             </span>
           </p>
