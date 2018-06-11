@@ -117,7 +117,7 @@ const SingleProduct = props => {
             );
           })}
       </div>
-      <AddReview />
+      <AddReview {...props} />
     </div>
   );
 };

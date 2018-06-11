@@ -9,7 +9,7 @@ const ADD_REVIEW = 'ADD_REVIEW';
 const getProduct = product => ({ type: GET_CURRENT_PRODUCT, product });
 const removeProduct = () => ({ type: REMOVE_PRODUCT });
 const editProduct = product => ({ type: EDIT_PRODUCT, product });
-const addReview = productId => ({ type: ADD_REVIEW, productId });
+const addReview = review => ({ type: ADD_REVIEW, review });
 
 export const getCurrentProduct = productId => dispatch =>
   axios
@@ -58,7 +58,7 @@ export default function(state = {}, action) {
     case REMOVE_PRODUCT:
       return {};
     case ADD_REVIEW:
-      return { ...action.productId };
+      return { ...state.reviews.concat([action.review]) };
     default:
       return state;
   }

@@ -8,9 +8,11 @@ import '../styles/singleProduct.css';
 export const AddReview = props => {
   const { currUser } = props;
 
+  console.log('PROPS', props);
+
   return (
     <div>
-      {currUser.id ? (
+      {currUser && currUser.id ? (
         <div>
           <h3>Leave a review below</h3>
           <Form>
@@ -52,17 +54,13 @@ export const AddReview = props => {
 
 const mapState = state => {
   return {
-    selectedProduct: state.selectedProduct[0],
-    users: state.allUsers,
     currUser: state.user
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    fetchProduct: id => dispatch(getCurrentProduct(id)),
-    addProductToCart: item => dispatch(addToCartList(item)),
-    deleteProduct: id => dispatch(removeCurrentProduct(id))
+    addAReview: review => dispatch(addNewReview(review))
   };
 };
 
