@@ -26,7 +26,6 @@ const Cart = props => {
     : [];
 
   let grandTotal = 0;
-  console.log(grandTotal, JSON.parse(localStorage.getItem('quantity')));
   return (
     <div className="shopping-cart">
       <h1>Shopping Cart</h1>
@@ -155,13 +154,11 @@ const mapDispatch = dispatch => {
       let qty = JSON.parse(localStorage.getItem('quantity'));
       qty[index] = evt.target.value;
       localStorage.setItem('quantity', JSON.stringify(qty));
-      console.log(localStorage.getItem('quantity'));
     },
     removeCartItem(item) {
       dispatch(removeFromCartList(item));
     },
     handleDelete(userId, productId) {
-      console.log(productId);
       dispatch(deleteTheItem(userId, productId));
     },
     handleCheckout(userId) {
