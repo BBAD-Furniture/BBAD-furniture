@@ -132,22 +132,7 @@ const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
-<<<<<<< HEAD
     deleteProduct: id => dispatch(removeCurrentProduct(id))
-=======
-    addProduct: (userId, item) => {
-      dispatch(addItem(userId, { productId: item }));
-    },
-    handleClick(type, id) {
-      switch (type) {
-        case 'delete':
-          dispatch(removeCurrentProduct(id));
-          break;
-        default:
-          break;
-      }
-    }
->>>>>>> master
   };
 };
 
