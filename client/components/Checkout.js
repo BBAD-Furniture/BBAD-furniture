@@ -109,11 +109,15 @@ const Checkout = props => {
         </div>
       </div>
       <div>
-        <Link to="complete-checkout">
-          <button style={{ float: 'right' }} onClick={props.resetStorage}>
-            Place Order
-          </button>
-        </Link>
+        {itemCost > 0 ? (
+          <Link to="complete-checkout">
+            <button style={{ float: 'right' }} onClick={props.resetStorage}>
+              Place Order
+            </button>
+          </Link>
+        ) : (
+          <button style={{ float: 'right' }}>Place Order</button>
+        )}
       </div>
     </div>
   );
