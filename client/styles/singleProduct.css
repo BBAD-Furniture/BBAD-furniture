@@ -1,6 +1,7 @@
 .singleproduct-parent {
   display: flex;
   margin: 100px 100px;
+  flex-wrap: wrap;
 }
 
 .singleproduct-left {

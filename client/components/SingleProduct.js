@@ -64,11 +64,7 @@ const SingleProduct = props => {
             )}
             {props.currUser.isAdmin ? (
               <div>
-                <Link
-                  to={{
-                    pathname: '/editproduct',
-                    state: { product: props.selectedProduct }
-                  }}>
+                <Link to={`/editproduct/${activeProduct.id}`}>
                   <Button outline color="warning">
                     Edit Product
                   </Button>
