@@ -55,12 +55,8 @@ export const ProductList = props => {
                       <CardSubtitle>$ {product.price}</CardSubtitle>
                       <div className="product-description">
                         <CardText>
-                          <strong>{product.category} </strong>
-                        </CardText>
-                        <CardText>
                           <strong>Rating: {rating}</strong>
                         </CardText>
-
                         <Link to={`/products/${product.id}`}>
                           <Button
                             outline
