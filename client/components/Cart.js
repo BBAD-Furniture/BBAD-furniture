@@ -26,6 +26,7 @@ const Cart = props => {
     : [];
 
   let grandTotal = 0;
+  console.log(grandTotal, JSON.parse(localStorage.getItem('quantity')));
   return (
     <div className="shopping-cart">
       <h1>Shopping Cart</h1>
@@ -73,7 +74,7 @@ const Cart = props => {
                       </button>
                     </div>
                     <div>
-                      ${(item.price * JSON.parse(itemCount[idx])).toFixed(2)}
+                      ${(item.price * +JSON.parse(itemCount[idx])).toFixed(2)}
                     </div>
                   </div>
                 );
@@ -112,6 +113,7 @@ const Cart = props => {
                   </div>
                   <div>
                     <button
+                      type="button"
                       className="remove-product"
                       onClick={() => props.handleDelete(user.id, allProds.id)}>
                       Remove
@@ -125,6 +127,7 @@ const Cart = props => {
             Total: {total}
             <Link to="/checkout">
               <button
+                type="button"
                 className="checkout"
                 onClick={() => handleCheckout(user.id)}>
                 Checkout

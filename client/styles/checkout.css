@@ -1,21 +1,48 @@
 .checkout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .checkout div {
   padding: 0px 30px 30px 20px;
   font-weight: 100;
 }
-.info {
-  border-right: 1px solid #eee;
-}
 
-.billing,
-.billing > input {
+.checkout h1 {
+  color: salmon;
+}
+.check-billing form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 9px;
+}
+.check-billing form label {
   padding: 4px;
 }
-
-input {
+.check-billing {
+  grid-area: 'bill';
+  border-right: 1px solid #eee;
+}
+.check-shipping {
+  border-right: 1px solid #eee;
+  grid-area: 'ship';
+}
+.check-order {
+  grid-area: 'order';
+  border-right: 1px solid #eee;
+}
+.check-payment {
+  border-right: 1px solid #eee;
+}
+.checkout input {
   display: block;
+}
+.order-checkout button,
+.complete-checkout {
+  float: right;
+  margin-top: 30px;
+  padding: 9px;
+  background: rgb(124, 174, 231);
+  border-radius: 3px;
+  color: #fff;
 }

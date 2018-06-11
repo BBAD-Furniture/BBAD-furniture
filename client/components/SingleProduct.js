@@ -58,7 +58,7 @@ const SingleProduct = props => {
                 ADD TO CART
               </Button>
             ) : (
-              <Button onClick={() => props.addProductToCart({ activeProduct })}>
+              <Button onClick={() => props.addProductToCart(activeProduct)}>
                 Add To Cart
               </Button>
             )}
