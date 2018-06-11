@@ -9,7 +9,7 @@ const {
 const faker = require('faker');
 const db = require('../server/db');
 const Promise = db.Promise; // gives us Promise.map
-
+const password = '123';
 async function seed() {
   await db.sync({ force: true });
   const user = await seedUser();
@@ -17,6 +17,8 @@ async function seed() {
   const product = await seedProduct();
   console.log('Seeded', product.length, 'product.');
   // console.log('Seeded', user, 'all the users');
+  const admin = await seedAdmin();
+  console.log('Seeded Admin');
   const review = await seedReview();
   console.log('Seeded', review.length, 'review.');
   const order = await seedOrder();
@@ -36,6 +38,15 @@ function seedUser() {
   );
 }
 
+function seedAdmin() {
+  return User.create({
+    firstName: 'Admin',
+    lastName: 'Lastname',
+    email: 'admin@fullstack.com',
+    isAdmin: true,
+    password
+  }).then(admin => admin);
+}
 function seedProduct() {
   return Promise.all(
     new Array(20).fill(1).map(() =>
