@@ -23,7 +23,9 @@ export const getProductList = () => dispatch =>
 export const addProductToStore = product => dispatch =>
   axios
     .post('/api/products', product)
-    .then(res => dispatch(addProduct(res.data)))
+    .then(res => {
+      dispatch(addProduct(res.data));
+    })
     .catch(err => console.log(err));
 
 /**

@@ -45,7 +45,12 @@ class AddProduct extends React.Component {
       <Form onChange={this.handleForm}>
         <FormGroup className="addproduct-form">
           <Label for="product-name">Name</Label>
-          <Input type="text" name="name" placeholder="Name of Product" />
+          <Input
+            required
+            type="text"
+            name="name"
+            placeholder="Name of Product"
+          />
           <FormText color="muted">Required*</FormText>
         </FormGroup>
         <FormGroup className="addproduct-form">
@@ -60,7 +65,7 @@ class AddProduct extends React.Component {
         </FormGroup>
         <FormGroup className="addproduct-form">
           <Label for="Category">Category</Label>
-          <Input type="select" name="category">
+          <Input required type="select" name="category">
             <option>Living Room</option>
             <option>Bathroom</option>
             <option>Bedroom</option>
@@ -69,22 +74,22 @@ class AddProduct extends React.Component {
         </FormGroup>
         <FormGroup className="addproduct-form">
           <Label for="quantity">Quantity</Label>
-          <Input name="quantity" type="number" />
+          <Input required name="quantity" type="number" />
           <FormText color="muted">Required*</FormText>
         </FormGroup>
         <FormGroup className="addproduct-form">
           <Label for="price">Price</Label>
-          <Input name="price" type="number" />
+          <Input required name="price" type="number" />
           <FormText color="muted">Required*</FormText>
         </FormGroup>
         <FormGroup className="addproduct-form">
           <Label for="Description">Product Description</Label>
-          <Input type="textarea" name="description" />
+          <Input required type="textarea" name="description" />
           <FormText color="muted">Required*</FormText>
         </FormGroup>
         <FormGroup className="addproduct-form">
           <Label for="image">Image URL</Label>
-          <Input type="url" name="image" />
+          <Input required type="url" name="image" />
         </FormGroup>
         <Button type="button" onClick={this.handleSubmit}>
           Submit
