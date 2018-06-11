@@ -1,12 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import {
-  getCurrentProduct
-  // addToCartList,
-  // removeCurrentProduct
-} from '../store';
-import { withRouter, Link } from 'react-router-dom';
-// import { Button } from 'reactstrap';
+import { editCurrentProduct } from '../store';
 import '../styles/singleProduct.css';
 
 export const EditProduct = props => {
@@ -42,4 +35,16 @@ const mapState = state => {
   };
 };
 
-// export default withRouter(connect(mapState)(EditProduct));
+const mapDispatch = dispatch => {
+  return {
+    handleClick(type, id) {
+      switch (type) {
+        case 'edit':
+          dispatch(editCurrentProduct(id));
+          break;
+        default:
+          break;
+      }
+    }
+  };
+};

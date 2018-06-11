@@ -25,6 +25,10 @@ const SingleProduct = props => {
 
   let trueRating = isNaN(rating) ? '' : rating;
   let reviews = activeProduct.reviews ? activeProduct.reviews.length : '';
+  function handleClick() {
+    console.log('ACTIVE PROD', activeProduct.id);
+    props.deleteProduct(activeProduct.id);
+  }
 
   return (
     <div>
@@ -58,10 +62,7 @@ const SingleProduct = props => {
                     Edit Product
                   </Button>
                 </Link>
-                <Button
-                  outline
-                  color="danger"
-                  onClick={() => props.handleClick('delete', activeProduct.id)}>
+                <Button outline color="danger" onClick={handleClick}>
                   Delete Product
                 </Button>
               </div>
@@ -121,16 +122,7 @@ const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
-
-    handleClick(type, id) {
-      switch (type) {
-        case 'delete':
-          dispatch(removeCurrentProduct(id));
-          break;
-        default:
-          break;
-      }
-    }
+    deleteProduct: id => dispatch(removeCurrentProduct(id))
   };
 };
 
