@@ -11,6 +11,7 @@ import '../styles/singleProduct.css';
 
 export const EditProduct = props => {
   console.log('PROPS', props);
+
   return (
     <div>
       <h1>Edit Product:</h1>
@@ -41,4 +42,4 @@ const mapState = state => {
   };
 };
 
-export default withRouter(connect(mapState)(EditProduct));
+// export default withRouter(connect(mapState)(EditProduct));
