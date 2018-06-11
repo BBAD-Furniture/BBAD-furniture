@@ -28,7 +28,7 @@ const Navbar = ({
                 <h1>BBAD Co.</h1>
               </Link>
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">User Page</Link>
+              <Link to="/home">My Account</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
