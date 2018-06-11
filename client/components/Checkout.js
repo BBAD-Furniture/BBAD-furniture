@@ -23,12 +23,13 @@ const Checkout = props => {
   ) : (
     <div>
       <div className="checkout">
-        <div className="billing info">
+        <div className="check-billing">
           <h1>1. BILLING ADDRESS</h1>
           <form>
             <label>
               First Name:
               <input
+                onChange={props.handleCheckoutField}
                 type="text"
                 name="firstName"
                 placeholder="firstName"
@@ -38,6 +39,7 @@ const Checkout = props => {
             <label>
               Last Name:
               <input
+                onChange={props.handleCheckoutField}
                 type="text"
                 name="lastName"
                 placeholder="lastName"
@@ -46,11 +48,18 @@ const Checkout = props => {
             </label>
             <label>
               Email:
-              <input type="email" name="email" placeholder="email" required />
+              <input
+                onChange={props.handleCheckoutField}
+                type="email"
+                name="email"
+                placeholder="email"
+                required
+              />
             </label>
             <label>
               Telephone:
               <input
+                onChange={props.handleCheckoutField}
                 type="text"
                 name="telephone"
                 placeholder="telephone"
@@ -60,6 +69,7 @@ const Checkout = props => {
             <label>
               Address:
               <input
+                onChange={props.handleCheckoutField}
                 type="text"
                 name="address"
                 placeholder="address"
@@ -68,7 +78,13 @@ const Checkout = props => {
             </label>
             <label>
               City:
-              <input type="text" name="city" placeholder="city" required />
+              <input
+                onChange={props.handleCheckoutField}
+                type="text"
+                name="city"
+                placeholder="city"
+                required
+              />
             </label>
             Country:
             <select>
@@ -77,7 +93,7 @@ const Checkout = props => {
             </select>
           </form>
         </div>
-        <div className="shipping info">
+        <div className="check-shipping">
           <h1>2. SHIPPING METHOD</h1>
           <form>
             <input type="radio" name="regular" value="regular" />Regular (1-5
@@ -85,6 +101,8 @@ const Checkout = props => {
             <input type="radio" name="express" value="express" />Express (2-3
             days)
           </form>
+        </div>
+        <div className="check-payment">
           <h1>3. PAYMENT METHOD</h1>
           <form>
             <label>
@@ -98,7 +116,7 @@ const Checkout = props => {
           </form>
         </div>
 
-        <div>
+        <div className="check-order">
           <h1>4. REVIEW ORDER</h1>
           {cartItems &&
             cartItems.map((item, idx) => {
@@ -108,15 +126,22 @@ const Checkout = props => {
           <h2>total: ${itemCost.toFixed(2)}</h2>
         </div>
       </div>
-      <div>
+      <div className="order-checkout">
         {itemCost > 0 ? (
           <Link to="complete-checkout">
-            <button style={{ float: 'right' }} onClick={props.resetStorage}>
+            <button
+              type="button"
+              onClick={() => {
+                props.resetStorage();
+                props.handleSubmit();
+              }}>
               Place Order
             </button>
           </Link>
         ) : (
-          <button style={{ float: 'right' }}>Place Order</button>
+          <button type="button" onClick={() => alert('Your Cart is Empty')}>
+            Place Order
+          </button>
         )}
       </div>
     </div>
@@ -135,9 +160,14 @@ const mapDispatch = dispatch => {
     resetStorage() {
       localStorage.setItem('products', JSON.stringify([]));
       localStorage.setItem('quantity', JSON.stringify([]));
+    },
+    handleSubmit() {},
+    handleCheckoutField(evt) {
+      console.log(evt.target.value);
     }
   };
 };
+
 export default connect(
   mapState,
   mapDispatch
