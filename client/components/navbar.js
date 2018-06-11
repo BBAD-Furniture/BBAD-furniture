@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout, filterProductByName } from '../store';
-import { Input } from 'reactstrap';
+import { logout, filterProductByName, getItems } from '../store';
+import { Input, InputGroupText } from 'reactstrap';
 
 import '../styles/navbar.css';
 
-const Navbar = ({ handleClick, isLoggedIn, filterName }) => {
+const Navbar = ({
+  handleClick,
+  isLoggedIn,
+  clickHandler,
+  user,
+  filterName
+}) => {
   function handleFilter(event) {
     let input = event.target.value;
     filterName(input);
@@ -22,13 +28,15 @@ const Navbar = ({ handleClick, isLoggedIn, filterName }) => {
                 <h1>BBAD Co.</h1>
               </Link>
               {/* The navbar will show these links after you log in */}
+              <Link to="/home">User Page</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
               <Link to="/products">View All Products</Link>
-              <Link to="/cart">
+              <a href="/cart" onClick={clickHandler(user.id)}>
+                View Cart
                 <i className="fas fa-shopping-cart nav-cart" />
-              </Link>
+              </a>
             </div>
             <div className="nav-search">
               <Input placeholder="Search BBAD" />
@@ -64,7 +72,8 @@ const Navbar = ({ handleClick, isLoggedIn, filterName }) => {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   };
 };
 
@@ -74,6 +83,9 @@ const mapDispatch = dispatch => {
       localStorage.setItem('products', JSON.stringify([]));
       dispatch(logout());
     },
+    clickHandler(id) {
+      dispatch(getItems(id));
+    },
     filterName: input => dispatch(filterProductByName(input))
     // handleClick() {
     //   localStorage.setItem('products', JSON.stringify([]));
@@ -82,10 +94,7 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(Navbar);
+export default connect(mapState, mapDispatch)(Navbar);
 
 /**
  * PROP TYPES
