@@ -1,10 +1,8 @@
 import React from 'react';
 import { editCurrentProduct } from '../store';
-import '../styles/singleProduct.css';
+import { connect } from 'react-redux';
 
 export const EditProduct = props => {
-  console.log('PROPS', props);
-
   return (
     <div>
       <h1>Edit Product:</h1>
@@ -30,6 +28,7 @@ export const EditProduct = props => {
 };
 
 const mapState = state => {
+  //
   return {
     selectedProduct: state.selectedProduct[0]
   };
@@ -48,3 +47,5 @@ const mapDispatch = dispatch => {
     }
   };
 };
+
+export default connect(mapState, mapDispatch)(EditProduct);
