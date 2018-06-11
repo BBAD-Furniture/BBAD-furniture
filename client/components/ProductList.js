@@ -19,7 +19,6 @@ import {
  */
 export const ProductList = props => {
   const { currUser, addProduct } = props;
-  console.log(props, 'FFOOOO');
   let filtered = props.filtered || props.products;
   let products = filtered.length ? props.filtered : props.products;
   return (

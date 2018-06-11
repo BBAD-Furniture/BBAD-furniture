@@ -1,51 +1,119 @@
 import React from 'react';
-import { editCurrentProduct } from '../store';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import history from '../history';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
-export const EditProduct = props => {
-  return (
-    <div>
-      <h1>Edit Product:</h1>
+class EditProduct extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {};
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-      <form>
-        <div>
-          <label>Name</label>
-          <input name="name" type="product-name" />
-
-          <label>Description</label>
-          <input name="description" type="product-description" />
-
-          <label>Price</label>
-          <input name="price" type="product-price" />
-
-          <label>Category</label>
-          <input name="category" type="product-category" />
-        </div>
-        <button>Edit Product</button>
-      </form>
-    </div>
-  );
-};
+  handleSubmit() {
+    event.preventDefault();
+    console.log('hit');
+  }
+  render() {
+    return this.props.selected ? (
+      <div>
+        <h1>Edit Product:</h1>
+        <Form>
+          <FormGroup className="addproduct-form">
+            <Label for="product-name">Name</Label>
+            <Input
+              required
+              type="text"
+              name="name"
+              defaultValue={this.props.selected.name}
+              placeholder={this.props.selected.name}
+            />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="product-color">Color</Label>
+            <Input
+              required
+              type="text"
+              name="color"
+              placeholder="Color of Product"
+              defaultValue={this.props.selected.color}
+              placeholder={this.props.selected.color}
+            />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="Category">Category</Label>
+            <Input
+              required
+              type="select"
+              name="category"
+              defaultValue={this.props.selected.category}
+              placeholder={this.props.selected.category}>
+              <option>Living Room</option>
+              <option>Bathroom</option>
+              <option>Bedroom</option>
+            </Input>
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="quantity">Quantity</Label>
+            <Input
+              required
+              name="quantity"
+              type="number"
+              defaultValue={this.props.selected.quantity}
+              placeholder={this.props.selected.quantity}
+            />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="price">Price</Label>
+            <Input
+              required
+              name="price"
+              defaultValue={this.props.selected.price}
+              placeholder={this.props.selected.price}
+              type="number"
+            />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="Description">Product Description</Label>
+            <Input
+              required
+              type="textarea"
+              name="description"
+              defaultValue={this.props.selected.description}
+              placeholder={this.props.selected.description}
+            />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="image">Image URL</Label>
+            <Input
+              required
+              type="url"
+              name="image"
+              defaultValue={this.props.selected.image}
+              placeholder={this.props.selected.image}
+            />
+          </FormGroup>
+          <Button onSubmit={this.handleSubmit} type="button">
+            Submit
+          </Button>
+        </Form>
+      </div>
+    ) : (
+      <div> {history.goBack()}</div>
+    );
+  }
+}
 
 const mapState = state => {
-  //
   return {
-    selectedProduct: state.selectedProduct[0]
+    selected: state.selectedProduct[0]
   };
 };
-
-const mapDispatch = dispatch => {
-  return {
-    handleClick(type, id) {
-      switch (type) {
-        case 'edit':
-          dispatch(editCurrentProduct(id));
-          break;
-        default:
-          break;
-      }
-    }
-  };
-};
-
-export default connect(mapState, mapDispatch)(EditProduct);
+export default withRouter(connect(mapState)(EditProduct));

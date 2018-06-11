@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   getCurrentProduct,
   addToCartList,
-  addItem,
   removeCurrentProduct
 } from '../store';
 import { withRouter, Link } from 'react-router-dom';
@@ -65,7 +64,11 @@ const SingleProduct = props => {
             )}
             {props.currUser.isAdmin ? (
               <div>
-                <Link to={`/products/${activeProduct.id}/edit`}>
+                <Link
+                  to={{
+                    pathname: '/editproduct',
+                    state: { product: props.selectedProduct }
+                  }}>
                   <Button outline color="warning">
                     Edit Product
                   </Button>

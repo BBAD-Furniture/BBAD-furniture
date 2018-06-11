@@ -29,6 +29,17 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
+router.put('/:productId', (req, res, next) => {
+  Product.findById(req.params.productId)
+    .then(productFound => {
+      return productFound.update(req.body);
+    })
+    .then(updatedProduct => {
+      updatedProduct ? res.json(updatedProduct) : res.status(404).json();
+    })
+    .catch(next);
+});
+
 router.delete('/:productId', (req, res, next) => {
   let id = req.params.productId;
   Product.findById(id)

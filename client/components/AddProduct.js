@@ -42,59 +42,63 @@ class AddProduct extends React.Component {
   render() {
     let adminOrNah = this.props.userStatus.isAdmin;
     return adminOrNah ? (
-      <Form onChange={this.handleForm}>
-        <FormGroup className="addproduct-form">
-          <Label for="product-name">Name</Label>
-          <Input
-            required
-            type="text"
-            name="name"
-            placeholder="Name of Product"
-          />
-          <FormText color="muted">Required*</FormText>
-        </FormGroup>
-        <FormGroup className="addproduct-form">
-          <Label for="product-color">Color</Label>
-          <Input
-            required
-            type="text"
-            name="color"
-            placeholder="Color of Product"
-          />
-          <FormText color="muted">Required*</FormText>
-        </FormGroup>
-        <FormGroup className="addproduct-form">
-          <Label for="Category">Category</Label>
-          <Input required type="select" name="category">
-            <option>Living Room</option>
-            <option>Bathroom</option>
-            <option>Bedroom</option>
-          </Input>
-          <FormText color="muted">Required*</FormText>
-        </FormGroup>
-        <FormGroup className="addproduct-form">
-          <Label for="quantity">Quantity</Label>
-          <Input required name="quantity" type="number" />
-          <FormText color="muted">Required*</FormText>
-        </FormGroup>
-        <FormGroup className="addproduct-form">
-          <Label for="price">Price</Label>
-          <Input required name="price" type="number" />
-          <FormText color="muted">Required*</FormText>
-        </FormGroup>
-        <FormGroup className="addproduct-form">
-          <Label for="Description">Product Description</Label>
-          <Input required type="textarea" name="description" />
-          <FormText color="muted">Required*</FormText>
-        </FormGroup>
-        <FormGroup className="addproduct-form">
-          <Label for="image">Image URL</Label>
-          <Input required type="url" name="image" />
-        </FormGroup>
-        <Button type="button" onClick={this.handleSubmit}>
-          Submit
-        </Button>
-      </Form>
+      <div>
+        <h1>Add Product:</h1>
+
+        <Form onChange={this.handleForm}>
+          <FormGroup className="addproduct-form">
+            <Label for="product-name">Name</Label>
+            <Input
+              required
+              type="text"
+              name="name"
+              placeholder="Name of Product"
+            />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="product-color">Color</Label>
+            <Input
+              required
+              type="text"
+              name="color"
+              placeholder="Color of Product"
+            />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="Category">Category</Label>
+            <Input required type="select" name="category">
+              <option>Living Room</option>
+              <option>Bathroom</option>
+              <option>Bedroom</option>
+            </Input>
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="quantity">Quantity</Label>
+            <Input required name="quantity" type="number" />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="price">Price</Label>
+            <Input required name="price" type="number" />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="Description">Product Description</Label>
+            <Input required type="textarea" name="description" />
+            <FormText color="muted">Required*</FormText>
+          </FormGroup>
+          <FormGroup className="addproduct-form">
+            <Label for="image">Image URL</Label>
+            <Input required type="url" name="image" />
+          </FormGroup>
+          <Button type="button" onClick={this.handleSubmit}>
+            Submit
+          </Button>
+        </Form>
+      </div>
     ) : (
       <div>
         <Jumbotron fluid>
