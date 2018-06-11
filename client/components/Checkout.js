@@ -89,8 +89,9 @@ const Checkout = props => {
       <div>
         <h1>4. REVIEW ORDER</h1>
         {cartItems &&
-          cartItems.map(item => {
-            itemCost += item.price;
+          cartItems.map((item, idx) => {
+            itemCost +=
+              item.price * JSON.parse(localStorage.getItem('quantity'))[idx];
           })}
         <h2>total: ${itemCost.toFixed(2)}</h2>
       </div>

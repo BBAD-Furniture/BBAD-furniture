@@ -11,9 +11,7 @@ const Cart = props => {
   let cartItems = props.products;
   let cartProducts = JSON.parse(localStorage.getItem('products'));
 
-  // localStorage.setItem('quantity', JSON.stringify(cartProducts.map(i => 1)));
   let itemCount = JSON.parse(localStorage.getItem('quantity'));
-  console.log(itemCount);
 
   cartItems = cartProducts
     ? cartItems.filter(item => cartProducts.includes(item.id))
@@ -63,20 +61,20 @@ const Cart = props => {
                     Remove
                   </button>
                 </div>
-                <div>${(item.price * +itemCount[idx]).toFixed(2)}</div>
+                <div>
+                  ${(item.price * JSON.parse(itemCount[idx])).toFixed(2)}
+                </div>
               </div>
             );
           })}
       </div>
       <div className="totals">
         GrandTotal: {100.0}
-        <button type="button" className="checkout">
-          Checkout
-        </button>
-      </div>
-      <div className="checkout-user">
-        <Link to="/login">Login</Link>
-        <Link to="/checkout">Continue as Guest</Link>
+        <Link to="/checkout">
+          <button type="button" className="checkout">
+            Checkout
+          </button>
+        </Link>
       </div>
     </div>
   );
