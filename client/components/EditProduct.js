@@ -30,6 +30,7 @@ export const EditProduct = props => {
 };
 
 const mapState = state => {
+  //
   return {
     selectedProduct: state.selectedProduct[0]
   };
