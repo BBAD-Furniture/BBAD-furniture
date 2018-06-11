@@ -48,7 +48,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(EditProduct);
+export default connect(mapState, mapDispatch)(EditProduct);
