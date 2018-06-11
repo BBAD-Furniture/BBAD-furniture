@@ -11,7 +11,6 @@ const AuthForm = props => {
 
   return (
     <div>
-      <h1>this is auth form</h1>
       <form onSubmit={handleSubmit} name={name}>
         {displayName === 'Sign Up' && (
           <div>
@@ -78,8 +77,6 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
-      //   const firstName = evt.target.firstName.value;
-      //   const lastName = evt.target.lastName.value;
       const method = evt.target.name;
       const email = evt.target.email.value;
       const password = evt.target.password.value;
@@ -98,8 +95,14 @@ const mapDispatch = dispatch => {
   };
 };
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm);
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
+export const Login = connect(
+  mapLogin,
+  mapDispatch
+)(AuthForm);
+export const Signup = connect(
+  mapSignup,
+  mapDispatch
+)(AuthForm);
 
 /**
  * PROP TYPES

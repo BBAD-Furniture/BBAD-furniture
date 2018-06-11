@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Sidebar } from './index';
-import { getCurrentProduct, addToCartList } from '../store';
+import { getCurrentProduct, addToCartList, addItem } from '../store';
 import '../styles/productList.css';
 import { Link } from 'react-router-dom';
 import {
@@ -18,8 +18,9 @@ import {
  * COMPONENT
  */
 export const ProductList = props => {
+  const { currUser, addProduct } = props;
   let products = props.filtered.length ? props.filtered : props.products;
-  console.log(props.users);
+
   return (
     <div>
       <div className="flexWrap">
@@ -69,12 +70,22 @@ export const ProductList = props => {
                             Get Details
                           </Button>
                         </Link>
-                        <Button
-                          outline
-                          color="success"
-                          onClick={() => props.addProductToCart(product)}>
-                          Add To Cart
-                        </Button>
+
+                        {Object.keys(currUser).length ? (
+                          <Button
+                            outline
+                            color="success"
+                            onClick={() => addProduct(currUser.id, product.id)}>
+                            ADD TO CART
+                          </Button>
+                        ) : (
+                          <Button
+                            outline
+                            color="success"
+                            onClick={() => props.addProductToCart(product)}>
+                            Add To Cart
+                          </Button>
+                        )}
                       </div>
                     </CardBody>
                   </Card>
@@ -92,13 +103,22 @@ const mapProducts = state => {
     products: state.products,
     selectedProduct: state.selectedProduct,
     filtered: state.filter,
+
+    currUser: state.user,
+
     users: state.allUsers
   };
 };
 const mapDispatch = dispatch => {
   return {
     getCurrentProduct: id => dispatch(getCurrentProduct(id)),
-    addProductToCart: product => dispatch(addToCartList(product))
+    addProductToCart: product => dispatch(addToCartList(product)),
+    addProduct: (userId, item) => {
+      dispatch(addItem(userId, { productId: item }));
+    }
   };
 };
-export const Products = connect(mapProducts, mapDispatch)(ProductList);
+export const Products = connect(
+  mapProducts,
+  mapDispatch
+)(ProductList);

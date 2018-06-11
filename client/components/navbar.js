@@ -2,12 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { logout, filterProductByName } from '../store';
 import { Input } from 'reactstrap';
 
 import '../styles/navbar.css';
 
 const Navbar = ({ handleClick, isLoggedIn, filterName }) => {
+import { logout, filterProductByName, getItems } from '../store';
+import { Input, InputGroupText } from 'reactstrap';
+
+import '../styles/navbar.css';
+
+const Navbar = ({
+  handleClick,
+  isLoggedIn,
+  clickHandler,
+  user,
+  filterName
+}) => {
+
   function handleFilter(event) {
     let input = event.target.value;
     filterName(input);
@@ -22,13 +36,22 @@ const Navbar = ({ handleClick, isLoggedIn, filterName }) => {
                 <h1>BBAD Co.</h1>
               </Link>
               {/* The navbar will show these links after you log in */}
+
+              <Link to="/home">My Account</Link>
+
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
               <Link to="/products">View All Products</Link>
+
               <Link to="/cart">
                 <i className="fas fa-shopping-cart nav-cart" />
               </Link>
+
+              <a href="/cart" onClick={clickHandler(user.id)}>
+                <i className="fas fa-shopping-cart nav-cart" />
+              </a>
+
             </div>
             <div className="nav-search">
               <Input placeholder="Search BBAD" />
@@ -64,7 +87,8 @@ const Navbar = ({ handleClick, isLoggedIn, filterName }) => {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   };
 };
 
@@ -73,6 +97,10 @@ const mapDispatch = dispatch => {
     handleClick: () => {
       localStorage.setItem('products', JSON.stringify([]));
       dispatch(logout());
+    },
+
+    clickHandler(id) {
+      dispatch(getItems(id));
     },
     filterName: input => dispatch(filterProductByName(input))
     // handleClick() {

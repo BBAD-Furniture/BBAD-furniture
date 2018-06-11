@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   getCurrentProduct,
   addToCartList,
+  addItem,
   removeCurrentProduct
 } from '../store';
 import { withRouter, Link } from 'react-router-dom';
@@ -10,6 +11,7 @@ import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
 
 const SingleProduct = props => {
+  const { currUser, addProduct } = props;
   let activeProduct = props.selectedProduct
     ? props.selectedProduct
     : props.fetchProduct(props.match.params.id);
@@ -48,10 +50,16 @@ const SingleProduct = props => {
           </div>
           <hr />
           <div className="singleproduct-buttonContainer">
-            <Button onClick={() => props.addProductToCart({ activeProduct })}>
-              Add To Cart
-            </Button>
-            {props.currentUser.isAdmin ? (
+            {Object.keys(currUser).length ? (
+              <Button onClick={() => addProduct(currUser.id, activeProduct.id)}>
+                ADD TO CART
+              </Button>
+            ) : (
+              <Button onClick={() => props.addProductToCart({ activeProduct })}>
+                Add To Cart
+              </Button>
+            )}
+            {props.currUser.isAdmin ? (
               <div>
                 <Link to={`/products/${activeProduct.id}/edit`}>
                   <Button outline color="warning">
@@ -115,7 +123,7 @@ const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],
     users: state.allUsers,
-    currentUser: state.user
+    currUser: state.user
   };
 };
 
@@ -123,7 +131,9 @@ const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
-
+    addProduct: (userId, item) => {
+      dispatch(addItem(userId, { productId: item }));
+    },
     handleClick(type, id) {
       switch (type) {
         case 'delete':
