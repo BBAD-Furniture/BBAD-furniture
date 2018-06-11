@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCurrentProduct, addToCartList } from '../store';
-import { withRouter } from 'react-router-dom';
+import {
+  getCurrentProduct,
+  addToCartList,
+  removeCurrentProduct
+} from '../store';
+import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
 
@@ -47,6 +51,23 @@ const SingleProduct = props => {
             <Button onClick={() => props.addProductToCart({ activeProduct })}>
               Add To Cart
             </Button>
+            {props.currentUser.isAdmin ? (
+              <div>
+                <Link to={`/products/${activeProduct.id}/edit`}>
+                  <Button outline color="warning">
+                    Edit Product
+                  </Button>
+                </Link>
+                <Button
+                  outline
+                  color="danger"
+                  onClick={() => props.handleClick('delete', activeProduct.id)}>
+                  Delete Product
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <p className="singleproduct-categories">
             <strong>Category:</strong>
@@ -93,20 +114,26 @@ const SingleProduct = props => {
 const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],
-    users: state.allUsers
+    users: state.allUsers,
+    currentUser: state.user
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
-    addProductToCart: item => dispatch(addToCartList(item))
+    addProductToCart: item => dispatch(addToCartList(item)),
+
+    handleClick(type, id) {
+      switch (type) {
+        case 'delete':
+          dispatch(removeCurrentProduct(id));
+          break;
+        default:
+          break;
+      }
+    }
   };
 };
 
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(SingleProduct)
-);
+export default withRouter(connect(mapState, mapDispatch)(SingleProduct));

@@ -101,7 +101,4 @@ const mapDispatch = dispatch => {
     addProductToCart: product => dispatch(addToCartList(product))
   };
 };
-export const Products = connect(
-  mapProducts,
-  mapDispatch
-)(ProductList);
+export const Products = connect(mapProducts, mapDispatch)(ProductList);

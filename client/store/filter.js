@@ -36,7 +36,8 @@ export const filterProductByName = inputValue => dispatch =>
       dispatch({
         type: FILTER_NAME,
         filter: products.filter(product =>
-          product.name.toLowerCase().match(inputValue.toLowerCase()))
+          product.name.toLowerCase().match(inputValue.toLowerCase())
+        )
       });
     })
     .catch(err => console.log(err));
