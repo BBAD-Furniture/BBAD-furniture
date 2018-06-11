@@ -19,16 +19,16 @@ export const EditProduct = props => {
       <form>
         <div>
           <label>Name</label>
-          <input name="name" type="campus-name" />
+          <input name="name" type="product-name" />
 
           <label>Description</label>
-          <input name="location" type="campus-location" />
+          <input name="description" type="product-description" />
 
           <label>Price</label>
-          <input name="image" type="campus-image" />
+          <input name="price" type="product-price" />
 
           <label>Category</label>
-          <input name="description" type="campus-description" />
+          <input name="category" type="product-category" />
         </div>
         <button>Edit Product</button>
       </form>
