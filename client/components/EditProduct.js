@@ -1,28 +1,100 @@
 import React from 'react';
-import { editCurrentProduct } from '../store';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+const EditProduct = props => {
+  let selected = props.selected ? (
+    props.selected
+  ) : (
+    <Redirect to="/addproduct" />
+  );
 
-export const EditProduct = props => {
   return (
     <div>
       <h1>Edit Product:</h1>
-
-      <form>
-        <div>
-          <label>Name</label>
-          <input name="name" type="product-name" />
-
-          <label>Description</label>
-          <input name="description" type="product-description" />
-
-          <label>Price</label>
-          <input name="price" type="product-price" />
-
-          <label>Category</label>
-          <input name="category" type="product-category" />
-        </div>
-        <button>Edit Product</button>
-      </form>
+      <Form>
+        <FormGroup className="addproduct-form">
+          <Label for="product-name">Name</Label>
+          <Input
+            required
+            type="text"
+            name="name"
+            defaultValue={selected.name}
+            placeholder={selected.name}
+          />
+          <FormText color="muted">Required*</FormText>
+        </FormGroup>
+        <FormGroup className="addproduct-form">
+          <Label for="product-color">Color</Label>
+          <Input
+            required
+            type="text"
+            name="color"
+            placeholder="Color of Product"
+            defaultValue={selected.color}
+            placeholder={selected.color}
+          />
+          <FormText color="muted">Required*</FormText>
+        </FormGroup>
+        <FormGroup className="addproduct-form">
+          <Label for="Category">Category</Label>
+          <Input
+            required
+            type="select"
+            name="category"
+            defaultValue={selected.category}
+            placeholder={selected.category}>
+            <option>Living Room</option>
+            <option>Bathroom</option>
+            <option>Bedroom</option>
+          </Input>
+          <FormText color="muted">Required*</FormText>
+        </FormGroup>
+        <FormGroup className="addproduct-form">
+          <Label for="quantity">Quantity</Label>
+          <Input
+            required
+            name="quantity"
+            type="number"
+            defaultValue={selected.quantity}
+            placeholder={selected.quantity}
+          />
+          <FormText color="muted">Required*</FormText>
+        </FormGroup>
+        <FormGroup className="addproduct-form">
+          <Label for="price">Price</Label>
+          <Input
+            required
+            name="price"
+            defaultValue={selected.price}
+            placeholder={selected.price}
+            type="number"
+          />
+          <FormText color="muted">Required*</FormText>
+        </FormGroup>
+        <FormGroup className="addproduct-form">
+          <Label for="Description">Product Description</Label>
+          <Input
+            required
+            type="textarea"
+            name="description"
+            defaultValue={selected.description}
+            placeholder={selected.description}
+          />
+          <FormText color="muted">Required*</FormText>
+        </FormGroup>
+        <FormGroup className="addproduct-form">
+          <Label for="image">Image URL</Label>
+          <Input
+            required
+            type="url"
+            name="image"
+            defaultValue={selected.image}
+            placeholder={selected.image}
+          />
+        </FormGroup>
+        <Button type="button">Submit</Button>
+      </Form>
     </div>
   );
 };
@@ -30,22 +102,7 @@ export const EditProduct = props => {
 const mapState = state => {
   //
   return {
-    selectedProduct: state.selectedProduct[0]
+    selected: state.selectedProduct[0]
   };
 };
-
-const mapDispatch = dispatch => {
-  return {
-    handleClick(type, id) {
-      switch (type) {
-        case 'edit':
-          dispatch(editCurrentProduct(id));
-          break;
-        default:
-          break;
-      }
-    }
-  };
-};
-
-export default connect(mapState, mapDispatch)(EditProduct);
+export default connect(mapState)(EditProduct);
