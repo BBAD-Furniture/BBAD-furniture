@@ -1,11 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCurrentProduct, addToCartList } from '../store';
-import { withRouter } from 'react-router-dom';
+import {
+  getCurrentProduct,
+  addToCartList,
+  addItem,
+  removeCurrentProduct
+} from '../store';
+import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
 
 const SingleProduct = props => {
+  const { currUser, addProduct } = props;
   let activeProduct = props.selectedProduct
     ? props.selectedProduct
     : props.fetchProduct(props.match.params.id);
@@ -44,9 +50,38 @@ const SingleProduct = props => {
           </div>
           <hr />
           <div className="singleproduct-buttonContainer">
+<<<<<<< HEAD
             <Button onClick={() => props.addProductToCart(activeProduct)}>
               Add To Cart
             </Button>
+=======
+            {Object.keys(currUser).length ? (
+              <Button onClick={() => addProduct(currUser.id, activeProduct.id)}>
+                ADD TO CART
+              </Button>
+            ) : (
+              <Button onClick={() => props.addProductToCart({ activeProduct })}>
+                Add To Cart
+              </Button>
+            )}
+            {props.currUser.isAdmin ? (
+              <div>
+                <Link to={`/products/${activeProduct.id}/edit`}>
+                  <Button outline color="warning">
+                    Edit Product
+                  </Button>
+                </Link>
+                <Button
+                  outline
+                  color="danger"
+                  onClick={() => props.handleClick('delete', activeProduct.id)}>
+                  Delete Product
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+>>>>>>> master
           </div>
           <p className="singleproduct-categories">
             <strong>Category:</strong>
@@ -93,20 +128,28 @@ const SingleProduct = props => {
 const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],
-    users: state.allUsers
+    users: state.allUsers,
+    currUser: state.user
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
-    addProductToCart: item => dispatch(addToCartList(item))
+    addProductToCart: item => dispatch(addToCartList(item)),
+    addProduct: (userId, item) => {
+      dispatch(addItem(userId, { productId: item }));
+    },
+    handleClick(type, id) {
+      switch (type) {
+        case 'delete':
+          dispatch(removeCurrentProduct(id));
+          break;
+        default:
+          break;
+      }
+    }
   };
 };
 
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(SingleProduct)
-);
+export default withRouter(connect(mapState, mapDispatch)(SingleProduct));

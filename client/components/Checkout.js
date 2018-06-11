@@ -7,15 +7,20 @@ import '../styles/checkout.css';
 const Checkout = props => {
   //check if user exists: store products into db per user
   console.log(props);
+  const { user } = props;
   let cartItems = props.products;
   let cartProducts = JSON.parse(localStorage.getItem('products'));
   cartItems = cartProducts
     ? cartItems.filter(item => cartProducts.includes(item.id))
     : [];
   console.log(props.cartList, 'items in the cart');
-
   let itemCost = 0;
-  return (
+
+  return Object.keys(user).length ? (
+    //set the Order status to TRUE
+
+    <div>YOUR ORDER IS COMPLETE!!</div>
+  ) : (
     <div>
       <div className="checkout">
         <div className="billing info">
@@ -116,7 +121,8 @@ const Checkout = props => {
 
 const mapState = state => {
   return {
-    products: state.products
+    products: state.products,
+    user: state.user
   };
 };
 

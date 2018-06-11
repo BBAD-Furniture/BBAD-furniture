@@ -63,6 +63,16 @@ module.exports = User;
 /**
  * instanceMethods
  */
+
+User.prototype.getCurrentOrder = function() {
+  return this.getOrders({
+    where: {
+      userId: this.id,
+      status: false
+    }
+  });
+};
+
 User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password();
 };

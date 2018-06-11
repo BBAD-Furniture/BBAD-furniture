@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUser } from '../store';
+import { Link } from 'react-router-dom';
 
 /**
  * COMPONENT
@@ -16,7 +17,8 @@ export const UserHome = props => {
     resetPassword,
     id
   } = props.user;
-  const { handleClick, handleSubmit } = props;
+  const { handleClick, handleSubmit, users } = props;
+  let curUser = users.find(userEle => userEle.id === props.user.id) || {};
 
   const handleSubmitFirst = evt => {
     // evt.preventDefault();
@@ -50,7 +52,20 @@ export const UserHome = props => {
               <button type="button" onClick={handleClick}>
                 View All Users
               </button>
+              <Link to="/addproduct">Add Products</Link>
+
               <h3>Order History</h3>
+              <div>
+                {(curUser.orders || []).map(ord => {
+                  if (ord.status) {
+                    return (
+                      <div key={ord.id}>
+                        {ord.id} ----- Date: {ord.updatedAt.slice(0, 10)}
+                      </div>
+                    );
+                  }
+                })}
+              </div>
               <h3>My Reviews</h3>
               {reviews &&
                 reviews.map(review => (
@@ -66,10 +81,20 @@ export const UserHome = props => {
               <img src={profilePic} width="500" height="300" />
               <div>{email}</div>
               <h3>Order History</h3>
+              <div>
+                {(curUser.orders || []).map(ord => {
+                  if (ord.status) {
+                    return (
+                      <div key={ord.id}>
+                        {ord.id} ----- Date: {ord.updatedAt.slice(0, 10)}
+                      </div>
+                    );
+                  }
+                })}
+              </div>
               <h3>My Reviews</h3>
             </div>
           )}
-          })
         </div>
       )}
     </div>
@@ -81,7 +106,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    user: state.user
+    user: state.user,
+    users: state.allUsers
   };
 };
 
@@ -96,7 +122,10 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(UserHome);
+export default connect(
+  mapState,
+  mapDispatch
+)(UserHome);
 
 /**
  * PROP TYPES

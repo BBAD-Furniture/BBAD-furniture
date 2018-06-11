@@ -12,7 +12,9 @@ import {
   Cart,
   AllUsers,
   Checkout,
-  Complete
+  Complete,
+  EditProduct,
+  AddProduct
 } from './components';
 import { me, getAllUsers } from './store';
 
@@ -34,8 +36,10 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={Products} />
         <Route exact path="/products/:id" component={SingleProduct} />
+        <Route exact path="/products/:id/edit" component={EditProduct} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/addproduct" component={AddProduct} />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/complete-checkout" component={Complete} />
         {isLoggedIn && (
