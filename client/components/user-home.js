@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUser } from '../store';
+import { Link } from 'react-router-dom';
 
 /**
  * COMPONENT
@@ -51,6 +52,8 @@ export const UserHome = props => {
               <button type="button" onClick={handleClick}>
                 View All Users
               </button>
+              <Link to="/addproduct">Add Products</Link>
+
               <h3>Order History</h3>
               <div>
                 {(curUser.orders || []).map(ord => {
@@ -119,7 +122,10 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(UserHome);
+export default connect(
+  mapState,
+  mapDispatch
+)(UserHome);
 
 /**
  * PROP TYPES

@@ -28,13 +28,12 @@ const Navbar = ({
                 <h1>BBAD Co.</h1>
               </Link>
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">User Page</Link>
+              <Link to="/home">My Account</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
               <Link to="/products">View All Products</Link>
               <a href="/cart" onClick={clickHandler(user.id)}>
-                View Cart
                 <i className="fas fa-shopping-cart nav-cart" />
               </a>
             </div>
@@ -94,7 +93,10 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Navbar);
+export default connect(
+  mapState,
+  mapDispatch
+)(Navbar);
 
 /**
  * PROP TYPES
