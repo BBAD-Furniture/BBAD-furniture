@@ -37,7 +37,7 @@ export const editCurrentProduct = productId => dispatch => {
     .then(res => res.data)
     .then(product => {
       dispatch(editProduct(product));
-      history.push(`/products/${productId}`)
+      history.push(`/products/${productId}`);
     })
     .catch(err => console.log(err));
 };
@@ -48,8 +48,8 @@ export default function(state = {}, action) {
       return { ...action.product };
     case REMOVE_PRODUCT:
       return {};
-    case EDIT_PRODUCT:
-      return {}
+    // case EDIT_PRODUCT:
+    //   return {}
     default:
       return state;
   }
