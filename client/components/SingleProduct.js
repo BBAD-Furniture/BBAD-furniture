@@ -8,6 +8,7 @@ import {
 import { withRouter, Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import '../styles/singleProduct.css';
+import { AddReview } from './AddReview';
 
 const SingleProduct = props => {
   const { currUser, addProduct } = props;
@@ -58,7 +59,7 @@ const SingleProduct = props => {
                 Add To Cart
               </Button>
             )}
-            {props.currUser.isAdmin ? (
+            {props.currUser ? (
               <div>
                 <Link
                   to={{
@@ -115,40 +116,8 @@ const SingleProduct = props => {
               </div>
             );
           })}
-        {props.currUser ? (
-          <div>
-            <h3>Leave a review below</h3>
-            <Form>
-              <FormGroup className="writereview-form">
-                <Label for="select-rating">Rating</Label>
-                <Input type="select" name="rating">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Input>
-                <FormText color="muted">Required*</FormText>
-              </FormGroup>
-              <FormGroup className="writereview-form">
-                <Label for="review-text">Review</Label>
-                <Input
-                  required
-                  type="textarea"
-                  name="review"
-                  placeholder="Enter your review"
-                />
-                <FormText color="muted">Required*</FormText>
-              </FormGroup>
-              <Button>Submit</Button>
-            </Form>
-          </div>
-        ) : (
-          <div>
-            <h2>Please login or signup to leave a review</h2>
-          </div>
-        )}
       </div>
+      <AddReview />
     </div>
   );
 };

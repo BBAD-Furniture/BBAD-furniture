@@ -13,7 +13,6 @@ class EditProduct extends React.Component {
 
   handleSubmit() {
     event.preventDefault();
-    console.log('hit');
   }
   render() {
     return this.props.selected ? (
