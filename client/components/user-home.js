@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUser } from '../store';
+import { updateUser, getUserOrders } from '../store';
 import { Link } from 'react-router-dom';
+import { Table } from 'reactstrap';
 
 /**
  * COMPONENT
@@ -26,6 +27,7 @@ export const UserHome = props => {
     evt.target.password.value = '';
     handleSubmit(id, password);
   };
+
   return (
     <div>
       {resetPassword ? (
@@ -43,62 +45,51 @@ export const UserHome = props => {
         </div>
       ) : (
         <div>
+          <h3>Welcome, {fullName || email}</h3>
           {isAdmin ? (
             <div>
-              <h3>Welcome, {fullName || email}</h3>
               <h6>Administrator Account</h6>
-              <img src={profilePic} width="500" height="300" />
-              <div>{email}</div>
               <button type="button" onClick={handleClick}>
                 View All Users
               </button>
               <Link to="/addproduct">Add Products</Link>
-
-              <h3>Order History</h3>
-              <div>
-                {(curUser.orders || []).map(ord => {
-                  if (ord.status) {
-                    return (
-                      <div key={ord.id}>
-                        <Link to={`/${ord.id}/orderInfo`}>
-                          {ord.id} ----- Date: {ord.updatedAt.slice(0, 10)}
-                        </Link>
-                      </div>
-                    );
-                  }
-                })}
-              </div>
-              <h3>My Reviews</h3>
-              {reviews &&
-                reviews.map(review => (
-                  <div key={review.id}>
-                    --->
-                    {review.review}
-                  </div>
-                ))}
             </div>
-          ) : (
-            <div>
-              <h3>Welcome, {fullName || email}</h3>
-              <img src={profilePic} width="500" height="300" />
-              <div>{email}</div>
-              <h3>Order History</h3>
-              <div>
-                {(curUser.orders || []).map(ord => {
-                  if (ord.status) {
-                    return (
-                      <div key={ord.id}>
+          ) : null}
+          <img src={profilePic} width="500" height="300" />
+          <div>{email}</div>
+          <h3>Order History</h3>
+          <Table hover>
+            <thead>
+              <tr>
+                <th>Order Number</th>
+                <th>Date of Order</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(curUser.orders || []).map(ord => {
+                if (ord.status) {
+                  return (
+                    <tr key={ord.id}>
+                      <td>
                         <Link to={`/${ord.id}/orderInfo`}>
-                          {ord.id} ----- Date: {ord.updatedAt.slice(0, 10)}
+                          Order Number # {ord.id}
                         </Link>
-                      </div>
-                    );
-                  }
-                })}
+                      </td>
+                      <td>{ord.updatedAt.slice(0, 10)}</td>
+                    </tr>
+                  );
+                }
+              })}
+            </tbody>
+          </Table>
+          <h3>My Reviews</h3>
+          {reviews &&
+            reviews.map(review => (
+              <div key={review.id}>
+                --->
+                {review.review}
               </div>
-              <h3>My Reviews</h3>
-            </div>
-          )}
+            ))}
         </div>
       )}
     </div>
@@ -111,7 +102,8 @@ export const UserHome = props => {
 const mapState = state => {
   return {
     user: state.user,
-    users: state.allUsers
+    users: state.allUsers,
+    order: state.order
   };
 };
 
@@ -122,6 +114,9 @@ const mapDispatch = (dispatch, ownProps) => {
     },
     handleSubmit(id, password) {
       dispatch(updateUser(id, { password: password, resetPassword: false }));
+    },
+    getUserOrders: userId => {
+      dispatch(getUserOrders(userId));
     }
   };
 };
