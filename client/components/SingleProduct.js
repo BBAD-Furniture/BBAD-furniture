@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import {
   getCurrentProduct,
   addToCartList,
+<<<<<<< HEAD
   removeCurrentProduct
+=======
+  removeCurrentProduct,
+  addItem
+>>>>>>> master
 } from '../store';
 import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
@@ -27,7 +32,6 @@ const SingleProduct = props => {
   let trueRating = isNaN(rating) ? '' : rating;
   let reviews = activeProduct.reviews ? activeProduct.reviews.length : '';
   function handleClick() {
-    console.log('ACTIVE PROD', activeProduct.id);
     props.deleteProduct(activeProduct.id);
   }
 
@@ -54,7 +58,8 @@ const SingleProduct = props => {
           <hr />
           <div className="singleproduct-buttonContainer">
             {Object.keys(currUser).length ? (
-              <Button onClick={() => addProduct(currUser.id, activeProduct.id)}>
+              <Button
+                onClick={() => props.addProduct(currUser.id, activeProduct.id)}>
                 ADD TO CART
               </Button>
             ) : (
@@ -64,7 +69,15 @@ const SingleProduct = props => {
             )}
             {props.currUser.isAdmin ? (
               <div>
+<<<<<<< HEAD
                 <Link to={`/editproduct/${activeProduct.id}`}>
+=======
+                <Link
+                  to={{
+                    pathname: '/editproduct',
+                    state: { product: props.selectedProduct }
+                  }}>
+>>>>>>> master
                   <Button outline color="warning">
                     Edit Product
                   </Button>
@@ -131,6 +144,7 @@ const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
+    addProduct: (userId, productId) => dispatch(addItem(userId, productId)),
     deleteProduct: id => dispatch(removeCurrentProduct(id))
   };
 };
