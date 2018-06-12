@@ -67,10 +67,15 @@ class AddProduct extends React.Component {
           </FormGroup>
           <FormGroup className="addproduct-form">
             <Label for="Category">Category</Label>
-            <Input required type="select" name="category">
+            <Input
+              defaultValue="Living Room"
+              required
+              type="select"
+              name="category">
               <option>Living Room</option>
               <option>Bathroom</option>
               <option>Bedroom</option>
+              <option>Office</option>
             </Input>
             <FormText color="muted">Required*</FormText>
           </FormGroup>
