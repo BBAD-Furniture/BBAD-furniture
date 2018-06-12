@@ -24,7 +24,7 @@ import { me, getAllUsers } from './store';
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData();
+    this.props.loadInitialData(this.props.user);
   }
 
   render() {
@@ -72,9 +72,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData() {
+    loadInitialData(user) {
       dispatch(me());
-      dispatch(getAllUsers());
+      // dispatch(getAllUsers());
     }
   };
 };

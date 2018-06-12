@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { auth } from '../store';
+import { auth, getAllUsers } from '../store';
 
 /**
  * COMPONENT
@@ -80,29 +80,27 @@ const mapDispatch = dispatch => {
       const method = evt.target.name;
       const email = evt.target.email.value;
       const password = evt.target.password.value;
-      !evt.target.firstName && !evt.target.lastName
-        ? dispatch(auth(email, password, method))
-        : dispatch(
-            auth(
-              email,
-              password,
-              method,
-              evt.target.firstName.value,
-              evt.target.lastName.value
-            )
-          );
+      if (!evt.target.firstName && !evt.target.lastName) {
+        dispatch(auth(email, password, method)).then(() => {
+          dispatch(getAllUsers());
+        });
+      } else {
+        dispatch(
+          auth(
+            email,
+            password,
+            method,
+            evt.target.firstName.value,
+            evt.target.lastName.value
+          )
+        );
+      }
     }
   };
 };
 
-export const Login = connect(
-  mapLogin,
-  mapDispatch
-)(AuthForm);
-export const Signup = connect(
-  mapSignup,
-  mapDispatch
-)(AuthForm);
+export const Login = connect(mapLogin, mapDispatch)(AuthForm);
+export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
 
 /**
  * PROP TYPES

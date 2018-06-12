@@ -42,9 +42,11 @@ router.delete('/logout', (req, res) => {
 });
 
 router.get('/me', (req, res) => {
-  return User.findById(req.user.id, {
-    include: { model: Review }
-  }).then(user => res.json(user));
+  if (req.user) {
+    return User.findById(req.user.id, {
+      include: { model: Review }
+    }).then(user => res.json(user));
+  }
 });
 
 router.use('/google', require('./google'));
