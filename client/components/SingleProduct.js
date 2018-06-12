@@ -4,7 +4,8 @@ import {
   getCurrentProduct,
   addToCartList,
   removeCurrentProduct,
-  addItem
+  addItem,
+  addNewReview
 } from '../store';
 import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
@@ -123,7 +124,7 @@ const SingleProduct = props => {
 
 function generateStars(num) {
   let starsHtml = [];
-  let isDecimal = num % 1 !== 0 ? true : false;
+  let isDecimal = num % 1 !== 0;
   let newNum = Math.ceil(num);
   if (isNaN(newNum)) return ['No Reviews'];
   for (let i = 0; i <= newNum; i++) {
@@ -146,6 +147,7 @@ function generateStars(num) {
   }
   return starsHtml;
 }
+
 const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],
@@ -159,7 +161,8 @@ const mapDispatch = dispatch => {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
     addProduct: (userId, productId) => dispatch(addItem(userId, productId)),
-    deleteProduct: id => dispatch(removeCurrentProduct(id))
+    deleteProduct: id => dispatch(removeCurrentProduct(id)),
+    addAReview: review => dispatch(addNewReview(review))
   };
 };
 

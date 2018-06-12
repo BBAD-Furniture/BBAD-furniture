@@ -3,11 +3,8 @@ import history from '../history';
 
 const GET_CURRENT_PRODUCT = 'GET_CURRENT_PRODUCT';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-<<<<<<< HEAD
 const ADD_REVIEW = 'ADD_REVIEW';
-=======
 import { getProductList } from './productList';
->>>>>>> master
 
 const getProduct = product => ({ type: GET_CURRENT_PRODUCT, product });
 const removeProduct = () => ({ type: REMOVE_PRODUCT });
@@ -36,9 +33,9 @@ export const removeCurrentProduct = productId => dispatch => {
   }
 };
 
-export const addNewReview = productId => dispatch => {
+export const addNewReview = reviewObj => dispatch => {
   axios
-    .post(`/api/products/${productId}`)
+    .post(`/api/products/${reviewObj.productId}/review`, reviewObj)
     .then(res => dispatch(addReview(res.data)))
     .catch(err => console.log(err));
 };
@@ -50,7 +47,7 @@ export default function(state = {}, action) {
     case REMOVE_PRODUCT:
       return {};
     case ADD_REVIEW:
-      return { ...state.reviews.concat([action.review]) };
+      return { ...state, review: action.review };
     default:
       return state;
   }

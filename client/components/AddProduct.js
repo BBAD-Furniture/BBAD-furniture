@@ -75,10 +75,7 @@ class AddProduct extends React.Component {
               <option>Living Room</option>
               <option>Bathroom</option>
               <option>Bedroom</option>
-<<<<<<< HEAD
               <option>Kitchen</option>
-=======
->>>>>>> master
               <option>Office</option>
             </Input>
             <FormText color="muted">Required*</FormText>

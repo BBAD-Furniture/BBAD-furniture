@@ -15,9 +15,6 @@ export { default as AllUsers } from './AllUsers';
 export { default as EditProduct } from './EditProduct';
 export { default as Complete } from './DoneCheckout';
 export { default as AddProduct } from './AddProduct';
-<<<<<<< HEAD
 export { default as AddReview } from './AddReview';
-=======
 export { default as OrderInfo } from './OrderInfo';
->>>>>>> master
 export { Login, Signup } from './auth-form';

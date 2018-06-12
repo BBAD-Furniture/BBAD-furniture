@@ -95,7 +95,7 @@ export const ProductList = props => {
 
 function generateStars(num) {
   let starsHtml = [];
-  let isDecimal = num % 1 !== 0 ? true : false;
+  let isDecimal = num % 1 !== 0;
   let newNum = Math.ceil(num);
   if (isNaN(newNum)) return ['No Reviews'];
   for (let i = 0; i <= newNum; i++) {
@@ -136,7 +136,4 @@ const mapDispatch = dispatch => {
     }
   };
 };
-export const Products = connect(
-  mapProducts,
-  mapDispatch
-)(ProductList);
+export const Products = connect(mapProducts, mapDispatch)(ProductList);
