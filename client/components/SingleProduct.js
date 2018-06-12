@@ -101,19 +101,15 @@ const SingleProduct = props => {
         <h1 className="singleproduct-reviewTitle"> Reviews </h1>
         {activeProduct.reviews &&
           activeProduct.reviews.map(review => {
-            let user = props.users.find(elem => elem.id === review.userId);
-
-            let trueUser = user || {};
-
             return (
               <div className="singleproduct-review" key={review.id}>
                 <h4>
                   <span>
-                    <img className="review-img" src={trueUser.profilePic} />
+                    <img className="review-img" src={review.profilePic} />
                   </span>
-                  {trueUser.firstName} {trueUser.lastName}
+                  {review.name}
                 </h4>
-                <p> {generateStars(review.rating)} </p>
+                {generateStars(review.rating)}
                 <p> {review.review} </p>
               </div>
             );
@@ -142,4 +138,9 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default withRouter(connect(mapState, mapDispatch)(SingleProduct));
+export default withRouter(
+  connect(
+    mapState,
+    mapDispatch
+  )(SingleProduct)
+);

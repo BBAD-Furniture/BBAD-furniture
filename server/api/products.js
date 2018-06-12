@@ -17,7 +17,7 @@ router.get('/:productId', (req, res, next) => {
     where: {
       id
     },
-    include: [{ model: Review }]
+    include: [{ all: true }]
   })
     .then(product => res.json(product))
     .catch(next);
@@ -63,6 +63,7 @@ router.delete('/:productId', (req, res, next) => {
 router.post('/:productId/review', function(req, res, next) {
   if (req.user) {
     Review.create({
+      name: req.user.fullName,
       userId: req.body.userId,
       productId: req.body.productId,
       review: req.body.review,
