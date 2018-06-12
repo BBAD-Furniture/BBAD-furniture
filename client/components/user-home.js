@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUser, getUserOrders, getAllUsers } from '../store';
 import { Link } from 'react-router-dom';
-import { Table } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 
 import '../styles/userpage.css';
 /**
@@ -49,7 +49,7 @@ class UserHome extends React.Component {
                 </label>
                 <input name="password" type="password" />
               </div>
-              <button type="submit">Reset Password</button>
+              <Button type="submit">Reset Password</Button>
             </form>
           </div>
         ) : (
@@ -57,7 +57,8 @@ class UserHome extends React.Component {
             <div className="userpage-flex">
               <div className="userpage-info">
                 <h3 className="userpage-welcome">
-                  Welcome, {fullName || email}
+                  Welcome,{' '}
+                  <span className="userpage-name">{fullName || email}</span>
                 </h3>
 
                 <div>
@@ -72,43 +73,52 @@ class UserHome extends React.Component {
                       <h6 className="userpage-admin-title">
                         Administrator Account
                       </h6>
-                      <button type="button" onClick={this.handleClick}>
+                      <Button
+                        className="userpage-viewAllUsers"
+                        outline
+                        color="info"
+                        type="Button"
+                        onClick={this.handleClick}>
                         View All Users
-                      </button>
-                      <Link className="userpage-addprodut" to="/addproduct">
-                        Add Products
-                      </Link>
+                      </Button>
+                      <Button outline color="success">
+                        <Link className="userpage-addprodut" to="/addproduct">
+                          Add Products
+                        </Link>
+                      </Button>
                     </div>
                   ) : null}
                   <h3 className="userpage-email">{email}</h3>
                 </div>
               </div>
-              <div className="userpage-orders">
+              <div className="userpage-table-main">
                 <h3>Order History</h3>
-                <Table className="userpage-table" hover>
-                  <thead>
-                    <tr>
-                      <th>Order Number</th>
-                      <th>Date of Order</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(order || []).map(ord => {
-                      if (ord.status) {
-                        return (
-                          <tr key={ord.id}>
-                            <td>
-                              <Link to={`/${ord.id}/orderInfo`}>
-                                Order Number # {ord.id}
-                              </Link>
-                            </td>
-                            <td>{ord.updatedAt.slice(0, 10)}</td>
-                          </tr>
-                        );
-                      }
-                    })}
-                  </tbody>
-                </Table>
+                <div className="userpage-orders">
+                  <Table className="userpage-table" hover>
+                    <thead>
+                      <tr>
+                        <th>Order Number</th>
+                        <th>Date of Order</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(order || []).map(ord => {
+                        if (ord.status) {
+                          return (
+                            <tr key={ord.id}>
+                              <td>
+                                <Link to={`/${ord.id}/orderInfo`}>
+                                  Order Number # {ord.id}
+                                </Link>
+                              </td>
+                              <td>{ord.updatedAt.slice(0, 10)}</td>
+                            </tr>
+                          );
+                        }
+                      })}
+                    </tbody>
+                  </Table>
+                </div>
               </div>
             </div>
 
@@ -155,7 +165,10 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(UserHome);
+export default connect(
+  mapState,
+  mapDispatch
+)(UserHome);
 
 /**
  * PROP TYPES

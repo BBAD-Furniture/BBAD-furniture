@@ -1,19 +1,51 @@
-.userpage-welcome{
-    margin-bottom: 15px;
-    justify-content: space-evenly;
+.userpage-welcome {
+  margin-bottom: 15px;
+  justify-content: space-evenly;
 }
-
 
 .userpage-email {
-    margin: 10px 0;
-    font-size: 15px;
+  margin: 10px 0;
+  font-size: 15px;
 }
-.userpage-flex{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+.userpage-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
-.userpage-orders{
+.userpage-admin-title {
+  margin: 10px 0;
+}
+
+.userpage-admin > button {
+  margin: 0 5px;
+}
+
+.userpage-name {
+  color: rgb(23, 162, 184);
+}
+
+.userpage-viewAllUsers {
+  margin-left: 0 !important;
+}
+
+.userpage-email {
+  color: grey;
+}
+.userpage-orders {
   max-width: 500px;
+  overflow: scroll;
+  height: 385px;
+}
+
+.userpage-table-main {
+  margin: 10px 0;
+}
+
+.userpage-table-main h3 {
+  text-align: center;
+}
+
+.userpage-reviews {
+  text-align: center;
 }
