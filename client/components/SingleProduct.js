@@ -3,12 +3,8 @@ import { connect } from 'react-redux';
 import {
   getCurrentProduct,
   addToCartList,
-<<<<<<< HEAD
-  removeCurrentProduct
-=======
   removeCurrentProduct,
   addItem
->>>>>>> master
 } from '../store';
 import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
@@ -69,15 +65,7 @@ const SingleProduct = props => {
             )}
             {props.currUser.isAdmin ? (
               <div>
-<<<<<<< HEAD
                 <Link to={`/editproduct/${activeProduct.id}`}>
-=======
-                <Link
-                  to={{
-                    pathname: '/editproduct',
-                    state: { product: props.selectedProduct }
-                  }}>
->>>>>>> master
                   <Button outline color="warning">
                     Edit Product
                   </Button>
