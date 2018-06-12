@@ -43,7 +43,7 @@ export const updateUser = (userId, userInfo) => dispatch => {
 export default (state = [], action) => {
   switch (action.type) {
     case GET_USERS:
-      return action.users;
+      return [...action.users];
     case DELETE_USER:
       return state.filter(user => user.id !== action.id);
     case UPDATE_USER:
