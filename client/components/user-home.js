@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUser, getUserOrders } from '../store';
+import { updateUser, getUserOrders, getAllUsers } from '../store';
 import { Link } from 'react-router-dom';
 import { Table } from 'reactstrap';
 
@@ -18,8 +18,8 @@ export const UserHome = props => {
     resetPassword,
     id
   } = props.user;
-  const { handleClick, handleSubmit, users } = props;
-  let curUser = users.find(userEle => userEle.id === props.user.id) || {};
+  const { handleClick, handleSubmit, users, order } = props;
+  // let curUser = users.find(userEle => userEle.id === props.user.id) || {};
 
   const handleSubmitFirst = evt => {
     // evt.preventDefault();
@@ -66,7 +66,7 @@ export const UserHome = props => {
               </tr>
             </thead>
             <tbody>
-              {(curUser.orders || []).map(ord => {
+              {(order || []).map(ord => {
                 if (ord.status) {
                   return (
                     <tr key={ord.id}>
@@ -110,6 +110,7 @@ const mapState = state => {
 const mapDispatch = (dispatch, ownProps) => {
   return {
     handleClick() {
+      dispatch(getAllUsers());
       ownProps.history.push('/users');
     },
     handleSubmit(id, password) {

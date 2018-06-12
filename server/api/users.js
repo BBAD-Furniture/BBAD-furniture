@@ -3,22 +3,28 @@ const { User, Review, Order, Product, OrderDetail } = require('../db/models');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
-  User.findAll({
-    attributes: [
-      'firstName',
-      'lastName',
-      'profilePic',
-      'id',
-      'email',
-      'isAdmin'
-    ],
-    include: [{ model: Review }, { model: Order }]
-    // explicitly select only the id and email fields - even though
-    // users' passwords are encrypted, it won't help if we just
-    // send everything to anyone who asks!
-  })
-    .then(users => res.json(users))
-    .catch(next);
+  if (req.user) {
+    console.log('REQ>USER::::', req.user.fullName);
+    User.findAll({
+      attributes: [
+        'firstName',
+        'lastName',
+        'profilePic',
+        'id',
+        'email',
+        'isAdmin'
+      ],
+      include: [{ model: Review }, { model: Order }]
+      // explicitly select only the id and email fields - even though
+      // users' passwords are encrypted, it won't help if we just
+      // send everything to anyone who asks!
+    })
+      .then(users => res.json(users))
+      .catch(next);
+  } else {
+    console.log('NO USER LOGGED IN');
+    res.json('Permission Denied');
+  }
 });
 
 router.delete('/:userId', (req, res, next) => {
