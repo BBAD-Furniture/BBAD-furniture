@@ -72,7 +72,7 @@ class UserHome extends React.Component {
                       <h6 className="userpage-admin-title">
                         Administrator Account
                       </h6>
-                      <button type="button" onClick={this.handleClick}>
+                      <button type="button" onClick={this.props.handleClick}>
                         View All Users
                       </button>
                       <Link className="userpage-addprodut" to="/addproduct">
