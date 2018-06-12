@@ -48,7 +48,7 @@ class OrderInfo extends React.Component {
                         {console.log(ele.id)}
                         <a
                           href={`/products/${ele.id}`}
-                          onClick={fetchProduct(id)}>
+                          onClick={() => fetchProduct(id)}>
                           <div className="product-image">
                             <img src={ele.image} />
                           </div>

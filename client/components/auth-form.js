@@ -95,21 +95,6 @@ const mapDispatch = dispatch => {
           )
         );
       }
-
-      // !evt.target.firstName && !evt.target.lastName
-      //   ? (
-      //     dispatch(auth(email, password, method));
-      //   dispatch(getAllUsers())
-      //   )
-      //   : dispatch(
-      //       auth(
-      //         email,
-      //         password,
-      //         method,
-      //         evt.target.firstName.value,
-      //         evt.target.lastName.value
-      //       )
-      //     );
     }
   };
 };
