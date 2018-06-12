@@ -4,7 +4,7 @@ import axios from 'axios';
  * ACTION TYPES
  */
 const ADD_TO_CART = 'ADD_TO_CART';
-const QTY_OF_ITEM = 'QTY_OF_ITEM';
+const NUMBER_OF_ITEM = 'NUMBER_OF_ITEM';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 
 /**
@@ -12,7 +12,7 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
  */
 const addToCart = item => ({ type: ADD_TO_CART, item });
 const removeFromCart = item => ({ type: REMOVE_FROM_CART, item });
-const itemCount = num => ({ type: REMOVE_FROM_CART, num });
+const itemCount = nums => ({ type: NUMBER_OF_ITEM, nums });
 
 /**
  * THUNK CREATORS
@@ -42,20 +42,29 @@ export const addToCartList = item => dispatch =>
     })
     .catch(err => console.log(err));
 
-export const removeFromCartList = item => dispatch => {
+export const removeFromCartList = (item, index) => dispatch => {
   dispatch(removeFromCart(item));
   let prods = [];
   prods = JSON.parse(localStorage.getItem('products')).filter(
     id => id !== item.id
   );
   localStorage.setItem('products', JSON.stringify(prods));
+
+  let qty = [];
+  qty = JSON.parse(localStorage.getItem('quantity')).filter(
+    (quan, idx) => idx !== index
+  );
+  localStorage.setItem('quantity', JSON.stringify(qty));
 };
 
 export const quantityOfItem = (index, evt) => dispatch => {
-  let qty = JSON.parse(localStorage.getItem('quantity'));
-  qty[index] = evt.target.value;
-  localStorage.setItem('quantity', JSON.stringify(qty));
-  dispatch(itemCount(evt.target.value));
+  // let qty = JSON.parse(localStorage.getItem('quantity'));
+  // qty[index] = evt.target.value;
+  // localStorage.setItem('quantity', JSON.stringify(qty));
+  let quantities = JSON.parse(localStorage.getItem('quantity'));
+  quantities[index] = evt.target.value;
+  localStorage.setItem('quantity', JSON.stringify(quantities));
+  dispatch(itemCount(quantities));
 };
 
 /**
@@ -68,8 +77,8 @@ export default function(state = [], action) {
       return [...state, action.item];
     case REMOVE_FROM_CART:
       return [...state].filter(item => item !== action.item);
-    case QTY_OF_ITEM:
-      return [...state, action.num];
+    case NUMBER_OF_ITEM:
+      return action.nums;
     default:
       return state;
   }
