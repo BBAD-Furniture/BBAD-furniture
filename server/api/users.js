@@ -181,7 +181,7 @@ router.put(`/:userId/order`, (req, res, next) => {
 
 router.get('/:userId/allOrders', (req, res, next) => {
   if (req.user) {
-    req.user.getCompletedOrder().then(allOrders => {
+    req.user.getAllOrders().then(allOrders => {
       allOrders ? res.json(allOrders) : res.status(404).json();
     });
   } else {
@@ -191,7 +191,7 @@ router.get('/:userId/allOrders', (req, res, next) => {
 
 router.get('/:userId/allOrdersInfo', (req, res, next) => {
   if (req.user) {
-    req.user.getCompletedOrder().then(allOrders => {
+    req.user.getAllOrders().then(allOrders => {
       let arr = allOrders.map(e => {
         return OrderDetail.findAll({
           where: {

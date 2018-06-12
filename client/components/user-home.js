@@ -32,10 +32,9 @@ class UserHome extends React.Component {
       profilePic,
       reviews,
       isAdmin,
-      resetPassword,
-      id
+      resetPassword
     } = this.props.user;
-    const { handleClick, handleSubmit, users, order } = this.props;
+    const { order } = this.props;
 
     return (
       <div className="wrapper">
@@ -99,22 +98,26 @@ class UserHome extends React.Component {
                       <tr>
                         <th>Order Number</th>
                         <th>Date of Order</th>
+                        <th>Time of Order</th>
+                        <th>Order Status</th>
                       </tr>
                     </thead>
                     <tbody>
                       {(order || []).map(ord => {
-                        if (ord.status) {
-                          return (
-                            <tr key={ord.id}>
-                              <td>
-                                <Link to={`/${ord.id}/orderInfo`}>
-                                  Order Number # {ord.id}
-                                </Link>
-                              </td>
-                              <td>{ord.updatedAt.slice(0, 10)}</td>
-                            </tr>
-                          );
-                        }
+                        return (
+                          <tr key={ord.id}>
+                            <td>
+                              <Link to={`/${ord.id}/orderInfo`}>#{ord.id}</Link>
+                            </td>
+                            <td>{ord.updatedAt.slice(0, 10)}</td>
+                            <td>{ord.createdAt.slice(11, 16)}</td>
+                            {ord.status === true ? (
+                              <td>'Processing'</td>
+                            ) : (
+                              <td>'In Progress'</td>
+                            )}
+                          </tr>
+                        );
                       })}
                     </tbody>
                   </Table>
