@@ -21,11 +21,9 @@ import {
  * COMPONENT
  */
 export const ProductList = props => {
-  console.log(isSmallScreen);
   const { currUser, addProduct } = props;
   let filtered = props.filtered || props.products;
   let products = filtered.length ? props.filtered : props.products;
-  console.log(products);
   return (
     <div>
       <div className="flexWrap">

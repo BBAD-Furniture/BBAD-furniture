@@ -39,7 +39,6 @@ export const getItems = userId => dispatch =>
 
 //delete user
 export const deleteTheItem = (userId, itemId) => dispatch => {
-  console.log('USERID:', userId, 'PRODUCTID:', itemId);
   axios
     .post(`/api/users/${userId}/item/delete`, { itemId })
     .then(res => {

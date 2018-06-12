@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { addNewReview } from '../store';
 import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import '../styles/singleProduct.css';
@@ -87,10 +86,5 @@ const mapState = state => {
     selectedProduct: state.selectedProduct[0]
   };
 };
-
-// const mapDispatch = dispatch => {
-//   return {
-//   };
-// };
 
 export default connect(mapState, null)(AddReview);

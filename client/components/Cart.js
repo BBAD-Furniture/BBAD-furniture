@@ -15,7 +15,6 @@ import '../styles/cart.css';
 const Cart = props => {
   const { user, signedInItems, products, handleCheckout } = props;
   let total = 0;
-  // props.getItems(user.id);
   let cartItems = props.products;
   let cartProducts = JSON.parse(localStorage.getItem('products'));
 
@@ -26,7 +25,6 @@ const Cart = props => {
     : [];
 
   let grandTotal = 0;
-  console.log(grandTotal, JSON.parse(localStorage.getItem('quantity')));
   return (
     <div className="shopping-cart">
       <h1>Shopping Cart</h1>
@@ -168,7 +166,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(Cart);
+export default connect(mapState, mapDispatch)(Cart);
