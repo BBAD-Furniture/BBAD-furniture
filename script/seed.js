@@ -28,7 +28,7 @@ async function seed() {
 
 function seedUser() {
   return Promise.all(
-    new Array(10).fill(1).map(() =>
+    new Array(20).fill(1).map(() =>
       User.create({
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
@@ -69,10 +69,10 @@ function seedProduct() {
 
 function seedReview() {
   return Promise.all(
-    new Array(20).fill(1).map(() =>
+    new Array(30).fill(1).map(() =>
       Review.create({
         review: faker.lorem.paragraph(),
-        userId: Math.floor(Math.random() * 10) + 1,
+        userId: Math.floor(Math.random() * 20) + 1,
         rating: Math.floor(Math.random() * 5) + 1,
         productId: Math.floor(Math.random() * 20) + 1
       })
