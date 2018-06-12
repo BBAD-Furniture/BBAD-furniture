@@ -6,6 +6,7 @@ const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 const ADD_REVIEW = 'ADD_REVIEW';
 import { getProductList } from './productList';
 import { getUserOrders } from './order';
+import { me } from './user';
 
 const getProduct = product => ({ type: GET_CURRENT_PRODUCT, product });
 const removeProduct = () => ({ type: REMOVE_PRODUCT });
@@ -39,6 +40,8 @@ export const addNewReview = reviewObj => dispatch => {
   axios
     .post(`/api/products/${reviewObj.productId}/review`, reviewObj)
     .then(res => dispatch(addReview(res.data)))
+    .then(() => dispatch(getCurrentProduct(reviewObj.productId)))
+    .then(() => dispatch(me()))
     .then(() => history.push(`/products/${reviewObj.productId}`))
     .catch(err => console.log(err));
 };
