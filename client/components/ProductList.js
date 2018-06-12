@@ -115,7 +115,4 @@ const mapDispatch = dispatch => {
     }
   };
 };
-export const Products = connect(
-  mapProducts,
-  mapDispatch
-)(ProductList);
+export const Products = connect(mapProducts, mapDispatch)(ProductList);

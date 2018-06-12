@@ -49,16 +49,14 @@ router.delete('/:productId', (req, res, next) => {
 });
 
 router.post('/:productId/review', function(req, res, next) {
-  Review.create(req.body)
+  Review.create({
+    userId: req.body.userId,
+    productId: req.body.productId,
+    review: req.body.review,
+    rating: req.body.rating
+  })
     .then(created => {
-      return Review.findOne({
-        where: { id: created.id },
-        include: [{ model: User }]
-      })
-        .then(foundReview => {
-          res.send(foundReview);
-        })
-        .catch(console.error);
+      res.json(created);
     })
     .catch(next);
 });

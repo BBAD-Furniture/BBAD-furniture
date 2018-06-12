@@ -4,15 +4,17 @@ import {
   getCurrentProduct,
   addToCartList,
   removeCurrentProduct,
-  addItem
+  addItem,
+  addNewReview
 } from '../store';
 import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
+import { AddReview } from './AddReview';
 import generateStars from './starGenerator';
 
 const SingleProduct = props => {
-  const { currUser, addProduct } = props;
+  const { currUser } = props;
   let activeProduct = props.selectedProduct
     ? props.selectedProduct
     : props.fetchProduct(props.match.params.id);
@@ -27,9 +29,6 @@ const SingleProduct = props => {
     : 'No reviews ';
 
   let reviews = activeProduct.reviews ? activeProduct.reviews.length : '';
-  function handleClick() {
-    props.deleteProduct(activeProduct.id);
-  }
 
   return (
     <div>
@@ -57,7 +56,7 @@ const SingleProduct = props => {
           <div className="singleproduct-buttonContainer">
             {Object.keys(currUser).length ? (
               <Button
-              className="singleproduct-addToCart"
+                className="singleproduct-addToCart"
                 onClick={() => props.addProduct(currUser.id, activeProduct.id)}>
                 ADD TO CART
               </Button>
@@ -66,14 +65,17 @@ const SingleProduct = props => {
                 Add To Cart
               </Button>
             )}
-            {props.currUser.isAdmin ? (
+            {props.currUser ? (
               <div>
                 <Link to={`/editproduct/${activeProduct.id}`}>
                   <Button outline color="warning">
                     Edit Product
                   </Button>
                 </Link>
-                <Button outline color="danger" onClick={handleClick}>
+                <Button
+                  outline
+                  color="danger"
+                  onClick={() => props.deleteProduct(activeProduct.id)}>
                   Delete Product
                 </Button>
               </div>
@@ -84,14 +86,12 @@ const SingleProduct = props => {
           <p className="singleproduct-categories">
             <strong>Category:</strong>
             <span className="singleproduct-singleCategory">
-              {' '}
               {activeProduct.category}
             </span>
           </p>
           <p className="singleproduct-categories">
             <strong>Color:</strong>
             <span className="singleproduct-singleCategory">
-              {' '}
               {activeProduct.color}
             </span>
           </p>
@@ -119,6 +119,7 @@ const SingleProduct = props => {
             );
           })}
       </div>
+      <AddReview {...props} />
     </div>
   );
 };
@@ -136,13 +137,9 @@ const mapDispatch = dispatch => {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
     addProduct: (userId, productId) => dispatch(addItem(userId, productId)),
-    deleteProduct: id => dispatch(removeCurrentProduct(id))
+    deleteProduct: id => dispatch(removeCurrentProduct(id)),
+    addAReview: review => dispatch(addNewReview(review))
   };
 };
 
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(SingleProduct)
-);
+export default withRouter(connect(mapState, mapDispatch)(SingleProduct));

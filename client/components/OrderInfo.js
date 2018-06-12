@@ -45,10 +45,9 @@ class OrderInfo extends React.Component {
                     totalPrice += dets.price;
                     return ele.id === dets.productId ? (
                       <div className="product" key={ele.id}>
-                        {console.log(ele.id)}
                         <a
                           href={`/products/${ele.id}`}
-                          onClick={fetchProduct(id)}>
+                          onClick={() => fetchProduct(id)}>
                           <div className="product-image">
                             <img src={ele.image} />
                           </div>
