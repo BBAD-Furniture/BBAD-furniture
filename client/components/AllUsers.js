@@ -12,9 +12,6 @@ const AllUsers = props => {
   ) : (
     <div>
       <div className="flexWrap">
-        <div className="sidebar">
-          <Sidebar />
-        </div>
         <div className="product-main">
           <Table hover>
             <thead>
