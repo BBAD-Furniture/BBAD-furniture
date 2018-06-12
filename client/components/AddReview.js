@@ -30,23 +30,22 @@ export class AddReview extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.addAReview(this.state);
+    event.target.review.value = '';
+    event.target.rating.value = '';
   }
 
   render() {
     const { currUser } = this.props;
-
-    console.log('STATE', this.state);
-    console.log('PROPS', this.props);
 
     return (
       <div>
         {currUser && currUser.id ? (
           <div>
             <h3>{currUser.firstName}, leave your review below</h3>
-            <Form onChange={this.handleForm}>
+            <Form onChange={this.handleForm} onSubmit={this.handleSubmit}>
               <FormGroup className="writereview-form">
                 <Label for="select-rating">Rating</Label>
-                <Input type="select" name="rating">
+                <Input type="select" name="rating" defaultValue="5">
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -65,9 +64,7 @@ export class AddReview extends React.Component {
                 />
                 <FormText color="muted">Required*</FormText>
               </FormGroup>
-              <Button type="button" onClick={this.handleSubmit}>
-                Submit
-              </Button>
+              <Button type="submit">Submit</Button>
             </Form>
           </div>
         ) : (

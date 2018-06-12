@@ -37,6 +37,7 @@ export const addNewReview = reviewObj => dispatch => {
   axios
     .post(`/api/products/${reviewObj.productId}/review`, reviewObj)
     .then(res => dispatch(addReview(res.data)))
+    .then(res => dispatch(getCurrentProduct(reviewObj.productId)))
     .then(() => history.push(`/products/${reviewObj.productId}`))
     .catch(err => console.log(err));
 };
