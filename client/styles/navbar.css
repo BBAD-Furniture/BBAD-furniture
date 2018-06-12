@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   margin: 50px 0;
+  flex-wrap: wrap;
 }
 
 .nav-links {
