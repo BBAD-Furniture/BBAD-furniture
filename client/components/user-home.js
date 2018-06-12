@@ -85,14 +85,6 @@ class UserHome extends React.Component {
                           Add Products
                         </Link>
                       </Button>
-                      <Button
-                        className="userpage-viewAllUsers"
-                        outline
-                        color="info"
-                        type="Button"
-                        onClick={this.props.handleClick}>
-                        View All User Orders
-                      </Button>
                     </div>
                   ) : null}
                   <h3 className="userpage-email">{email}</h3>

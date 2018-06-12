@@ -64,7 +64,7 @@ class OrderInfo extends React.Component {
                 </div>
               ) : null;
             })}
-            <div>Grand Total: ${totalPrice}</div>
+            <div>Grand Total: ${totalPrice.toFixed(2)}</div>
           </div>
         </div>
       </div>

@@ -15,10 +15,9 @@ import {
   Complete,
   EditProduct,
   AddProduct,
-  OrderInfo,
-  AllOrders
+  OrderInfo
 } from './components';
-import { me, getAllUsers } from './store';
+import { me } from './store';
 
 /**
  * COMPONENT
@@ -50,7 +49,6 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route path="/users" component={AllUsers} />
-            <Route path="/allOrders" component={AllOrders} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -76,7 +74,6 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData(user) {
       dispatch(me());
-      // dispatch(getAllUsers());
     }
   };
 };
