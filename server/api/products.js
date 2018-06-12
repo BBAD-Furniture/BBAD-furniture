@@ -49,7 +49,6 @@ router.delete('/:productId', (req, res, next) => {
 });
 
 router.post('/:productId/review', function(req, res, next) {
-  console.log('BODY', req.body);
   Review.create({
     userId: req.body.userId,
     productId: req.body.productId,
@@ -57,7 +56,6 @@ router.post('/:productId/review', function(req, res, next) {
     rating: req.body.rating
   })
     .then(created => {
-      console.log('LOOOK HERE', created);
       res.json(created);
     })
     .catch(next);
