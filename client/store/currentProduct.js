@@ -3,12 +3,10 @@ import history from '../history';
 
 const GET_CURRENT_PRODUCT = 'GET_CURRENT_PRODUCT';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-const EDIT_PRODUCT = 'EDIT_PRODUCT';
 const ADD_REVIEW = 'ADD_REVIEW';
 
 const getProduct = product => ({ type: GET_CURRENT_PRODUCT, product });
 const removeProduct = () => ({ type: REMOVE_PRODUCT });
-const editProduct = product => ({ type: EDIT_PRODUCT, product });
 const addReview = review => ({ type: ADD_REVIEW, review });
 
 export const getCurrentProduct = productId => dispatch =>
@@ -33,17 +31,6 @@ export const removeCurrentProduct = productId => dispatch => {
   }
 };
 
-export const editCurrentProduct = productId => dispatch => {
-  axios
-    .put(`/api/products/${productId}`)
-    .then(res => res.data)
-    .then(product => {
-      dispatch(editProduct(product));
-      history.push(`/products/${productId}`);
-    })
-    .catch(err => console.log(err));
-};
-
 export const addNewReview = productId => dispatch => {
   axios
     .post(`/api/products/${productId}`)
@@ -55,7 +42,6 @@ export default function(state = {}, action) {
   switch (action.type) {
     case GET_CURRENT_PRODUCT:
       return { ...action.product };
-
     case REMOVE_PRODUCT:
       return {};
     case ADD_REVIEW:
