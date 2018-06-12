@@ -28,7 +28,28 @@ const changeOrder = item => ({
 export const addItem = (userId, item) => dispatch =>
   axios
     .post(`/api/users/${userId}/order`, item)
-    .then(res => dispatch(addItemToCart(res.data)))
+    .then(res => {
+      //add item to user's order
+      dispatch(addItemToCart(res.data));
+      // console.log(userId, item, 'user adding to cart: user, prodId');
+
+      //add item to localStorage
+      let prods = [];
+      prods = JSON.parse(localStorage.getItem('products'));
+      prods !== null
+        ? localStorage.setItem(
+            'products',
+            JSON.stringify(new Set(prods.concat(item.productId)))
+          )
+        : localStorage.setItem('products', JSON.stringify([item.productId]));
+
+      localStorage.setItem(
+        'quantity',
+        JSON.stringify(
+          JSON.parse(localStorage.getItem('products')).map(i => 1)
+        ) || []
+      );
+    })
     .catch(err => console.log(err));
 
 export const getItems = userId => dispatch =>
@@ -37,23 +58,32 @@ export const getItems = userId => dispatch =>
     .then(res => dispatch(userOrder(res.data)))
     .catch(err => console.log(err));
 
-//delete user
 export const deleteTheItem = (userId, itemId) => dispatch => {
-  console.log('USERID:', userId, 'PRODUCTID:', itemId);
+  // console.log(userId, itemId, 'remove from cart: user, itemId');
   axios
     .post(`/api/users/${userId}/item/delete`, { itemId })
     .then(res => {
+      //remove item from store
       dispatch(deleteItem(res.data));
+
+      //remove item from localStorage
+      let prods = [];
+      prods = JSON.parse(localStorage.getItem('products')).filter(
+        id => id !== itemId
+      );
+      localStorage.setItem('products', JSON.stringify(prods));
     })
     .catch(err => console.log(err));
 };
+
 export const changedOrder = (userId, orderInfo) => dispatch =>
   axios
     .put(`api/users/${userId}/order`, orderInfo)
     .then(res => dispatch(changeOrder(res.data)))
     .catch(err => console.log(err));
 
-export default (state = {}, action) => {
+export default (state = [], action) => {
+  // console.log('action SignedIn', action);
   switch (action.type) {
     case ADD_ITEM_TO_CART:
       return action.item;
