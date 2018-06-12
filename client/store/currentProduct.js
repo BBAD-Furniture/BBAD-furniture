@@ -3,6 +3,7 @@ import history from '../history';
 
 const GET_CURRENT_PRODUCT = 'GET_CURRENT_PRODUCT';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+import { getProductList } from './productList';
 
 const getProduct = product => ({ type: GET_CURRENT_PRODUCT, product });
 const removeProduct = () => ({ type: REMOVE_PRODUCT });
@@ -23,8 +24,9 @@ export const removeCurrentProduct = productId => dispatch => {
       .then(res => res.data)
       .then(product => {
         dispatch(removeProduct(product));
-        history.push('/products');
       })
+      .then(() => dispatch(getProductList()))
+      .then(() => history.push('/products'))
       .catch(err => console.log(err));
   }
 };
