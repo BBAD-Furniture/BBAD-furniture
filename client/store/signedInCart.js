@@ -1,12 +1,18 @@
 import axios from 'axios';
 
 const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
+const ADD_ITEM_TO_GUEST_CART = 'ADD_ITEM_TO_GUEST_CART';
 const USER_ORDER = 'USER_ORDER';
 const DELETE_ITEM = 'DELETE_ITEM';
 const CHANGE_ORDER = 'CHANGE_ORDER';
 
 const addItemToCart = item => ({
   type: ADD_ITEM_TO_CART,
+  item
+});
+
+const addItemToGuestCart = item => ({
+  type: ADD_ITEM_TO_GUEST_CART,
   item
 });
 
@@ -25,32 +31,39 @@ const changeOrder = item => ({
   item
 });
 
-export const addItem = (userId, item) => dispatch =>
-  axios
-    .post(`/api/users/${userId}/order`, item)
-    .then(res => {
-      //add item to user's order
-      dispatch(addItemToCart(res.data));
-      // console.log(userId, item, 'user adding to cart: user, prodId');
-
-      //add item to localStorage
-      let prods = [];
-      prods = JSON.parse(localStorage.getItem('products'));
-      prods !== null
-        ? localStorage.setItem(
-            'products',
-            JSON.stringify(new Set(prods.concat(item.productId)))
-          )
-        : localStorage.setItem('products', JSON.stringify([item.productId]));
-
-      localStorage.setItem(
-        'quantity',
-        JSON.stringify(
-          JSON.parse(localStorage.getItem('products')).map(i => 1)
-        ) || []
-      );
-    })
-    .catch(err => console.log(err));
+export const addItem = (userId, item) => dispatch => {
+  console.log(
+    'addItem: userId, item, called in signedInCart store',
+    userId,
+    item
+  );
+  //add item to localStorage
+  let prods = [];
+  prods = JSON.parse(localStorage.getItem('products'));
+  prods !== null
+    ? localStorage.setItem(
+        'products',
+        JSON.stringify(new Set(prods.concat(item.productId)))
+      )
+    : localStorage.setItem('products', JSON.stringify([item.productId]));
+  console.log(JSON.parse(localStorage.getItem('products')), 'prods after add');
+  // localStorage.setItem(
+  //   'quantity',
+  //   JSON.stringify(JSON.parse(localStorage.getItem('products')).map(i => 1)) ||
+  //     []
+  // );
+  if (!userId)
+    addItemToGuestCart(JSON.parse(localStorage.getItems('products')));
+  if (typeof userId === 'number')
+    axios
+      .post(`/api/users/${userId}/order`, item)
+      .then(res => {
+        //add item to user's order
+        dispatch(addItemToCart(res.data));
+        // console.log(userId, item, 'user adding to cart: user, prodId');
+      })
+      .catch(err => console.log(err));
+};
 
 export const getItems = userId => dispatch =>
   axios
@@ -59,21 +72,27 @@ export const getItems = userId => dispatch =>
     .catch(err => console.log(err));
 
 export const deleteTheItem = (userId, itemId) => dispatch => {
-  // console.log(userId, itemId, 'remove from cart: user, itemId');
-  axios
-    .post(`/api/users/${userId}/item/delete`, { itemId })
-    .then(res => {
-      //remove item from store
-      dispatch(deleteItem(res.data));
-
-      //remove item from localStorage
-      let prods = [];
-      prods = JSON.parse(localStorage.getItem('products')).filter(
-        id => id !== itemId
-      );
-      localStorage.setItem('products', JSON.stringify(prods));
-    })
-    .catch(err => console.log(err));
+  console.log(
+    'deleteTheItem: user, itemId, from signedInCart in store',
+    userId,
+    itemId
+  );
+  //remove item from localStorage
+  let prods = [];
+  prods = JSON.parse(localStorage.getItem('products')).filter(
+    id => id !== itemId
+  );
+  console.log(prods, 'prods after delete');
+  localStorage.setItem('products', JSON.stringify(prods));
+  if (!userId) deleteItem(itemId);
+  if (typeof userId === 'number')
+    axios
+      .post(`/api/users/${userId}/item/delete`, { itemId })
+      .then(res => {
+        //remove item from store
+        dispatch(deleteItem(res.data));
+      })
+      .catch(err => console.log(err));
 };
 
 export const changedOrder = (userId, orderInfo) => dispatch =>
@@ -83,9 +102,11 @@ export const changedOrder = (userId, orderInfo) => dispatch =>
     .catch(err => console.log(err));
 
 export default (state = [], action) => {
-  // console.log('action SignedIn', action);
+  console.log('action', action);
   switch (action.type) {
     case ADD_ITEM_TO_CART:
+      return action.item;
+    case ADD_ITEM_TO_GUEST_CART:
       return action.item;
     case USER_ORDER:
       return action.items;

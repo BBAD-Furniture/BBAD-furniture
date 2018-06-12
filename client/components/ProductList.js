@@ -78,7 +78,9 @@ export const ProductList = props => {
                           <Button
                             outline
                             color="success"
-                            onClick={() => props.addProductToCart(product)}>
+                            onClick={() =>
+                              props.addProduct('Guest User: noID', product.id)
+                            }>
                             Add To Cart
                           </Button>
                         )}
@@ -108,6 +110,7 @@ const mapDispatch = dispatch => {
     getCurrentProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: product => dispatch(addToCartList(product)),
     addProduct: (userId, item) => {
+      console.log('addItem: userId, item, called in ProdList', userId, item);
       dispatch(addItem(userId, { productId: item }));
     }
   };
