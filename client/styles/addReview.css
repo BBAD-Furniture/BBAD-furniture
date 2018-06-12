@@ -1,0 +1,21 @@
+.addReview-main{
+}
+.addReview-flex {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  align-items: baseline;
+  justify-content: space-around;
+}
+.addReview-item-rating {
+  flex: 1;
+  max-width: 50px;
+}
+
+.addReview-item {
+  flex: 4;
+
+ 
+}
+.addReview-button {
+}
