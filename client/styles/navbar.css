@@ -12,6 +12,7 @@
 .nav-search {
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
 }
 .nav-search input {
   width: 300px;
