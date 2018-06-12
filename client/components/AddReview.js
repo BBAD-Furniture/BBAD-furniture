@@ -1,20 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addNewReview } from '../store';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import '../styles/singleProduct.css';
 
 export const AddReview = props => {
   const { currUser } = props;
-
-  console.log('PROPS', props);
-
+  console.log('CURRUSER', currUser);
   return (
     <div>
       {currUser && currUser.id ? (
         <div>
-          <h3>Leave a review below</h3>
+          <h3>{currUser.firstName}, leave your review below</h3>
           <Form>
             <FormGroup className="writereview-form">
               <Label for="select-rating">Rating</Label>
@@ -64,4 +62,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default withRouter(connect(mapState, mapDispatch)(AddReview));
+export default connect(mapState, mapDispatch)(AddReview);

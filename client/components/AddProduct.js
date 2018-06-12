@@ -71,6 +71,8 @@ class AddProduct extends React.Component {
               <option>Living Room</option>
               <option>Bathroom</option>
               <option>Bedroom</option>
+              <option>Kitchen</option>
+              <option>Office</option>
             </Input>
             <FormText color="muted">Required*</FormText>
           </FormGroup>
@@ -121,7 +123,4 @@ const mapDispatch = dispatch => {
     newProduct: newProduct => dispatch(addProductToStore(newProduct))
   };
 };
-export default connect(
-  mapState,
-  mapDispatch
-)(AddProduct);
+export default connect(mapState, mapDispatch)(AddProduct);

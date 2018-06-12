@@ -12,7 +12,7 @@ import '../styles/singleProduct.css';
 import { AddReview } from './AddReview';
 
 const SingleProduct = props => {
-  const { currUser, addProduct } = props;
+  const { currUser } = props;
   let activeProduct = props.selectedProduct
     ? props.selectedProduct
     : props.fetchProduct(props.match.params.id);
