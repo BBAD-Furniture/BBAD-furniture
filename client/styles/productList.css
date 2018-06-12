@@ -1,6 +1,6 @@
 .product-main {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-evenly;
   flex: 4;
   flex-direction: row;
   flex-wrap: wrap;

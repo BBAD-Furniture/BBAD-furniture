@@ -155,13 +155,11 @@ const mapDispatch = dispatch => {
       let qty = JSON.parse(localStorage.getItem('quantity'));
       qty[index] = evt.target.value;
       localStorage.setItem('quantity', JSON.stringify(qty));
-      console.log(localStorage.getItem('quantity'));
     },
     removeCartItem(item) {
       dispatch(removeFromCartList(item));
     },
     handleDelete(userId, productId) {
-      console.log(productId);
       dispatch(deleteTheItem(userId, productId));
     },
     handleCheckout(userId) {

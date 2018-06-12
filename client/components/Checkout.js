@@ -6,14 +6,12 @@ import '../styles/checkout.css';
 
 const Checkout = props => {
   //check if user exists: store products into db per user
-  console.log(props);
   const { user } = props;
   let cartItems = props.products;
   let cartProducts = JSON.parse(localStorage.getItem('products'));
   cartItems = cartProducts
     ? cartItems.filter(item => cartProducts.includes(item.id))
     : [];
-  console.log(props.cartList, 'items in the cart');
   let itemCost = 0;
 
   return Object.keys(user).length ? (
@@ -162,9 +160,7 @@ const mapDispatch = dispatch => {
       localStorage.setItem('quantity', JSON.stringify([]));
     },
     handleSubmit() {},
-    handleCheckoutField(evt) {
-      console.log(evt.target.value);
-    }
+    handleCheckoutField(evt) {}
   };
 };
 
