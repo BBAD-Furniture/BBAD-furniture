@@ -4,6 +4,9 @@ import { Sidebar } from './index';
 import { getCurrentProduct, addToCartList, addItem } from '../store';
 import '../styles/productList.css';
 import { Link } from 'react-router-dom';
+import generateStars from './starGenerator';
+const isSmallScreen = window.innerWidth <= 1200;
+
 import {
   Card,
   CardImg,
@@ -18,6 +21,7 @@ import {
  * COMPONENT
  */
 export const ProductList = props => {
+  console.log(isSmallScreen);
   const { currUser, addProduct } = props;
   let filtered = props.filtered || props.products;
   let products = filtered.length ? props.filtered : props.products;
@@ -93,31 +97,6 @@ export const ProductList = props => {
   );
 };
 
-function generateStars(num) {
-  let starsHtml = [];
-  let isDecimal = num % 1 !== 0;
-  let newNum = Math.ceil(num);
-  if (isNaN(newNum)) return ['No Reviews'];
-  for (let i = 0; i <= newNum; i++) {
-    if (i < newNum - 1) {
-      starsHtml.push(
-        <i className="fa fa-star review-star" aria-hidden="true" />
-      );
-    }
-
-    if (isDecimal && i >= newNum) {
-      starsHtml.push(
-        <i className="fa fa-star-half review-star" aria-hidden="true" />
-      );
-    }
-    if (!isDecimal && i >= newNum) {
-      starsHtml.push(
-        <i className="fa fa-star review-star" aria-hidden="true" />
-      );
-    }
-  }
-  return starsHtml;
-}
 const mapProducts = state => {
   return {
     products: state.products,
