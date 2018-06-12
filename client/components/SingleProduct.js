@@ -7,7 +7,7 @@ import {
   addItem
 } from '../store';
 import { withRouter, Link } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
 import { AddReview } from './AddReview';
 

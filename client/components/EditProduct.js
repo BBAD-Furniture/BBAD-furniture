@@ -19,9 +19,6 @@ class EditProduct extends React.Component {
 
   handleSumbit = event => {
     event.preventDefault();
-<<<<<<< HEAD
-  }
-=======
     let formobj = {
       name: event.target.name.value,
       color: event.target.color.value,
@@ -34,7 +31,6 @@ class EditProduct extends React.Component {
     this.props.edit(this.props.selected.id, formobj);
   };
 
->>>>>>> master
   render() {
     let selected = this.props.selected
       ? this.props.selected
@@ -147,9 +143,4 @@ const mapDispatch = dispatch => {
     triggerProductList: () => dispatch(getProductList())
   };
 };
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(EditProduct)
-);
+export default withRouter(connect(mapState, mapDispatch)(EditProduct));
