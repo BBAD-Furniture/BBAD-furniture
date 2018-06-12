@@ -43,7 +43,9 @@ img {
 }
 
 .review-img {
-  width: 50px;
+  width: 60px;
+  border-radius: 50%;
+
   padding-right: 10px;
 }
 
