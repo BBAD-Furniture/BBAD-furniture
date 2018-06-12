@@ -1,0 +1,19 @@
+.userpage-welcome{
+    margin-bottom: 15px;
+    justify-content: space-evenly;
+}
+
+
+.userpage-email {
+    margin: 10px 0;
+    font-size: 15px;
+}
+.userpage-flex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.userpage-orders{
+  max-width: 500px;
+}

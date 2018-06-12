@@ -5,6 +5,7 @@ import { updateUser, getUserOrders } from '../store';
 import { Link } from 'react-router-dom';
 import { Table } from 'reactstrap';
 
+import '../styles/userpage.css';
 /**
  * COMPONENT
  */
@@ -29,7 +30,7 @@ export const UserHome = props => {
   };
 
   return (
-    <div>
+    <div className="wrapper">
       {resetPassword ? (
         <div>
           <div>RESET YOUR PASSWORD</div>
@@ -44,52 +45,73 @@ export const UserHome = props => {
           </form>
         </div>
       ) : (
-        <div>
-          <h3>Welcome, {fullName || email}</h3>
-          {isAdmin ? (
-            <div>
-              <h6>Administrator Account</h6>
-              <button type="button" onClick={handleClick}>
-                View All Users
-              </button>
-              <Link to="/addproduct">Add Products</Link>
-            </div>
-          ) : null}
-          <img src={profilePic} width="500" height="300" />
-          <div>{email}</div>
-          <h3>Order History</h3>
-          <Table hover>
-            <thead>
-              <tr>
-                <th>Order Number</th>
-                <th>Date of Order</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(curUser.orders || []).map(ord => {
-                if (ord.status) {
-                  return (
-                    <tr key={ord.id}>
-                      <td>
-                        <Link to={`/${ord.id}/orderInfo`}>
-                          Order Number # {ord.id}
-                        </Link>
-                      </td>
-                      <td>{ord.updatedAt.slice(0, 10)}</td>
-                    </tr>
-                  );
-                }
-              })}
-            </tbody>
-          </Table>
-          <h3>My Reviews</h3>
-          {reviews &&
-            reviews.map(review => (
-              <div key={review.id}>
-                --->
-                {review.review}
+        <div className="userpage-main">
+          <div className="userpage-flex">
+            <div className="userpage-info">
+              <h3 className="userpage-welcome">Welcome, {fullName || email}</h3>
+
+              <div>
+                <img
+                  className="userpage-img"
+                  src={profilePic}
+                  width="500"
+                  height="300"
+                />
+                {isAdmin ? (
+                  <div className="userpage-admin">
+                    <h6 className="userpage-admin-title">
+                      Administrator Account
+                    </h6>
+                    <button type="button" onClick={handleClick}>
+                      View All Users
+                    </button>
+                    <Link className="userpage-addprodut" to="/addproduct">
+                      Add Products
+                    </Link>
+                  </div>
+                ) : null}
+                <h3 className="userpage-email">{email}</h3>
               </div>
-            ))}
+            </div>
+            <div className="userpage-orders">
+              <h3>Order History</h3>
+              <Table className="userpage-table" hover>
+                <thead>
+                  <tr>
+                    <th>Order Number</th>
+                    <th>Date of Order</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(curUser.orders || []).map(ord => {
+                    if (ord.status) {
+                      return (
+                        <tr key={ord.id}>
+                          <td>
+                            <Link to={`/${ord.id}/orderInfo`}>
+                              Order Number # {ord.id}
+                            </Link>
+                          </td>
+                          <td>{ord.updatedAt.slice(0, 10)}</td>
+                        </tr>
+                      );
+                    }
+                  })}
+                </tbody>
+              </Table>
+            </div>
+          </div>
+
+          <div className="userpage-reviews">
+            <h3>My Reviews</h3>
+            {reviews &&
+              reviews.map(review => (
+                <div className="userpage-review" key={review.id}>
+                  --->
+                  {review.review}
+                </div>
+              ))}
+          </div>
         </div>
       )}
     </div>
@@ -121,7 +143,10 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(UserHome);
+export default connect(
+  mapState,
+  mapDispatch
+)(UserHome);
 
 /**
  * PROP TYPES
