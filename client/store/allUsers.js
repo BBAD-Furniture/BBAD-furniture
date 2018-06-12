@@ -47,14 +47,12 @@ export default (state = [], action) => {
     case DELETE_USER:
       return state.filter(user => user.id !== action.id);
     case UPDATE_USER:
-      console.log('User Updated');
       return state.map(user => {
         if (user.id === action.user.id) {
           user = action.user;
         }
         return user;
       });
-    // return state;
     default:
       return state;
   }

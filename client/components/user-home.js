@@ -9,7 +9,6 @@ import '../styles/userpage.css';
 /**
  * COMPONENT
  */
-
 class UserHome extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +24,7 @@ class UserHome extends React.Component {
     this.props.handleSubmit(this.props.user.id, password);
     evt.target.password.value = '';
   }
+
   render() {
     const {
       fullName,
