@@ -42,7 +42,6 @@ class OrderInfo extends React.Component {
               return dets.orderId === +id ? (
                 <div key={indx}>
                   {products.map(ele => {
-                    totalPrice += dets.price;
                     return ele.id === dets.productId ? (
                       <div className="product" key={ele.id}>
                         <a
@@ -53,16 +52,19 @@ class OrderInfo extends React.Component {
                           </div>
                         </a>
                         <div className="product-name">{ele.name}</div>
-                        <div>${dets.price / dets.quantity}</div>
+                        <div>${ele.price}</div>
                         <div className="quantity"> {dets.quantity}</div>
-                        <div>${dets.price}</div>
+                        <div>${dets.quantity * ele.price}</div>
+                        <div className="result-total">
+                          {(totalPrice += dets.quantity * ele.price)}
+                        </div>
                       </div>
                     ) : null;
                   })}
                 </div>
               ) : null;
             })}
-            <div>Grand Total :{totalPrice}</div>
+            <div>Grand Total: ${totalPrice}</div>
           </div>
         </div>
       </div>

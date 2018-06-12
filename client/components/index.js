@@ -17,4 +17,5 @@ export { default as Complete } from './DoneCheckout';
 export { default as AddProduct } from './AddProduct';
 export { default as AddReview } from './AddReview';
 export { default as OrderInfo } from './OrderInfo';
+export { default as AllOrders } from './AllOrders';
 export { Login, Signup } from './auth-form';

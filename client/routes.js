@@ -15,7 +15,8 @@ import {
   Complete,
   EditProduct,
   AddProduct,
-  OrderInfo
+  OrderInfo,
+  AllOrders
 } from './components';
 import { me, getAllUsers } from './store';
 
@@ -49,6 +50,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route path="/users" component={AllUsers} />
+            <Route path="/allOrders" component={AllOrders} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
