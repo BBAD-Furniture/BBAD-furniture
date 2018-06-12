@@ -154,3 +154,24 @@ router.put(`/:userId/order`, (req, res, next) => {
       });
     });
 });
+
+router.get('/:userId/allOrders', (req, res, next) => {
+  req.user.getCompletedOrder().then(allOrders => {
+    allOrders ? res.json(allOrders) : res.status(404).json();
+  });
+});
+
+router.get('/:userId/allOrdersInfo', (req, res, next) => {
+  req.user.getCompletedOrder().then(allOrders => {
+    let arr = allOrders.map(e => {
+      return OrderDetail.findAll({
+        where: {
+          orderId: e.id
+        }
+      });
+    });
+    Promise.all(arr).then(data => {
+      data ? res.json(data) : res.status(404).json();
+    });
+  });
+});

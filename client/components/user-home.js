@@ -60,7 +60,9 @@ export const UserHome = props => {
                   if (ord.status) {
                     return (
                       <div key={ord.id}>
-                        {ord.id} ----- Date: {ord.updatedAt.slice(0, 10)}
+                        <Link to={`/${ord.id}/orderInfo`}>
+                          {ord.id} ----- Date: {ord.updatedAt.slice(0, 10)}
+                        </Link>
                       </div>
                     );
                   }
@@ -86,7 +88,9 @@ export const UserHome = props => {
                   if (ord.status) {
                     return (
                       <div key={ord.id}>
-                        {ord.id} ----- Date: {ord.updatedAt.slice(0, 10)}
+                        <Link to={`/${ord.id}/orderInfo`}>
+                          {ord.id} ----- Date: {ord.updatedAt.slice(0, 10)}
+                        </Link>
                       </div>
                     );
                   }
@@ -122,10 +126,7 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(UserHome);
+export default connect(mapState, mapDispatch)(UserHome);
 
 /**
  * PROP TYPES

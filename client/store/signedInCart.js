@@ -62,13 +62,7 @@ export default (state = {}, action) => {
     case DELETE_ITEM:
       return state.filter(item => item.productId !== action.id);
     case CHANGE_ORDER:
-      return state.map(it => {
-        // if (it.id === action.item.id) it = action.item;
-        // return it;
-        ///CHECK THIS OUT  BELOWWWWWW THE RETURN
-        return state;
-      });
-    // return action.item;
+      return state;
     default:
       return state;
   }

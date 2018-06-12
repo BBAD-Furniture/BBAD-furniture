@@ -73,6 +73,15 @@ User.prototype.getCurrentOrder = function() {
   });
 };
 
+User.prototype.getCompletedOrder = function() {
+  return this.getOrders({
+    where: {
+      userId: this.id,
+      status: true
+    }
+  });
+};
+
 User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password();
 };
