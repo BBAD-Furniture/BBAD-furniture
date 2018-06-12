@@ -25,7 +25,6 @@ const Cart = props => {
     : [];
 
   let grandTotal = 0;
-  console.log(grandTotal, JSON.parse(localStorage.getItem('quantity')));
   return (
     <div className="shopping-cart">
       <h1>Shopping Cart</h1>
@@ -167,7 +166,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(Cart);
+export default connect(mapState, mapDispatch)(Cart);

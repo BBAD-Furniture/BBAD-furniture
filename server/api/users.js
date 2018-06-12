@@ -111,7 +111,6 @@ router.get('/:userId/order', (req, res, next) => {
 
 router.post(`/:userId/item/delete`, (req, res, next) => {
   const { itemId } = req.body;
-  console.log('itemId>>>>', itemId);
   req.user
     .getCurrentOrder()
     .spread(order => {
