@@ -3,44 +3,59 @@ const { User, Review, Order, Product, OrderDetail } = require('../db/models');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
-  User.findAll({
-    attributes: [
-      'firstName',
-      'lastName',
-      'profilePic',
-      'id',
-      'email',
-      'isAdmin'
-    ],
-    include: [{ model: Review }, { model: Order }]
-    // explicitly select only the id and email fields - even though
-    // users' passwords are encrypted, it won't help if we just
-    // send everything to anyone who asks!
-  })
-    .then(users => res.json(users))
-    .catch(next);
+  if (req.user && req.user.isAdmin) {
+    User.findAll({
+      attributes: [
+        'firstName',
+        'lastName',
+        'profilePic',
+        'id',
+        'email',
+        'isAdmin'
+      ],
+      include: [{ model: Review }, { model: Order }]
+      // explicitly select only the id and email fields - even though
+      // users' passwords are encrypted, it won't help if we just
+      // send everything to anyone who asks!
+    })
+      .then(users => res.json(users))
+      .catch(next);
+  } else {
+    res.json('Permission Denied');
+  }
 });
 
 router.delete('/:userId', (req, res, next) => {
-  User.findById(req.params.userId)
-    .then(userFound => {
-      return userFound.destroy();
-    })
-    .then(() => {
-      res.send(req.params.userId);
-    })
-    .catch(next);
+  if (req.user && req.user.isAdmin) {
+    User.findById(req.params.userId)
+      .then(userFound => {
+        return userFound.destroy();
+      })
+      .then(() => {
+        res.send(req.params.userId);
+      })
+      .catch(next);
+  } else {
+    res.json('Permission Denied');
+  }
 });
 
 router.put('/:userId', (req, res, next) => {
-  User.findById(req.params.userId)
-    .then(userFound => {
-      return userFound.update(req.body);
-    })
-    .then(updatedUser => {
-      updatedUser ? res.json(updatedUser) : res.status(404).json();
-    })
-    .catch(next);
+  if (req.user && req.user.isAdmin) {
+    const { password, resetPassword } = req.body;
+    User.findById(req.params.userId)
+      .then(userFound => {
+        return !password
+          ? userFound.update({ resetPassword })
+          : userFound.update({ password, resetPassword });
+      })
+      .then(updatedUser => {
+        updatedUser ? res.json(updatedUser) : res.status(404).json();
+      })
+      .catch(next);
+  } else {
+    res.json('Permission Denied');
+  }
 });
 
 router.post('/:userId/order', (req, res, next) => {
@@ -90,85 +105,105 @@ router.post('/:userId/order', (req, res, next) => {
 });
 
 router.get('/:userId/order', (req, res, next) => {
-  User.findById(req.params.userId)
-    .then(user => {
-      return user.getCurrentOrder(); // getting ONLY orders with status false
-    })
-    .spread(order => {
-      !order
-        ? res.json(null) //if no orders for the user, return null
-        : OrderDetail.findAll({
-            where: {
-              orderId: order.id
-            }
-          })
-            .then(items => {
-              items ? res.json(items) : res.status(404).json();
+  if (req.user) {
+    User.findById(req.params.userId)
+      .then(user => {
+        return user.getCurrentOrder(); // getting ONLY orders with status false
+      })
+      .spread(order => {
+        // console.log('order>>>', order);
+        !order
+          ? res.json(null) //if no orders for the user, return null
+          : OrderDetail.findAll({
+              where: {
+                orderId: order.id
+              }
             })
-            .catch(next);
-    });
+              .then(items => {
+                items ? res.json(items) : res.status(404).json();
+              })
+              .catch(next);
+      });
+  } else {
+    res.json('Permission Denied!!');
+  }
 });
 
 router.post(`/:userId/item/delete`, (req, res, next) => {
-  const { itemId } = req.body;
-  req.user
-    .getCurrentOrder()
-    .spread(order => {
-      OrderDetail.findOne({
-        where: {
-          productId: itemId,
-          orderId: order.id
-        }
-      })
-        .then(orderDet => {
-          return orderDet.destroy();
+  if (req.user) {
+    const { itemId } = req.body;
+    req.user
+      .getCurrentOrder()
+      .spread(order => {
+        OrderDetail.findOne({
+          where: {
+            productId: itemId,
+            orderId: order.id
+          }
         })
-        .then(deletedOrderDet => {
-          res.json(itemId);
-        });
-    })
-    .catch(next);
+          .then(orderDet => {
+            return orderDet.destroy();
+          })
+          .then(deletedOrderDet => {
+            res.json(itemId);
+          });
+      })
+      .catch(next);
+  } else {
+    res.json('Permission Denied!!');
+  }
 });
 
 router.put(`/:userId/order`, (req, res, next) => {
-  const { status } = req.body;
-
-  req.user
-    .getCurrentOrder() //get ONLY orders with status false
-    .spread(order => {
-      return order.getProducts().then(prods => {
-        OrderDetail.findAll({
-          where: {
-            orderId: order.id
-          }
-        }).then(ordDets => {
-          prods.map((p, idx) => {
-            let ans = p.changeQuantity(ordDets[idx].quantity);
-            p.update({ quantity: ans });
+  if (req.user) {
+    const { status } = req.body;
+    req.user
+      .getCurrentOrder() //get ONLY orders with status false
+      .spread(order => {
+        return order.getProducts().then(prods => {
+          OrderDetail.findAll({
+            where: {
+              orderId: order.id
+            }
+          }).then(ordDets => {
+            prods.map((p, idx) => {
+              let ans = p.changeQuantity(ordDets[idx].quantity);
+              p.update({ quantity: ans });
+            });
+            order.update({ status }).then(data => res.json(data));
           });
-          order.update({ status }).then(data => res.json(data));
         });
       });
-    });
+  } else {
+    res.json('Permission Denied!!');
+  }
 });
 
 router.get('/:userId/allOrders', (req, res, next) => {
-  req.user.getCompletedOrder().then(allOrders => {
-    allOrders ? res.json(allOrders) : res.status(404).json();
-  });
+  if (req.user) {
+    req.user.getCompletedOrder().then(allOrders => {
+      allOrders ? res.json(allOrders) : res.status(404).json();
+    });
+  } else {
+    res.json('Permission Denied!!');
+  }
 });
 
 router.get('/:userId/allOrdersInfo', (req, res, next) => {
-  req.user.getCompletedOrder().then(allOrders => {
-    let arr = allOrders.map(e => {
-      return OrderDetail.findAll({
-        where: {
-          orderId: e.id
-        }
+  if (req.user) {
+    req.user.getCompletedOrder().then(allOrders => {
+      let arr = allOrders.map(e => {
+        return OrderDetail.findAll({
+          where: {
+            orderId: e.id
+          }
+        });
+      });
+      Promise.all(arr).then(data => {
+        data ? res.json(data) : res.status(404).json();
       });
     });
-    Promise.all(arr).then(data => {
-      data ? res.json(data) : res.status(404).json();
-    });
-  });
+  } else {
+    res.json('Permission Denied!!');
+  }
 });
