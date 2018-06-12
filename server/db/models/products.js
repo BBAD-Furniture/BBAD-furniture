@@ -22,7 +22,7 @@ const Product = db.define('product', {
     allowNull: false
   },
   image: {
-    type: Sequelize.STRING, //ARRAY(Sequelize.TEXT),
+    type: Sequelize.STRING,
     defaultValue:
       'http://demo.drfuri.com/mrbara14/wp-content/uploads/sites/15/2016/07/a1.jpg'
   },

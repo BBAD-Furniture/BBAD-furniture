@@ -9,6 +9,8 @@ import filter from './filter';
 import cartList from './cart';
 import allUsers from './allUsers';
 import signedInCart from './signedInCart';
+import order from './order';
+import orderDetails from './orderDetails';
 
 const reducer = combineReducers({
   user,
@@ -17,7 +19,9 @@ const reducer = combineReducers({
   cartList,
   allUsers,
   signedInCart,
-  filter
+  filter,
+  order,
+  orderDetails
 });
 
 const middleware = composeWithDevTools(
@@ -35,3 +39,5 @@ export * from './cart';
 export * from './allUsers';
 export * from './signedInCart';
 export * from './filter';
+export * from './order';
+export * from './orderDetails';

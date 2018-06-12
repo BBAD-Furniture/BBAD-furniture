@@ -21,6 +21,7 @@ export const ProductList = props => {
   const { currUser, addProduct } = props;
   let filtered = props.filtered || props.products;
   let products = filtered.length ? props.filtered : props.products;
+  console.log(products);
   return (
     <div>
       <div className="flexWrap">
@@ -30,15 +31,14 @@ export const ProductList = props => {
         <div className="product-main">
           {products &&
             products.map(product => {
-              let rating = product.reviews.length
-                ? Math.round(
-                    Number(
-                      product.reviews.reduce((acc, currProduct) => {
-                        return acc + currProduct.rating;
-                      }, 0) / product.reviews.length
-                    ) * 100
-                  ) / 100
-                : 'No reviews ';
+              let rating =
+                Math.round(
+                  Number(
+                    product.reviews.reduce((acc, currProduct) => {
+                      return acc + currProduct.rating;
+                    }, 0) / product.reviews.length
+                  ) * 100
+                ) / 100;
 
               return (
                 <div key={product.id}>
@@ -55,9 +55,8 @@ export const ProductList = props => {
                       </CardTitle>
                       <CardSubtitle>$ {product.price}</CardSubtitle>
                       <div className="product-description">
-                        <CardText>
-                          <strong>Rating: {rating}</strong>
-                        </CardText>
+                        <div>{generateStars(rating)}</div>
+
                         <Link to={`/products/${product.id}`}>
                           <Button
                             outline
@@ -94,6 +93,31 @@ export const ProductList = props => {
   );
 };
 
+function generateStars(num) {
+  let starsHtml = [];
+  let isDecimal = num % 1 !== 0 ? true : false;
+  let newNum = Math.ceil(num);
+  if (isNaN(newNum)) return ['No Reviews'];
+  for (let i = 0; i <= newNum; i++) {
+    if (i < newNum - 1) {
+      starsHtml.push(
+        <i className="fa fa-star review-star" aria-hidden="true" />
+      );
+    }
+
+    if (isDecimal && i >= newNum) {
+      starsHtml.push(
+        <i className="fa fa-star-half review-star" aria-hidden="true" />
+      );
+    }
+    if (!isDecimal && i >= newNum) {
+      starsHtml.push(
+        <i className="fa fa-star review-star" aria-hidden="true" />
+      );
+    }
+  }
+  return starsHtml;
+}
 const mapProducts = state => {
   return {
     products: state.products,

@@ -26,7 +26,6 @@ const SingleProduct = props => {
       ) / 100
     : 'No reviews ';
 
-  let trueRating = isNaN(rating) ? '' : rating;
   let reviews = activeProduct.reviews ? activeProduct.reviews.length : '';
 
   return (
@@ -39,7 +38,9 @@ const SingleProduct = props => {
           <div className="singleproduct-info">
             <h2>
               {activeProduct.name}
-              <span className="singleproduct-rating">{trueRating}</span>
+              <span className="singleproduct-rating">
+                {generateStars(rating)}
+              </span>
               <span className="singleproduct-numReviews">
                 {reviews} Review(s)
               </span>
@@ -109,7 +110,7 @@ const SingleProduct = props => {
                   </span>
                   {trueUser.firstName} {trueUser.lastName}
                 </h4>
-                <p> Rating {review.rating} </p>
+                <p> {generateStars(review.rating)} </p>
                 <p> {review.review} </p>
               </div>
             );
@@ -120,6 +121,31 @@ const SingleProduct = props => {
   );
 };
 
+function generateStars(num) {
+  let starsHtml = [];
+  let isDecimal = num % 1 !== 0 ? true : false;
+  let newNum = Math.ceil(num);
+  if (isNaN(newNum)) return ['No Reviews'];
+  for (let i = 0; i <= newNum; i++) {
+    if (i < newNum - 1) {
+      starsHtml.push(
+        <i className="fa fa-star review-star" aria-hidden="true" />
+      );
+    }
+
+    if (isDecimal && i >= newNum) {
+      starsHtml.push(
+        <i className="fa fa-star-half review-star" aria-hidden="true" />
+      );
+    }
+    if (!isDecimal && i >= newNum) {
+      starsHtml.push(
+        <i className="fa fa-star review-star" aria-hidden="true" />
+      );
+    }
+  }
+  return starsHtml;
+}
 const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],

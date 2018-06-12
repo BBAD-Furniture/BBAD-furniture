@@ -8,6 +8,7 @@ const {
 } = require('../server/db/models');
 const faker = require('faker');
 const db = require('../server/db');
+const categories = ['Living Room', 'Bedroom', 'Bathroom', 'Office'];
 const Promise = db.Promise; // gives us Promise.map
 const password = '123';
 async function seed() {
@@ -27,7 +28,7 @@ async function seed() {
 
 function seedUser() {
   return Promise.all(
-    new Array(10).fill(1).map(() =>
+    new Array(20).fill(1).map(() =>
       User.create({
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
@@ -38,6 +39,10 @@ function seedUser() {
   );
 }
 
+function randomCategory() {
+  let randomIdx = Math.floor(Math.random() * categories.length);
+  return categories[randomIdx]; // returns a number between 0 and 9
+}
 function seedAdmin() {
   return User.create({
     firstName: 'Admin',
@@ -55,6 +60,7 @@ function seedProduct() {
         description: faker.lorem.text(),
         price: (Math.random() * 100).toFixed(2),
         color: faker.commerce.color(),
+        category: randomCategory(),
         quantity: Math.floor(Math.random() * 100)
       })
     )
@@ -63,10 +69,10 @@ function seedProduct() {
 
 function seedReview() {
   return Promise.all(
-    new Array(20).fill(1).map(() =>
+    new Array(30).fill(1).map(() =>
       Review.create({
         review: faker.lorem.paragraph(),
-        userId: Math.floor(Math.random() * 10) + 1,
+        userId: Math.floor(Math.random() * 20) + 1,
         rating: Math.floor(Math.random() * 5) + 1,
         productId: Math.floor(Math.random() * 20) + 1
       })

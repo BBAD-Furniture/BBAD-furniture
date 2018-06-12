@@ -28,3 +28,7 @@
   flex: 1;
   margin: 5px;
 }
+
+.review-star {
+  color: gold;
+}
