@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import '../styles/singleProduct.css';
+import '../styles/addReview.css';
 
 export class AddReview extends React.Component {
   constructor() {
@@ -37,12 +37,12 @@ export class AddReview extends React.Component {
     const { currUser } = this.props;
 
     return (
-      <div>
+      <div className="addreview-parent">
         {currUser && currUser.id ? (
           <div>
-            <h3>{currUser.firstName}, leave your review below</h3>
+            <h4>{currUser.firstName}, leave your review below</h4>
             <Form onChange={this.handleForm} onSubmit={this.handleSubmit}>
-              <FormGroup className="writereview-form">
+              <FormGroup className="addreview-form">
                 <Label for="select-rating">Rating</Label>
                 <Input type="select" name="rating" defaultValue="5">
                   <option>1</option>
@@ -53,7 +53,7 @@ export class AddReview extends React.Component {
                 </Input>
                 <FormText color="muted">Required*</FormText>
               </FormGroup>
-              <FormGroup className="writereview-form">
+              <FormGroup className="addreview-form">
                 <Label for="review-text">Review</Label>
                 <Input
                   required
