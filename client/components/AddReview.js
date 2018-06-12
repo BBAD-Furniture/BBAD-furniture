@@ -41,7 +41,10 @@ export class AddReview extends React.Component {
         {currUser && currUser.id ? (
           <div>
             <h4>{currUser.firstName}, leave your review below</h4>
-            <Form onChange={this.handleForm} onSubmit={this.handleSubmit}>
+            <Form
+              onChange={this.handleForm}
+              onSubmit={this.handleSubmit}
+              className="addreview-child">
               <FormGroup className="addreview-form">
                 <Label for="select-rating">Rating</Label>
                 <Input type="select" name="rating" defaultValue="5">
@@ -63,7 +66,9 @@ export class AddReview extends React.Component {
                 />
                 <FormText color="muted">Required*</FormText>
               </FormGroup>
-              <Button type="submit">Submit</Button>
+              <Button type="submit " className="addreview-submit">
+                Submit
+              </Button>
             </Form>
           </div>
         ) : (
