@@ -89,10 +89,6 @@ const mapDispatch = dispatch => {
       dispatch(getItems(id));
     },
     filterName: input => dispatch(filterProductByName(input))
-    // handleClick() {
-    //   localStorage.setItem('products', JSON.stringify([]));
-    //   dispatch(logout());
-    // }
   };
 };
 

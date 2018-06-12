@@ -15,7 +15,6 @@ import '../styles/cart.css';
 const Cart = props => {
   const { user, signedInItems, products, handleCheckout } = props;
   let total = 0;
-  // props.getItems(user.id);
   let cartItems = props.products;
   let cartProducts = JSON.parse(localStorage.getItem('products'));
 

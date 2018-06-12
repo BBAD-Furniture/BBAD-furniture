@@ -4,7 +4,6 @@ const {
   Product,
   Review,
   Order,
-  OrderDetail
 } = require('../server/db/models');
 const faker = require('faker');
 const db = require('../server/db');
@@ -17,7 +16,6 @@ async function seed() {
   console.log('Seeded', user.length, 'user.');
   const product = await seedProduct();
   console.log('Seeded', product.length, 'product.');
-  // console.log('Seeded', user, 'all the users');
   const admin = await seedAdmin();
   console.log('Seeded Admin');
   const review = await seedReview();

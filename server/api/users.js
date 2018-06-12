@@ -95,7 +95,6 @@ router.get('/:userId/order', (req, res, next) => {
       return user.getCurrentOrder(); // getting ONLY orders with status false
     })
     .spread(order => {
-      // console.log('order>>>', order);
       !order
         ? res.json(null) //if no orders for the user, return null
         : OrderDetail.findAll({
@@ -130,7 +129,6 @@ router.post(`/:userId/item/delete`, (req, res, next) => {
         });
     })
     .catch(next);
-  // console.log('user>>>>>>>>>', req.user);
 });
 
 router.put(`/:userId/order`, (req, res, next) => {

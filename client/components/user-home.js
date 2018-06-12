@@ -23,7 +23,6 @@ export const UserHome = props => {
   let curUser = users.find(userEle => userEle.id === props.user.id) || {};
 
   const handleSubmitFirst = evt => {
-    // evt.preventDefault();
     const password = evt.target.password.value;
     evt.target.password.value = '';
     handleSubmit(id, password);

@@ -54,7 +54,6 @@ export default (state = [], action) => {
         }
         return user;
       });
-    // return state;
     default:
       return state;
   }
