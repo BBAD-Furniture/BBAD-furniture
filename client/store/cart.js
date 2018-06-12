@@ -65,7 +65,7 @@ export const quantityOfItem = (index, evt) => dispatch => {
 export default function(state = [], action) {
   switch (action.type) {
     case ADD_TO_CART:
-      return [...state, action.item];
+      return [...state, ...action.item];
     case REMOVE_FROM_CART:
       return [...state].filter(item => item !== action.item);
     case QTY_OF_ITEM:
