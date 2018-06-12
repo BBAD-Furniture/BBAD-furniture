@@ -83,6 +83,7 @@ const mapDispatch = dispatch => {
   return {
     handleClick: () => {
       localStorage.setItem('products', JSON.stringify([]));
+      localStorage.setItem('quantity', JSON.stringify([]));
       dispatch(logout());
     },
     clickHandler(id) {
