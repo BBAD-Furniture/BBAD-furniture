@@ -17,12 +17,12 @@ const Product = db.define('product', {
   },
   category: {
     type: Sequelize.ENUM,
-    values: ['Living Room', 'Bedroom', 'Bathroom'],
+    values: ['Living Room', 'Bedroom', 'Bathroom', 'Office'],
     defaultValue: 'Living Room',
     allowNull: false
   },
   image: {
-    type: Sequelize.STRING, //ARRAY(Sequelize.TEXT),
+    type: Sequelize.STRING,
     defaultValue:
       'http://demo.drfuri.com/mrbara14/wp-content/uploads/sites/15/2016/07/a1.jpg'
   },

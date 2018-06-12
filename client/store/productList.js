@@ -29,6 +29,9 @@ export const addProductToStore = product => dispatch =>
   axios
     .post('/api/products', product)
     .then(res => {
+      //adds a review array to the object to prevent the error on product list
+      res.data.reviews = [];
+      console.log(res.data);
       dispatch(addProduct(res.data));
     })
     .catch(err => console.log(err));
