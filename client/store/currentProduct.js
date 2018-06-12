@@ -3,10 +3,13 @@ import history from '../history';
 
 const GET_CURRENT_PRODUCT = 'GET_CURRENT_PRODUCT';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+const ADD_REVIEW = 'ADD_REVIEW';
 import { getProductList } from './productList';
+import { getUserOrders } from './order';
 
 const getProduct = product => ({ type: GET_CURRENT_PRODUCT, product });
 const removeProduct = () => ({ type: REMOVE_PRODUCT });
+const addReview = review => ({ type: ADD_REVIEW, review });
 
 export const getCurrentProduct = productId => dispatch =>
   axios
@@ -26,9 +29,18 @@ export const removeCurrentProduct = productId => dispatch => {
         dispatch(removeProduct(product));
       })
       .then(() => dispatch(getProductList()))
+      .then(() => dispatch(getUserOrders()))
       .then(() => history.push('/products'))
       .catch(err => console.log(err));
   }
+};
+
+export const addNewReview = reviewObj => dispatch => {
+  axios
+    .post(`/api/products/${reviewObj.productId}/review`, reviewObj)
+    .then(res => dispatch(addReview(res.data)))
+    .then(() => history.push(`/products/${reviewObj.productId}`))
+    .catch(err => console.log(err));
 };
 
 export default function(state = {}, action) {
@@ -37,7 +49,8 @@ export default function(state = {}, action) {
       return { ...action.product };
     case REMOVE_PRODUCT:
       return {};
-
+    case ADD_REVIEW:
+      return { ...state, review: action.review };
     default:
       return state;
   }

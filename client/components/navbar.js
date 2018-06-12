@@ -28,15 +28,18 @@ const Navbar = ({
                 <h1>BBAD Co.</h1>
               </Link>
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">My Account</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
               <Link to="/products">View All Products</Link>
-              <a href="/cart" onClick={clickHandler(user.id)}>
-                <i className="fas fa-shopping-cart nav-cart" />
-              </a>
             </div>
+
+            <Link to="/home">
+              <i className="fas fa-user nav-cart" />
+            </Link>
+            <a href="/cart" onClick={clickHandler(user.id)}>
+              <i className="fas fa-shopping-cart nav-cart" />
+            </a>
             <div className="nav-search">
               <Input onChange={handleFilter} placeholder="Search BBAD" />
             </div>
@@ -51,10 +54,10 @@ const Navbar = ({
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
               <Link to="/products">View All Products</Link>
-              <Link to="/cart">
-                <i className="fas fa-shopping-cart nav-cart" />
-              </Link>
             </div>
+            <Link to="/cart">
+              <i className="fas fa-shopping-cart nav-cart" />
+            </Link>
             <div className="nav-search">
               <Input onChange={handleFilter} placeholder="Search BBAD" />
             </div>

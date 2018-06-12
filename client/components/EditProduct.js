@@ -73,6 +73,8 @@ class EditProduct extends React.Component {
               <option>Living Room</option>
               <option>Bathroom</option>
               <option>Bedroom</option>
+              <option>Kitchen</option>
+              <option>Office</option>
             </Input>
             <FormText color="muted">Required*</FormText>
           </FormGroup>
@@ -141,9 +143,4 @@ const mapDispatch = dispatch => {
     triggerProductList: () => dispatch(getProductList())
   };
 };
-export default withRouter(
-  connect(
-    mapState,
-    mapDispatch
-  )(EditProduct)
-);
+export default withRouter(connect(mapState, mapDispatch)(EditProduct));

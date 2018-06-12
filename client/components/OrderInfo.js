@@ -45,7 +45,6 @@ class OrderInfo extends React.Component {
                     totalPrice += dets.price;
                     return ele.id === dets.productId ? (
                       <div className="product" key={ele.id}>
-                        {console.log(ele.id)}
                         <a
                           href={`/products/${ele.id}`}
                           onClick={() => fetchProduct(id)}>
