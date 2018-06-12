@@ -78,7 +78,7 @@ class UserHome extends React.Component {
                         outline
                         color="info"
                         type="Button"
-                        onClick={this.handleClick}>
+                        onClick={this.props.handleClick}>
                         View All Users
                       </Button>
                       <Button outline color="success">
@@ -165,10 +165,7 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(UserHome);
+export default connect(mapState, mapDispatch)(UserHome);
 
 /**
  * PROP TYPES
