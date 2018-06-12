@@ -9,6 +9,7 @@ import {
 import { withRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
+import generateStars from './starGenerator';
 
 const SingleProduct = props => {
   const { currUser, addProduct } = props;
@@ -56,6 +57,7 @@ const SingleProduct = props => {
           <div className="singleproduct-buttonContainer">
             {Object.keys(currUser).length ? (
               <Button
+              className="singleproduct-addToCart"
                 onClick={() => props.addProduct(currUser.id, activeProduct.id)}>
                 ADD TO CART
               </Button>
@@ -121,31 +123,6 @@ const SingleProduct = props => {
   );
 };
 
-function generateStars(num) {
-  let starsHtml = [];
-  let isDecimal = num % 1 !== 0 ? true : false;
-  let newNum = Math.ceil(num);
-  if (isNaN(newNum)) return ['No Reviews'];
-  for (let i = 0; i <= newNum; i++) {
-    if (i < newNum - 1) {
-      starsHtml.push(
-        <i className="fa fa-star review-star" aria-hidden="true" />
-      );
-    }
-
-    if (isDecimal && i >= newNum) {
-      starsHtml.push(
-        <i className="fa fa-star-half review-star" aria-hidden="true" />
-      );
-    }
-    if (!isDecimal && i >= newNum) {
-      starsHtml.push(
-        <i className="fa fa-star review-star" aria-hidden="true" />
-      );
-    }
-  }
-  return starsHtml;
-}
 const mapState = state => {
   return {
     selectedProduct: state.selectedProduct[0],

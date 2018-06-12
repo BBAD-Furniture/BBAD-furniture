@@ -2,64 +2,112 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { filterProductByColor, filterProductByCategory } from '../store';
-import { Button } from 'reactstrap';
+import {
+  Button,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
 import '../styles/sidebar.css';
 
-const Sidebar = props => {
-  let products = props.products || [];
-  let categories = Array.from(
-    new Set(products.map(product => product.category))
-  );
-  let colors = Array.from(new Set(products.map(product => product.color)));
+class Sidebar extends React.Component {
+  constructor(props) {
+    super(props);
 
-  function handleCategory(event) {
-    let category = event.target.textContent;
-    props.filterCategory(category);
-  }
-  function handleColor(event) {
-    let color = event.target.textContent;
-    props.filterColor(color);
+    this.categoryToggle = this.categoryToggle.bind(this);
+    this.colorToggle = this.colorToggle.bind(this);
+
+    this.state = {
+      categoryDropdownOpen: false,
+      colorDropdownOpen: false
+    };
   }
 
-  function resetFilter() {
-    props.filterColor('');
+  categoryToggle() {
+    this.setState(prevState => ({
+      categoryDropdownOpen: !prevState.categoryDropdownOpen
+    }));
   }
 
-  return (
-    <div className="sidebar-container">
-      <h2 className="sidebar-title"> Filter By</h2>
-      <div className="filter-section">
-        <h3>Categories</h3>
-        <Button
-          className="sidebar-reset"
-          onClick={resetFilter.bind(this)}
-          outline
-          color="success">
-          Clear Filters
-        </Button>{' '}
-        {categories.map(category => (
-          <p
-            onClick={handleCategory.bind(this)}
-            className="filter-item"
-            key={category}>
-            {category}
-          </p>
-        ))}
+  colorToggle() {
+    this.setState(prevState => ({
+      colorDropdownOpen: !prevState.colorDropdownOpen
+    }));
+  }
+  render() {
+    let products = this.props.products || [];
+    let categories = Array.from(
+      new Set(products.map(product => product.category))
+    );
+    let colors = Array.from(new Set(products.map(product => product.color)));
+
+    function handleCategory(event) {
+      let category = event.target.textContent;
+      this.props.filterCategory(category);
+    }
+    function handleColor(event) {
+      let color = event.target.textContent;
+      this.props.filterColor(color);
+    }
+
+    function resetFilter() {
+      this.props.filterColor('');
+    }
+    return (
+      <div className="sidebar-container">
+        <div className=" filter-section">
+          <h2 className="sidebar-title"> Filter By</h2>
+          <Button
+            className="sidebar-reset"
+            onClick={resetFilter.bind(this)}
+            outline
+            color="success">
+            Clear Filters
+          </Button>
+        </div>
+        <div className="filter-section">
+          <h3>Categories</h3>
+
+          <Dropdown
+            color="success"
+            isOpen={this.state.categoryDropdownOpen}
+            toggle={this.categoryToggle}>
+            <DropdownToggle caret>Categories</DropdownToggle>
+            <DropdownMenu>
+              {categories.map(category => (
+                <DropdownItem
+                  key={category}
+                  onClick={handleCategory.bind(this)}
+                  className="filter-item">
+                  {category}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+        <div className="filter-section">
+          <h3>Colors</h3>
+          <Dropdown
+            isOpen={this.state.colorDropdownOpen}
+            toggle={this.colorToggle}>
+            <DropdownToggle caret>Colors</DropdownToggle>
+            <DropdownMenu>
+              {colors.map(color => (
+                <DropdownItem
+                  key={color}
+                  onClick={handleColor.bind(this)}
+                  className="filter-item">
+                  {color}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+        </div>
       </div>
-      <div className="filter-section">
-        <h3>Colors</h3>
-        {colors.map(color => (
-          <p
-            onClick={handleColor.bind(this)}
-            className="filter-item"
-            key={color}>
-            {color}
-          </p>
-        ))}
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapState = state => {
   return {

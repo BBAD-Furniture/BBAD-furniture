@@ -16,3 +16,26 @@
   margin: 10px 0;
 }
 
+.filter-section button {
+  margin: 10px 0;
+}
+
+@media (max-width: 1200px) {
+  .sidebar-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+    justify-content: space-evenly;
+  }
+  .filter-section h3 {
+    font-size: 20px;
+   
+  }
+  .filter-section h2 {
+    font-size: 20px;
+    min-width: 50px;
+  }
+  .filter-section button {
+    margin: 0;
+  }
+}

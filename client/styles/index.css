@@ -34,3 +34,10 @@ form div {
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+/* FOR SMALLER SCREENS */
+@media (max-width: 1200px) {
+  .flexWrap {
+    flex-direction: column;
+  }
+}

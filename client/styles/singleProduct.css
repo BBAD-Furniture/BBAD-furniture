@@ -56,3 +56,19 @@ img {
 .singleproduct-singleCategory {
   color: #999;
 }
+
+.singleproduct-addToCart {
+  margin-bottom: 10px;
+}
+/* For smaller screens */
+
+@media (max-width: 1200px) {
+  .singleproduct-parent {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .singleproduct-left{
+    text-align: center;
+  }
+}
