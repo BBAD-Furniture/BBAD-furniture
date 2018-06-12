@@ -18,23 +18,26 @@ const Cart = props => {
   let cartItems = props.products;
   let cartProducts = JSON.parse(localStorage.getItem('products'));
 
-  let itemCount = JSON.parse(localStorage.getItem('quantity'));
+  let itemCount = JSON.parse(localStorage.getItem('quantity')) || [];
 
   cartItems = cartProducts
     ? cartItems.filter(item => cartProducts.includes(item.id))
     : [];
 
+  console.log(signedInItems, 'signIN:Itm');
   let grandTotal = 0;
+  let quan = 0;
+  console.log(quan);
   return (
     <div className="shopping-cart">
       <h1>Shopping Cart</h1>
       <div className="column-labels">
-        <label>Image</label>
-        <label>Product</label>
-        <label>Price</label>
-        <label>Quantity</label>
-        <label>Remove</label>
-        <label>Total</label>
+        <p>Image</p>
+        <p>Product</p>
+        <p>Price</p>
+        <p>Quantity</p>
+        <p>Remove</p>
+        <p>Total</p>
       </div>
 
       {!Object.keys(user).length ? (
@@ -42,6 +45,9 @@ const Cart = props => {
           <div>
             {cartItems &&
               cartItems.map((item, idx) => {
+                quan = +itemCount[idx] || 0;
+                grandTotal += item.price * quan;
+
                 return (
                   <div className="product" key={item.id}>
                     <Link to={`/products/${item.id}`}>
@@ -53,12 +59,13 @@ const Cart = props => {
                       <div className="product-name">{item.name}</div>
                       <p>{item.description.slice(0, 25)}</p>
                     </div>
-                    <div>${item.price}</div>
+                    <div>${item.price.toFixed(2)}</div>
                     <div className="quantity">
                       <input
                         type="number"
                         min="1"
                         max="10"
+                        value={quan}
                         placeholder="1"
                         onChange={e => props.handleChange(idx, e)}
                       />
@@ -67,19 +74,17 @@ const Cart = props => {
                       <button
                         type="button"
                         className="remove-product"
-                        onClick={() => props.removeCartItem(item)}>
+                        onClick={() => props.removeCartItem(item, idx)}>
                         Remove
                       </button>
                     </div>
-                    <div>
-                      ${(item.price * +JSON.parse(itemCount[idx])).toFixed(2)}
-                    </div>
+                    <div>${(item.price * quan).toFixed(2)}</div>
                   </div>
                 );
               })}
           </div>
           <div className="totals">
-            GrandTotal: {grandTotal}
+            GrandTotal: ${grandTotal.toFixed(2)}
             <Link to="/checkout">
               <button type="button" className="checkout">
                 Checkout
@@ -122,7 +127,7 @@ const Cart = props => {
               );
             })}
           <div className="totals">
-            Total: {total}
+            Total: {total.toFixed(2)}
             <Link to="/checkout">
               <button
                 type="button"
@@ -153,9 +158,10 @@ const mapDispatch = dispatch => {
       let qty = JSON.parse(localStorage.getItem('quantity'));
       qty[index] = evt.target.value;
       localStorage.setItem('quantity', JSON.stringify(qty));
+      dispatch(quantityOfItem(index, evt));
     },
-    removeCartItem(item) {
-      dispatch(removeFromCartList(item));
+    removeCartItem(item, index) {
+      dispatch(removeFromCartList(item, index));
     },
     handleDelete(userId, productId) {
       dispatch(deleteTheItem(userId, productId));
@@ -166,4 +172,7 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Cart);
+export default connect(
+  mapState,
+  mapDispatch
+)(Cart);
