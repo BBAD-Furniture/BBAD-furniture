@@ -14,7 +14,7 @@ const Review = db.define('review', {
       min: 1,
       max: 5
     },
-    defaultValue: null
+    defaultValue: 5
   }
 });
 

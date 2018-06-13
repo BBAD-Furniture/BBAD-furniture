@@ -77,7 +77,7 @@ const SingleProduct = props => {
                 </Button>
               </div>
             )}
-            {Object.keys(props.currUser).length ? (
+            {props.currUser.isAdmin ? (
               <div>
                 <Link to={`/editproduct/${activeProduct.id}`}>
                   <Button outline color="warning">

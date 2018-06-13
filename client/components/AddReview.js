@@ -9,7 +9,6 @@ export class AddReview extends React.Component {
     super();
     this.state = {
       review: '',
-      rating: '',
       userId: '',
       productId: ''
     };
@@ -50,7 +49,12 @@ export class AddReview extends React.Component {
               <div className="addReview-flex">
                 <FormGroup className="addReview-item-rating">
                   <Label for="select-rating">Rating</Label>
-                  <Input type="select" name="rating" defaultValue="5">
+                  <Input
+                    required
+                    defaultValue="5"
+                    placeholder="5"
+                    type="select"
+                    name="rating">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
