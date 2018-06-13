@@ -19,7 +19,7 @@ const LandingPage = () => {
               Explore Now{' '}
               <span>
                 {' '}
-                <i class="fas fa-caret-right caret" />
+                <i className="fas fa-caret-right caret" />
               </span>
             </p>
           </Link>
