@@ -41,19 +41,12 @@ export const addItem = (userId, item) => dispatch => {
         JSON.stringify(new Set(prods.concat(item.productId)))
       )
     : localStorage.setItem('products', JSON.stringify([item.productId]));
-  console.log(JSON.parse(localStorage.getItem('products')), 'prods after add');
-  // localStorage.setItem(
-  //   'quantity',
-  //   JSON.stringify(JSON.parse(localStorage.getItem('products')).map(i => 1)) ||
-  //     []
-  // );
 
   if (userId) {axios
       .post(`/api/users/${userId}/order`, item)
       .then(res => {
         //add item to user's order
         dispatch(addItemToCart(res.data));
-        // console.log(userId, item, 'user adding to cart: user, prodId');
       })
       .catch(err => console.log(err));}
 };
@@ -65,17 +58,11 @@ export const getItems = userId => dispatch =>
     .catch(err => console.log(err));
 
 export const deleteTheItem = (userId, itemId) => dispatch => {
-  console.log(
-    'deleteTheItem: user, itemId, from signedInCart in store',
-    userId,
-    itemId
-  );
   //remove item from localStorage
   let prods = [];
   prods = JSON.parse(localStorage.getItem('products')).filter(
     id => id !== itemId
   );
-  console.log(prods, 'prods after delete');
   localStorage.setItem('products', JSON.stringify(prods));
   if (!userId) deleteItem(itemId);
   if (typeof userId === 'number') {axios
@@ -104,13 +91,9 @@ export default (state = [], action) => {
     case DELETE_ITEM:
       return state.filter(item => item.productId !== action.id);
     case CHANGE_ORDER:
-      return state.map(it => {
-        // if (it.id === action.item.id) it = action.item;
-        // return it;
-        ///CHECK THIS OUT  BELOWWWWWW THE RETURN
+      return state.map(() => {
         return state;
       });
-    // return action.item;
     default:
       return state;
   }

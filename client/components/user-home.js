@@ -36,7 +36,6 @@ class UserHome extends React.Component {
       resetPassword
     } = this.props.user;
     const { order, products } = this.props;
-    console.log(reviews, products, '!!!');
     return (
       <div className="wrapper">
         {resetPassword ? (
