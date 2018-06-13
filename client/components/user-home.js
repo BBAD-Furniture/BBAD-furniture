@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateUser, getUserOrders, getAllUsers } from '../store';
+import {
+  updateUser,
+  getUserOrders,
+  getAllUsers,
+  getCurrentProduct
+} from '../store';
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'reactstrap';
 import starGenerator from './starGenerator';
@@ -14,6 +19,7 @@ class UserHome extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmitFirst = this.handleSubmitFirst.bind(this);
+    this.getProductFromReview = this.getProductFromReview.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +30,12 @@ class UserHome extends React.Component {
     const password = evt.target.password.value;
     evt.target.password.value = '';
     this.props.handleSubmit(this.props.user.id, password);
+  }
+
+  getProductFromReview(review, column) {
+    return this.props.products.filter(
+      product => product.id === review.productId
+    )[0][column];
   }
 
   render() {
@@ -132,20 +144,15 @@ class UserHome extends React.Component {
                 reviews.map(review => (
                   <div className="userpage-review" key={review.id}>
                     <h3 className="userpage-review-name">
-                      {products &&
-                        products.filter(
-                          product => product.id === review.productId
-                        )[0].name}{' '}
+                      {this.getProductFromReview(review, 'name')}
                       <span>{starGenerator(review.rating)}</span>
                     </h3>
-                    <Link to={`products/${review.productId}`}>
+                    <Link
+                      onClick={this.props.changeCurrProd(review.productId)}
+                      to={`products/${review.productId}`}>
                       <img
                         className="userpage-review-img"
-                        src={
-                          products.filter(
-                            product => product.id === review.productId
-                          )[0].image
-                        }
+                        src={this.getProductFromReview(review, 'image')}
                       />
                     </Link>
                     <span className="userpage-review-single">
@@ -184,7 +191,8 @@ const mapDispatch = (dispatch, ownProps) => {
     },
     getUserOrders: userId => {
       dispatch(getUserOrders(userId));
-    }
+    },
+    changeCurrProd: id => dispatch(getCurrentProduct(id))
   };
 };
 
