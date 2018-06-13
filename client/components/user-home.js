@@ -98,9 +98,9 @@ class UserHome extends React.Component {
                     <thead>
                       <tr>
                         <th>Order Number</th>
-                        <th>Date of Order</th>
-                        <th>Time of Order</th>
-                        <th>Order Status</th>
+                        <th>Date </th>
+                        <th>Time </th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>

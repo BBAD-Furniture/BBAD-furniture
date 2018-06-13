@@ -12,8 +12,8 @@
   color: red;
 }
 
-img {
-  max-width: 500px;
+#singleproduct-img {
+  max-width: 500px !important;
 }
 .singleproduct-right {
   flex: 1;
@@ -72,4 +72,3 @@ img {
     text-align: center;
   }
 }
-

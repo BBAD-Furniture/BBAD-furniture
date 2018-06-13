@@ -35,7 +35,7 @@ const SingleProduct = props => {
     <div>
       <div className="singleproduct-parent">
         <div className="singleproduct-left">
-          <img src={activeProduct.image} />
+          <img id="singleproduct-img" src={activeProduct.image} />
         </div>
         <div className="singleproduct-right">
           <div className="singleproduct-info">

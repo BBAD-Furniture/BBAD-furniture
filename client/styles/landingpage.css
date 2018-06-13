@@ -1,0 +1,26 @@
+.landingpage-main {
+  background-image: url('http://demo.drfuri.com/mrbara14/wp-content/uploads/sites/15/2013/06/slider_home_furniture_v41.jpg');
+  background-size: cover;
+  height: 800px;
+}
+
+.landingpage-description {
+  width: 500px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 50px;
+}
+
+.landingpage-ft {
+  color: #999;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.explore {
+ letter-spacing: 1px;
+}
+.caret {
+    font-size: 12px;
+}
