@@ -32,11 +32,6 @@ const changeOrder = item => ({
 });
 
 export const addItem = (userId, item) => dispatch => {
-  console.log(
-    'addItem: userId, item, called in signedInCart store',
-    userId,
-    item
-  );
   //add item to localStorage
   let prods = [];
   prods = JSON.parse(localStorage.getItem('products'));

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import notify from '../components/notify';
 
 /**
  * ACTION TYPES
@@ -56,6 +57,8 @@ export const logout = () => dispatch =>
       dispatch(removeUser());
       history.push('/login');
     })
+    .then(() => notify('Thank you for shopping at BBAD co.'))
+
     .catch(err => console.log(err));
 
 /**

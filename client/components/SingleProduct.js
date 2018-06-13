@@ -12,6 +12,7 @@ import { Button } from 'reactstrap';
 import '../styles/singleProduct.css';
 import { AddReview } from './AddReview';
 import generateStars from './starGenerator';
+import notify from './notify';
 
 const SingleProduct = props => {
   const { currUser } = props;
@@ -55,17 +56,28 @@ const SingleProduct = props => {
           <hr />
           <div className="singleproduct-buttonContainer">
             {Object.keys(currUser).length ? (
-              <Button
-                className="singleproduct-addToCart"
-                onClick={() => props.addProduct(currUser.id, activeProduct.id)}>
-                ADD TO CART
-              </Button>
+              <div>
+                <Button
+                  className="singleproduct-addToCart"
+                  onClick={() => {
+                    notify('Added To Cart');
+                    props.addProduct(currUser.id, activeProduct.id);
+                  }}>
+                  Add To Cart
+                </Button>
+              </div>
             ) : (
-              <Button onClick={() => props.addProductToCart(activeProduct)}>
-                Add To Cart
-              </Button>
+              <div>
+                <Button
+                  onClick={() => {
+                    notify('Added To Cart');
+                    props.addProductToCart(activeProduct);
+                  }}>
+                  Add To Cart
+                </Button>
+              </div>
             )}
-            {props.currUser ? (
+            {Object.keys(props.currUser).length ? (
               <div>
                 <Link to={`/editproduct/${activeProduct.id}`}>
                   <Button outline color="warning">
@@ -75,7 +87,9 @@ const SingleProduct = props => {
                 <Button
                   outline
                   color="danger"
-                  onClick={() => props.deleteProduct(activeProduct.id)}>
+                  onClick={() => {
+                    props.deleteProduct(activeProduct.id);
+                  }}>
                   Delete Product
                 </Button>
               </div>
@@ -86,12 +100,14 @@ const SingleProduct = props => {
           <p className="singleproduct-categories">
             <strong>Category:</strong>
             <span className="singleproduct-singleCategory">
+              {' '}
               {activeProduct.category}
             </span>
           </p>
           <p className="singleproduct-categories">
             <strong>Color:</strong>
             <span className="singleproduct-singleCategory">
+              {' '}
               {activeProduct.color}
             </span>
           </p>

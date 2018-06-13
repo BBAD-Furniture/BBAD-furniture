@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../history';
 import { getCurrentProduct } from './currentProduct';
-
+import notify from '../components/notify';
 /**
  * ACTION TYPES
  */
@@ -33,6 +33,9 @@ export const addProductToStore = product => dispatch =>
       res.data.reviews = [];
       dispatch(addProduct(res.data));
     })
+    .then(() => dispatch(getProductList()))
+    .then(() => history.push(`/products/`))
+    .then(() => notify(' Added Product!'))
     .catch(err => console.log(err));
 
 export const editCurrentProduct = (productId, obj) => dispatch => {
@@ -48,6 +51,7 @@ export const editCurrentProduct = (productId, obj) => dispatch => {
     .then(() => history.push(`/products/${productId}`))
     //trigger a new set of products
     .then(() => dispatch(getProductList()))
+    .then(() => notify('Edited!'))
 
     .catch(err => console.log(err));
 };
