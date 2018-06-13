@@ -28,6 +28,7 @@ class EditProduct extends React.Component {
       description: event.target.description.value,
       image: event.target.image.value
     };
+
     this.props.edit(this.props.selected.id, formobj);
   };
 
@@ -143,4 +144,9 @@ const mapDispatch = dispatch => {
     triggerProductList: () => dispatch(getProductList())
   };
 };
-export default withRouter(connect(mapState, mapDispatch)(EditProduct));
+export default withRouter(
+  connect(
+    mapState,
+    mapDispatch
+  )(EditProduct)
+);

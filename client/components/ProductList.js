@@ -5,12 +5,11 @@ import { getCurrentProduct, addToCartList, addItem } from '../store';
 import '../styles/productList.css';
 import { Link } from 'react-router-dom';
 import generateStars from './starGenerator';
-const isSmallScreen = window.innerWidth <= 1200;
+import notify from './notify';
 
 import {
   Card,
   CardImg,
-  CardText,
   CardBody,
   CardTitle,
   CardSubtitle,
@@ -24,6 +23,7 @@ export const ProductList = props => {
   const { currUser, addProduct } = props;
   let filtered = props.filtered || props.products;
   let products = filtered.length ? props.filtered : props.products;
+
   return (
     <div>
       <div className="flexWrap">
@@ -69,19 +69,29 @@ export const ProductList = props => {
                         </Link>
 
                         {Object.keys(currUser).length ? (
-                          <Button
-                            outline
-                            color="success"
-                            onClick={() => addProduct(currUser.id, product.id)}>
-                            ADD TO CART
-                          </Button>
+                          <div>
+                            <Button
+                              outline
+                              color="success"
+                              onClick={() => {
+                                notify('Added To Cart');
+                                addProduct(currUser.id, product.id);
+                              }}>
+                              Add To Cart
+                            </Button>
+                          </div>
                         ) : (
-                          <Button
-                            outline
-                            color="success"
-                            onClick={() => props.addProductToCart(product)}>
-                            Add To Cart
-                          </Button>
+                          <div>
+                            <Button
+                              outline
+                              color="success"
+                              onClick={() => {
+                                notify('Added To Cart');
+                                props.addProductToCart(product);
+                              }}>
+                              Add To Cart
+                            </Button>
+                          </div>
                         )}
                       </div>
                     </CardBody>
@@ -113,4 +123,7 @@ const mapDispatch = dispatch => {
     }
   };
 };
-export const Products = connect(mapProducts, mapDispatch)(ProductList);
+export const Products = connect(
+  mapProducts,
+  mapDispatch
+)(ProductList);
