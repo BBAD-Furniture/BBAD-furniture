@@ -48,15 +48,14 @@ export const addItem = (userId, item) => dispatch => {
   //     []
   // );
 
-  if (userId)
-    axios
+  if (userId) {axios
       .post(`/api/users/${userId}/order`, item)
       .then(res => {
         //add item to user's order
         dispatch(addItemToCart(res.data));
         // console.log(userId, item, 'user adding to cart: user, prodId');
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err));}
 };
 
 export const getItems = userId => dispatch =>
@@ -79,14 +78,13 @@ export const deleteTheItem = (userId, itemId) => dispatch => {
   console.log(prods, 'prods after delete');
   localStorage.setItem('products', JSON.stringify(prods));
   if (!userId) deleteItem(itemId);
-  if (typeof userId === 'number')
-    axios
+  if (typeof userId === 'number') {axios
       .post(`/api/users/${userId}/item/delete`, { itemId })
       .then(res => {
         //remove item from store
         dispatch(deleteItem(res.data));
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err));}
 };
 
 export const changedOrder = (userId, orderInfo) => dispatch =>
@@ -96,7 +94,6 @@ export const changedOrder = (userId, orderInfo) => dispatch =>
     .catch(err => console.log(err));
 
 export default (state = [], action) => {
-  console.log('action', action);
   switch (action.type) {
     case ADD_ITEM_TO_CART:
       return action.item;
