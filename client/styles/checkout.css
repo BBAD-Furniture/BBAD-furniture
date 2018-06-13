@@ -9,7 +9,7 @@
 }
 
 .checkout h1 {
-  color: salmon;
+  color: #28a745;
 }
 .check-billing form {
   display: grid;
@@ -36,13 +36,4 @@
 }
 .checkout input {
   display: block;
-}
-.order-checkout button,
-.complete-checkout {
-  float: right;
-  margin-top: 30px;
-  padding: 9px;
-  background: rgb(124, 174, 231);
-  border-radius: 3px;
-  color: #fff;
 }

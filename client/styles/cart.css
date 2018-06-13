@@ -52,32 +52,16 @@ label {
 .quantity input {
   width: 40px;
 }
-.remove-product {
-  border: 0;
-  padding: 4px 8px;
-  background-color: #c66;
-  color: #fff;
-  font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
-  font-size: 12px;
-  border-radius: 3px;
-}
-.product .remove-product:hover {
-  background-color: #a44;
-}
+
 
 .totals {
-  font-size: 1.3em;
+  font-size: 1.25rem;
   font-style: bold;
 }
+
 .totals a > button {
   display: block;
-  width: 200px;
-  margin-top: 10px;
-  padding: 9px;
-  background-color: #6b6;
-  color: #fff;
-  font-size: 25px;
-  border-radius: 3px;
+
   margin-left: auto;
 }
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import notify from './notify';
+import { Button } from 'reactstrap';
 import '../styles/checkout.css';
 
 const Checkout = props => {
@@ -17,12 +18,12 @@ const Checkout = props => {
   return Object.keys(user).length ? (
     //set the Order status to TRUE
 
-    <div>YOUR ORDER IS COMPLETE!!</div>
+    <div>Your Order has been completed.</div>
   ) : (
     <div>
       <div className="checkout">
         <div className="check-billing">
-          <h1>1. BILLING ADDRESS</h1>
+          <h1>1. Billing Address</h1>
           <form>
             <label>
               First Name:
@@ -92,7 +93,7 @@ const Checkout = props => {
           </form>
         </div>
         <div className="check-shipping">
-          <h1>2. SHIPPING METHOD</h1>
+          <h1>2. Shipping Method</h1>
           <form>
             <input type="radio" name="regular" value="regular" />Regular (1-5
             days)
@@ -101,7 +102,7 @@ const Checkout = props => {
           </form>
         </div>
         <div className="check-payment">
-          <h1>3. PAYMENT METHOD</h1>
+          <h1>3. Payment Method</h1>
           <form>
             <label>
               Card Type:
@@ -115,7 +116,7 @@ const Checkout = props => {
         </div>
 
         <div className="check-order">
-          <h1>4. REVIEW ORDER</h1>
+          <h1>4. Review Order</h1>
           {cartItems &&
             cartItems.map((item, idx) => {
               itemCost +=
@@ -124,22 +125,26 @@ const Checkout = props => {
           <h2>total: ${itemCost.toFixed(2)}</h2>
         </div>
       </div>
-      <div className="order-checkout">
+      <div>
         {itemCost > 0 ? (
           <Link to="complete-checkout">
-            <button
+            <Button
               type="button"
+              color="success"
               onClick={() => {
                 props.resetStorage();
                 props.handleSubmit();
               }}>
               Place Order
-            </button>
+            </Button>
           </Link>
         ) : (
-          <button type="button" onClick={() => alert('Your Cart is Empty')}>
+          <Button
+            type="button"
+            color="success"
+            onClick={() => notify('Your Cart is Empty')}>
             Place Order
-          </button>
+          </Button>
         )}
       </div>
     </div>
@@ -159,7 +164,9 @@ const mapDispatch = dispatch => {
       localStorage.setItem('products', JSON.stringify([]));
       localStorage.setItem('quantity', JSON.stringify([]));
     },
-    handleSubmit() {},
+    handleSubmit() {
+      notify('Thank You for Shopping at BBAD');
+    },
     handleCheckoutField(evt) {}
   };
 };

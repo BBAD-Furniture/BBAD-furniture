@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { updateUser, getUserOrders, getAllUsers } from '../store';
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'reactstrap';
+import starGenerator from './starGenerator';
 
 import '../styles/userpage.css';
 /**
@@ -34,8 +35,8 @@ class UserHome extends React.Component {
       isAdmin,
       resetPassword
     } = this.props.user;
-    const { order } = this.props;
-
+    const { order, products } = this.props;
+    console.log(reviews, products, '!!!');
     return (
       <div className="wrapper">
         {resetPassword ? (
@@ -97,9 +98,9 @@ class UserHome extends React.Component {
                     <thead>
                       <tr>
                         <th>Order Number</th>
-                        <th>Date of Order</th>
-                        <th>Time of Order</th>
-                        <th>Order Status</th>
+                        <th>Date </th>
+                        <th>Time </th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -112,9 +113,9 @@ class UserHome extends React.Component {
                             <td>{ord.updatedAt.slice(0, 10)}</td>
                             <td>{ord.createdAt.slice(11, 16)}</td>
                             {ord.status === true ? (
-                              <td>'Processing'</td>
+                              <td>Processing</td>
                             ) : (
-                              <td>'In Progress'</td>
+                              <td>In Progress</td>
                             )}
                           </tr>
                         );
@@ -126,12 +127,31 @@ class UserHome extends React.Component {
             </div>
 
             <div className="userpage-reviews">
-              <h3>My Reviews</h3>
+              <h3 className="userpage-reviewTitle">My Reviews</h3>
+
               {reviews &&
                 reviews.map(review => (
                   <div className="userpage-review" key={review.id}>
-                    --->
-                    {review.review}
+                    <h3 className="userpage-review-name">
+                      {products &&
+                        products.filter(
+                          product => product.id === review.productId
+                        )[0].name}{' '}
+                      <span>{starGenerator(review.rating)}</span>
+                    </h3>
+                    <Link to={`products/${review.productId}`}>
+                      <img
+                        className="userpage-review-img"
+                        src={
+                          products.filter(
+                            product => product.id === review.productId
+                          )[0].image
+                        }
+                      />
+                    </Link>
+                    <span className="userpage-review-single">
+                      {review.review}
+                    </span>
                   </div>
                 ))}
             </div>
@@ -149,7 +169,8 @@ const mapState = state => {
   return {
     user: state.user,
     users: state.allUsers,
-    order: state.order
+    order: state.order,
+    products: state.products
   };
 };
 
@@ -168,7 +189,10 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(UserHome);
+export default connect(
+  mapState,
+  mapDispatch
+)(UserHome);
 
 /**
  * PROP TYPES
