@@ -42,18 +42,12 @@ export const addItem = (userId, item) => dispatch => {
       )
     : localStorage.setItem('products', JSON.stringify([item.productId]));
   console.log(JSON.parse(localStorage.getItem('products')), 'prods after add');
-  // localStorage.setItem(
-  //   'quantity',
-  //   JSON.stringify(JSON.parse(localStorage.getItem('products')).map(i => 1)) ||
-  //     []
-  // );
 
   if (userId) {axios
       .post(`/api/users/${userId}/order`, item)
       .then(res => {
         //add item to user's order
         dispatch(addItemToCart(res.data));
-        // console.log(userId, item, 'user adding to cart: user, prodId');
       })
       .catch(err => console.log(err));}
 };
@@ -104,10 +98,7 @@ export default (state = [], action) => {
     case DELETE_ITEM:
       return state.filter(item => item.productId !== action.id);
     case CHANGE_ORDER:
-      return state.map(it => {
-        // if (it.id === action.item.id) it = action.item;
-        // return it;
-        ///CHECK THIS OUT  BELOWWWWWW THE RETURN
+      return state.map(() => {
         return state;
       });
     // return action.item;

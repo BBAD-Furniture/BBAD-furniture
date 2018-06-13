@@ -118,7 +118,6 @@ const Cart = props => {
                   <div>
                     <Button
                       type="button"
-                      // className="remove-product"
                       onClick={() => props.handleDelete(user.id, allProds.id)}>
                       Remove
                     </Button>
@@ -132,7 +131,6 @@ const Cart = props => {
             <Link to="/checkout">
               <Button
                 type="button"
-                // className="checkout"
                 onClick={() => handleCheckout(user.id)}>
                 Checkout
               </Button>
