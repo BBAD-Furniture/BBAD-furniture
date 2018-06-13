@@ -27,7 +27,7 @@ const Cart = props => {
   console.log(signedInItems, 'signIN:Itm');
   let grandTotal = 0;
   let quan = 0;
-  console.log(quan);
+
   return (
     <div className="shopping-cart">
       <h1>Shopping Cart</h1>

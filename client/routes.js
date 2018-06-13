@@ -17,7 +17,7 @@ import {
   AddProduct,
   OrderInfo
 } from './components';
-import { me, getAllUsers } from './store';
+import { me } from './store';
 
 /**
  * COMPONENT
@@ -74,7 +74,6 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData(user) {
       dispatch(me());
-      // dispatch(getAllUsers());
     }
   };
 };

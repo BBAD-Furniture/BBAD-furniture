@@ -52,9 +52,8 @@ export const addItem = (userId, item) => dispatch => {
   //   JSON.stringify(JSON.parse(localStorage.getItem('products')).map(i => 1)) ||
   //     []
   // );
-  if (!userId)
-    addItemToGuestCart(JSON.parse(localStorage.getItems('products')));
-  if (typeof userId === 'number')
+
+  if (userId)
     axios
       .post(`/api/users/${userId}/order`, item)
       .then(res => {
