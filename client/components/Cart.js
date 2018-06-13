@@ -8,6 +8,7 @@ import {
 } from '../store';
 import { Link } from 'react-router-dom';
 import '../styles/cart.css';
+import { Button } from 'reactstrap';
 
 /**
  * COMPONENT
@@ -70,12 +71,13 @@ const Cart = props => {
                       />
                     </div>
                     <div>
-                      <button
+                      <Button
                         type="button"
+                        color="danger"
                         className="remove-product"
                         onClick={() => props.removeCartItem(item, idx)}>
                         Remove
-                      </button>
+                      </Button>
                     </div>
                     <div>${(item.price * quan).toFixed(2)}</div>
                   </div>
@@ -85,9 +87,9 @@ const Cart = props => {
           <div className="totals">
             GrandTotal: ${grandTotal.toFixed(2)}
             <Link to="/checkout">
-              <button type="button" className="checkout">
+              <Button color="success" type="button" className="checkout">
                 Checkout
-              </button>
+              </Button>
             </Link>
           </div>
         </div>
@@ -114,12 +116,12 @@ const Cart = props => {
                     <div>{oneItem.quantity}</div>
                   </div>
                   <div>
-                    <button
+                    <Button
                       type="button"
-                      className="remove-product"
+                      // className="remove-product"
                       onClick={() => props.handleDelete(user.id, allProds.id)}>
                       Remove
-                    </button>
+                    </Button>
                   </div>
                   <div>{allProds.price}</div>
                 </div>
@@ -128,12 +130,12 @@ const Cart = props => {
           <div className="totals">
             Total: {total.toFixed(2)}
             <Link to="/checkout">
-              <button
+              <Button
                 type="button"
-                className="checkout"
+                // className="checkout"
                 onClick={() => handleCheckout(user.id)}>
                 Checkout
-              </button>
+              </Button>
             </Link>
           </div>
         </div>
@@ -171,4 +173,7 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Cart);
+export default connect(
+  mapState,
+  mapDispatch
+)(Cart);

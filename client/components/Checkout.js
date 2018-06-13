@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import notify from './notify';
-
+import { Button } from 'reactstrap';
 import '../styles/checkout.css';
 
 const Checkout = props => {
@@ -125,22 +125,26 @@ const Checkout = props => {
           <h2>total: ${itemCost.toFixed(2)}</h2>
         </div>
       </div>
-      <div className="order-checkout">
+      <div>
         {itemCost > 0 ? (
           <Link to="complete-checkout">
-            <button
+            <Button
               type="button"
+              color="success"
               onClick={() => {
                 props.resetStorage();
                 props.handleSubmit();
               }}>
               Place Order
-            </button>
+            </Button>
           </Link>
         ) : (
-          <button type="button" onClick={() => notify('Your Cart is Empty')}>
+          <Button
+            type="button"
+            color="success"
+            onClick={() => notify('Your Cart is Empty')}>
             Place Order
-          </button>
+          </Button>
         )}
       </div>
     </div>
