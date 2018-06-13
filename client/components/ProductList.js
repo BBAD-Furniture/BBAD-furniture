@@ -5,9 +5,8 @@ import { getCurrentProduct, addToCartList, addItem } from '../store';
 import '../styles/productList.css';
 import { Link } from 'react-router-dom';
 import generateStars from './starGenerator';
-import { ToastContainer } from 'react-toastify';
 import notify from './notify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Slide, ToastContainer } from 'react-toastify';
 
 import {
   Card,
@@ -76,23 +75,36 @@ export const ProductList = props => {
                               outline
                               color="success"
                               onClick={() => {
-                                notify();
+                                notify('Added To Cart');
                                 addProduct(currUser.id, product.id);
                               }}>
-                              ADD TO CART
+                              Add To Cart
                             </Button>
+                            <ToastContainer
+                              position="bottom-left"
+                              autoClose={1000}
+                              hideProgressBar={true}
+                              transition={Slide}
+                            />
                           </div>
                         ) : (
-                          <Button
-                            outline
-                            color="success"
-                            onClick={() => {
-                              notify('Added to Cart');
-                              props.addProductToCart(product);
-                            }}>
-                            <ToastContainer />
-                            Add To Cart
-                          </Button>
+                          <div>
+                            <Button
+                              outline
+                              color="success"
+                              onClick={() => {
+                                notify('Added To Cart');
+                                props.addProductToCart(product);
+                              }}>
+                              Add To Cart
+                            </Button>
+                            <ToastContainer
+                              position="bottom-left"
+                              autoClose={1000}
+                              hideProgressBar={true}
+                              transition={Slide}
+                            />
+                          </div>
                         )}
                       </div>
                     </CardBody>

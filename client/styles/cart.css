@@ -80,3 +80,7 @@ label {
   border-radius: 3px;
   margin-left: auto;
 }
+
+.result-total {
+  display: none;
+}

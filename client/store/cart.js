@@ -58,9 +58,7 @@ export const removeFromCartList = (item, index) => dispatch => {
 };
 
 export const quantityOfItem = (index, evt) => dispatch => {
-  // let qty = JSON.parse(localStorage.getItem('quantity'));
-  // qty[index] = evt.target.value;
-  // localStorage.setItem('quantity', JSON.stringify(qty));
+
   let quantities = JSON.parse(localStorage.getItem('quantity'));
   quantities[index] = evt.target.value;
   localStorage.setItem('quantity', JSON.stringify(quantities));
