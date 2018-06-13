@@ -34,8 +34,8 @@ export const addProductToStore = product => dispatch =>
       dispatch(addProduct(res.data));
     })
     //trigger a new set of products
+    .then(productAdded => history.push(`/products/${productAdded.id}`))
     .then(() => dispatch(getProductList()))
-    .then(product => history.push(`/products/${product.id}`))
     .then(() => notify(' Added!'))
     .catch(err => console.log(err));
 
