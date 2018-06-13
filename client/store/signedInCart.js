@@ -41,7 +41,6 @@ export const addItem = (userId, item) => dispatch => {
         JSON.stringify(new Set(prods.concat(item.productId)))
       )
     : localStorage.setItem('products', JSON.stringify([item.productId]));
-  console.log(JSON.parse(localStorage.getItem('products')), 'prods after add');
 
   if (userId) {axios
       .post(`/api/users/${userId}/order`, item)
@@ -59,17 +58,11 @@ export const getItems = userId => dispatch =>
     .catch(err => console.log(err));
 
 export const deleteTheItem = (userId, itemId) => dispatch => {
-  console.log(
-    'deleteTheItem: user, itemId, from signedInCart in store',
-    userId,
-    itemId
-  );
   //remove item from localStorage
   let prods = [];
   prods = JSON.parse(localStorage.getItem('products')).filter(
     id => id !== itemId
   );
-  console.log(prods, 'prods after delete');
   localStorage.setItem('products', JSON.stringify(prods));
   if (!userId) deleteItem(itemId);
   if (typeof userId === 'number') {axios
@@ -101,7 +94,6 @@ export default (state = [], action) => {
       return state.map(() => {
         return state;
       });
-    // return action.item;
     default:
       return state;
   }
