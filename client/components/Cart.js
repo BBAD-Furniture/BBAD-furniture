@@ -8,7 +8,11 @@ import {
 } from '../store';
 import { Link } from 'react-router-dom';
 import '../styles/cart.css';
+<<<<<<< HEAD
 import { Button, Input } from 'reactstrap';
+=======
+import { Button } from 'reactstrap';
+>>>>>>> master
 
 /**
  * COMPONENT
