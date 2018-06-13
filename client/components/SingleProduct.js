@@ -132,7 +132,7 @@ const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(getCurrentProduct(id)),
     addProductToCart: item => dispatch(addToCartList(item)),
-    addProduct: (userId, productId) => dispatch(addItem(userId, productId)),
+    addProduct: (userId, productId) => dispatch(addItem(userId, { productId })),
     deleteProduct: id => dispatch(removeCurrentProduct(id)),
     addAReview: review => dispatch(addNewReview(review))
   };
