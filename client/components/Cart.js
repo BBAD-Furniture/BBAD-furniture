@@ -8,7 +8,7 @@ import {
 } from '../store';
 import { Link } from 'react-router-dom';
 import '../styles/cart.css';
-import { Button } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
 
 /**
  * COMPONENT
@@ -61,7 +61,7 @@ const Cart = props => {
                     </div>
                     <div>${item.price.toFixed(2)}</div>
                     <div className="quantity">
-                      <input
+                      <Input
                         type="number"
                         min="1"
                         max="10"

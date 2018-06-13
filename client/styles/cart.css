@@ -50,9 +50,9 @@ label {
 }
 
 .quantity input {
-  width: 40px;
+  margin: 0 auto;
+  width: 60px;
 }
-
 
 .totals {
   font-size: 1.25rem;
