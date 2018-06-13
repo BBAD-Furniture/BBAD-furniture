@@ -21,8 +21,8 @@ class UserHome extends React.Component {
 
   handleSubmitFirst(evt) {
     const password = evt.target.password.value;
-    this.props.handleSubmit(this.props.user.id, password);
     evt.target.password.value = '';
+    this.props.handleSubmit(this.props.user.id, password);
   }
 
   render() {
@@ -41,7 +41,7 @@ class UserHome extends React.Component {
         {resetPassword ? (
           <div>
             <div>RESET YOUR PASSWORD</div>
-            <form onSubmit={this.props.handleSubmitFirst} name={name}>
+            <form onSubmit={this.handleSubmitFirst} name={name}>
               <div>
                 <label htmlFor="password">
                   <small>Password</small>
