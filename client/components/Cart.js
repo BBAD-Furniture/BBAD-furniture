@@ -24,7 +24,6 @@ const Cart = props => {
     ? cartItems.filter(item => cartProducts.includes(item.id))
     : [];
 
-  console.log(signedInItems, 'signIN:Itm');
   let grandTotal = 0;
   let quan = 0;
 
@@ -172,7 +171,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch
-)(Cart);
+export default connect(mapState, mapDispatch)(Cart);

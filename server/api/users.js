@@ -56,6 +56,7 @@ router.put('/:userId', (req, res, next) => {
 });
 
 router.post('/:userId/order', (req, res, next) => {
+  //add to cart
   if (req.user) {
     User.findById(req.params.userId)
       .then(userFound => {
@@ -102,13 +103,12 @@ router.post('/:userId/order', (req, res, next) => {
 });
 
 router.get('/:userId/order', (req, res, next) => {
-  if (req.user) {
+  if (req.user && req.user.id === +req.params.userId) {
     User.findById(req.params.userId)
       .then(user => {
         return user.getCurrentOrder(); // getting ONLY orders with status false
       })
       .spread(order => {
-        // console.log('order>>>', order);
         !order
           ? res.json(null) //if no orders for the user, return null
           : OrderDetail.findAll({
@@ -127,6 +127,7 @@ router.get('/:userId/order', (req, res, next) => {
 });
 
 router.post(`/:userId/item/delete`, (req, res, next) => {
+  //removing from cart
   if (req.user) {
     const { itemId } = req.body;
     req.user
@@ -152,6 +153,7 @@ router.post(`/:userId/item/delete`, (req, res, next) => {
 });
 
 router.put(`/:userId/order`, (req, res, next) => {
+  //update cart item
   if (req.user) {
     const { status } = req.body;
     req.user
@@ -177,7 +179,7 @@ router.put(`/:userId/order`, (req, res, next) => {
 });
 
 router.get('/:userId/allOrders', (req, res, next) => {
-  if (req.user) {
+  if (req.user && req.user.id === +req.params.userId) {
     req.user.getAllOrders().then(allOrders => {
       allOrders ? res.json(allOrders) : res.status(404).json();
     });
@@ -187,7 +189,7 @@ router.get('/:userId/allOrders', (req, res, next) => {
 });
 
 router.get('/:userId/allOrdersInfo', (req, res, next) => {
-  if (req.user) {
+  if (req.user && req.user.id === +req.params.userId) {
     req.user.getAllOrders().then(allOrders => {
       let arr = allOrders.map(e => {
         return OrderDetail.findAll({
