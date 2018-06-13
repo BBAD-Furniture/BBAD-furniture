@@ -22,7 +22,7 @@
 }
 
 .userpage-name {
-  color: rgb(23, 162, 184);
+  color: #28a745;
 }
 
 .userpage-viewAllUsers {
@@ -46,6 +46,12 @@
   text-align: center;
 }
 
-.userpage-reviews {
+.userpage-review {
+  margin: 20px 0;
+}
+.userpage-reviewTitle {
   text-align: center;
+}
+.userpage-review-img{
+  max-width: 80px;
 }
