@@ -79,8 +79,8 @@ export class AddReview extends React.Component {
         ) : (
           <div>
             <h2>
-              Please <Link to="/login">login</Link> or
-              <Link to="/signup">signup</Link> to leave a review
+              Please <Link to="/login"> login </Link> or
+              <Link to="/signup"> signup</Link> to leave a review
             </h2>
           </div>
         )}

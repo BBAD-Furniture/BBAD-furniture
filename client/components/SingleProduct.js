@@ -66,6 +66,12 @@ const SingleProduct = props => {
                   }}>
                   Add To Cart
                 </Button>
+                <ToastContainer
+                  position="bottom-left"
+                  autoClose={1000}
+                  hideProgressBar={true}
+                  transition={Slide}
+                />
               </div>
             ) : (
               <div>
@@ -84,7 +90,7 @@ const SingleProduct = props => {
                 />
               </div>
             )}
-            {props.currUser.length ? (
+            {Object.keys(props.currUser).length ? (
               <div>
                 <Link to={`/editproduct/${activeProduct.id}`}>
                   <Button outline color="warning">
@@ -114,12 +120,14 @@ const SingleProduct = props => {
           <p className="singleproduct-categories">
             <strong>Category:</strong>
             <span className="singleproduct-singleCategory">
+              {" "}
               {activeProduct.category}
             </span>
           </p>
           <p className="singleproduct-categories">
             <strong>Color:</strong>
             <span className="singleproduct-singleCategory">
+             {" "}
               {activeProduct.color}
             </span>
           </p>
