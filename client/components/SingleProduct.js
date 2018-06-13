@@ -13,7 +13,6 @@ import '../styles/singleProduct.css';
 import { AddReview } from './AddReview';
 import generateStars from './starGenerator';
 import notify from './notify';
-import { Slide, ToastContainer } from 'react-toastify';
 
 const SingleProduct = props => {
   const { currUser } = props;
@@ -66,12 +65,6 @@ const SingleProduct = props => {
                   }}>
                   Add To Cart
                 </Button>
-                <ToastContainer
-                  position="bottom-left"
-                  autoClose={1000}
-                  hideProgressBar={true}
-                  transition={Slide}
-                />
               </div>
             ) : (
               <div>
@@ -82,12 +75,6 @@ const SingleProduct = props => {
                   }}>
                   Add To Cart
                 </Button>
-                <ToastContainer
-                  position="bottom-left"
-                  autoClose={1000}
-                  hideProgressBar={true}
-                  transition={Slide}
-                />
               </div>
             )}
             {Object.keys(props.currUser).length ? (
@@ -101,17 +88,10 @@ const SingleProduct = props => {
                   outline
                   color="danger"
                   onClick={() => {
-                    notify('Product Has Been Deleted.');
                     props.deleteProduct(activeProduct.id);
                   }}>
                   Delete Product
                 </Button>
-                <ToastContainer
-                  position="bottom-left"
-                  autoClose={1000}
-                  hideProgressBar={true}
-                  transition={Slide}
-                />
               </div>
             ) : (
               ''
@@ -120,14 +100,14 @@ const SingleProduct = props => {
           <p className="singleproduct-categories">
             <strong>Category:</strong>
             <span className="singleproduct-singleCategory">
-              {" "}
+              {' '}
               {activeProduct.category}
             </span>
           </p>
           <p className="singleproduct-categories">
             <strong>Color:</strong>
             <span className="singleproduct-singleCategory">
-             {" "}
+              {' '}
               {activeProduct.color}
             </span>
           </p>

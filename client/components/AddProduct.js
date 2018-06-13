@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux';
 import '../styles/addProductForm.css';
 import { addProductToStore } from '../store';
+import notify from './notify';
 
 class AddProduct extends React.Component {
   constructor() {
@@ -127,4 +128,7 @@ const mapDispatch = dispatch => {
     newProduct: newProduct => dispatch(addProductToStore(newProduct))
   };
 };
-export default connect(mapState, mapDispatch)(AddProduct);
+export default connect(
+  mapState,
+  mapDispatch
+)(AddProduct);

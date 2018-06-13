@@ -6,7 +6,6 @@ import '../styles/productList.css';
 import { Link } from 'react-router-dom';
 import generateStars from './starGenerator';
 import notify from './notify';
-import { Slide, ToastContainer } from 'react-toastify';
 
 import {
   Card,
@@ -80,12 +79,6 @@ export const ProductList = props => {
                               }}>
                               Add To Cart
                             </Button>
-                            <ToastContainer
-                              position="bottom-left"
-                              autoClose={1000}
-                              hideProgressBar={true}
-                              transition={Slide}
-                            />
                           </div>
                         ) : (
                           <div>
@@ -98,12 +91,6 @@ export const ProductList = props => {
                               }}>
                               Add To Cart
                             </Button>
-                            <ToastContainer
-                              position="bottom-left"
-                              autoClose={1000}
-                              hideProgressBar={true}
-                              transition={Slide}
-                            />
                           </div>
                         )}
                       </div>

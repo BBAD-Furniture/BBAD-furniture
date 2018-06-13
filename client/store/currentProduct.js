@@ -7,6 +7,7 @@ const ADD_REVIEW = 'ADD_REVIEW';
 import { getProductList } from './productList';
 import { getUserOrders } from './order';
 import { me } from './user';
+import notify from '../components/notify';
 
 const getProduct = product => ({ type: GET_CURRENT_PRODUCT, product });
 const removeProduct = () => ({ type: REMOVE_PRODUCT });
@@ -31,6 +32,7 @@ export const removeCurrentProduct = productId => dispatch => {
     .then(() => dispatch(getProductList()))
     .then(() => dispatch(getUserOrders()))
     .then(() => history.push('/products'))
+    .then(() => notify('Product Deleted!'))
     .catch(err => console.log(err));
 };
 
@@ -41,6 +43,7 @@ export const addNewReview = reviewObj => dispatch => {
     .then(() => dispatch(getCurrentProduct(reviewObj.productId)))
     .then(() => dispatch(me()))
     .then(() => history.push(`/products/${reviewObj.productId}`))
+    .then(() => notify('Your Feedback is appreciated!'))
     .catch(err => console.log(err));
 };
 

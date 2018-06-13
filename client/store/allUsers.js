@@ -1,4 +1,5 @@
 import axios from 'axios';
+import notify from '../components/notify';
 
 const GET_USERS = 'GET_USERS';
 const DELETE_USER = 'DELETE_USER';
@@ -30,6 +31,7 @@ export const deleteTheUser = userId => dispatch =>
   axios
     .delete(`/api/users/${userId}`)
     .then(res => dispatch(deleteUser(res.data)))
+    .then(() => notify('User has been deleted.'))
     .catch(err => console.log(err));
 
 //update user
@@ -37,6 +39,7 @@ export const updateUser = (userId, userInfo) => dispatch => {
   axios
     .put(`/api/users/${userId}`, userInfo)
     .then(res => dispatch(updateUserInfo(res.data)))
+    .then(() => notify('User Info updated.'))
     .catch(err => console.log(err));
 };
 

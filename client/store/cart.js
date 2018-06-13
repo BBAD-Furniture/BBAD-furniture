@@ -44,6 +44,7 @@ export const addToCartList = item => dispatch =>
 
 export const removeFromCartList = (item, index) => dispatch => {
   dispatch(removeFromCart(item));
+
   let prods = [];
   prods = JSON.parse(localStorage.getItem('products')).filter(
     id => id !== item.id
@@ -58,7 +59,6 @@ export const removeFromCartList = (item, index) => dispatch => {
 };
 
 export const quantityOfItem = (index, evt) => dispatch => {
-
   let quantities = JSON.parse(localStorage.getItem('quantity'));
   quantities[index] = evt.target.value;
   localStorage.setItem('quantity', JSON.stringify(quantities));

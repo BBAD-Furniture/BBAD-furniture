@@ -33,10 +33,9 @@ export const addProductToStore = product => dispatch =>
       res.data.reviews = [];
       dispatch(addProduct(res.data));
     })
-    //trigger a new set of products
-    .then(productAdded => history.push(`/products/${productAdded.id}`))
     .then(() => dispatch(getProductList()))
-    .then(() => notify(' Added!'))
+    .then(() => history.push(`/products/`))
+    .then(() => notify(' Added Product!'))
     .catch(err => console.log(err));
 
 export const editCurrentProduct = (productId, obj) => dispatch => {

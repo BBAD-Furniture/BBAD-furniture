@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const notify = message => {
-   toast(message, {
+  toast(message, {
     className: 'toastCss'
   });
 };
