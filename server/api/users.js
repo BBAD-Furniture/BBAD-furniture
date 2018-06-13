@@ -41,13 +41,10 @@ router.delete('/:userId', (req, res, next) => {
 });
 
 router.put('/:userId', (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
-    const { password, resetPassword } = req.body;
+  if (req.user) {
     User.findById(req.params.userId)
       .then(userFound => {
-        return !password
-          ? userFound.update({ resetPassword })
-          : userFound.update({ password, resetPassword });
+        return userFound.update(req.body);
       })
       .then(updatedUser => {
         updatedUser ? res.json(updatedUser) : res.status(404).json();
