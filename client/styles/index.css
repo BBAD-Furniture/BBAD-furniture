@@ -51,3 +51,7 @@ form div {
   text-align: center !important;
   box-shadow: none !important;
 }
+
+.button {
+  border-radius: 0 !important;
+}
