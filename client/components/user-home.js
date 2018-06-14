@@ -19,7 +19,7 @@ class UserHome extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmitFirst = this.handleSubmitFirst.bind(this);
-    this.getProductFromReview = this.getProductFromReview.bind(this);
+    // this.getProductFromReview = this.getProductFromReview.bind(this);
   }
 
   componentDidMount() {
@@ -32,15 +32,15 @@ class UserHome extends React.Component {
     this.props.handleSubmit(this.props.user.id, password);
   }
 
-  getProductFromReview(review, column) {
-    return (
-      (this.props.products &&
-        this.props.products.filter(
-          product => product.id === review.productId
-        )[0][column]) ||
-      {}
-    );
-  }
+  // getProductFromReview(review, column) {
+  //   return (
+  //     (this.props.products &&
+  //       this.props.products.filter(
+  //         product => product.id === review.productId
+  //       )[0][column]) ||
+  //     {}
+  //   );
+  // }
 
   render() {
     const {
@@ -148,15 +148,25 @@ class UserHome extends React.Component {
                 reviews.map(review => (
                   <div className="userpage-review" key={review.id}>
                     <h3 className="userpage-review-name">
-                      {this.getProductFromReview(review, 'name')}
+                      {this.props.products &&
+                        this.props.products.filter(
+                          product => product.id === review.productId
+                        )[0].name}
                       <span>{starGenerator(review.rating)}</span>
                     </h3>
                     <Link
-                      onClick={this.props.changeCurrProd(review.productId)}
+                      onClick={() => {
+                        this.props.changeCurrProd(review.productId);
+                      }}
                       to={`products/${review.productId}`}>
                       <img
                         className="userpage-review-img"
-                        src={this.getProductFromReview(review, 'image')}
+                        src={
+                          this.props.products &&
+                          this.props.products.filter(
+                            product => product.id === review.productId
+                          )[0].image
+                        }
                       />
                     </Link>
                     <span className="userpage-review-single">
