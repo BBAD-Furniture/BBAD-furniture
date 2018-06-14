@@ -33,9 +33,12 @@ class UserHome extends React.Component {
   }
 
   getProductFromReview(review, column) {
-    return this.props.products.filter(
-      product => product.id === review.productId
-    )[0][column];
+    return (
+      this.props.products &&
+      this.props.products.filter(product => product.id === review.productId)[0][
+        column
+      ]
+    );
   }
 
   render() {
