@@ -50,7 +50,7 @@ class UserHome extends React.Component {
       isAdmin,
       resetPassword
     } = this.props.user;
-    const { order, products } = this.props;
+    const { order } = this.props;
     return (
       <div className="wrapper">
         {resetPassword ? (
